@@ -1,0 +1,18 @@
+.heading {
+  composes: mb-6 text text_type_main-medium from global;
+}
+
+.gallery {
+  composes: mb-10 from global;
+  margin-top: 0;
+  padding: 0;
+  list-style: none;  
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  row-gap: 24px;
+  column-gap: 32px;
+}
+
+.gallery:last-child {
+  margin-bottom: 0;
+}
