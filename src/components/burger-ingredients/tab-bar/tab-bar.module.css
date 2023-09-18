@@ -1,0 +1,11 @@
+.tabLink {
+  composes: anchor from global;
+}
+
+.tabBar {
+  composes: mb-10 from global;
+  margin-top: 0;
+  padding: 0;
+  list-style: none;  
+  display: flex;
+}
