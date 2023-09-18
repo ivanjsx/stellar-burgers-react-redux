@@ -1,0 +1,8 @@
+.menuLink {
+  composes: pt-4 pb-4 pr-5 pl-5 anchor from global;
+  display: flex;
+  gap: 8px;
+  border-radius: 40px;
+  cursor: pointer;
+  border: none;
+}
