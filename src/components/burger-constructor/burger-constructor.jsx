@@ -21,7 +21,7 @@ function getRandomElement(array) {
   return array[Math.floor(Math.random() * array.length)];
 };
 
-function getRandomElements(array, number) {
+function getNRandomElements(array, number) {
   let result = [];
   for (let i = 0; i < number; i++) {
     result.push(getRandomElement(array))
@@ -35,44 +35,64 @@ export default function BurgerConstructor({ data }) {
 
   const MemoizedIcon = React.memo(CurrencyIcon);
 
-  const [chosenBun, setChosenBun] = React.useState(
-    getRandomElement(
+  const [chosenBun, setChosenBun] = React.useState(null);
+  const [chosenIngredients, setChosenIngredients] = React.useState([]);
+
+  const chooseBun = React.useCallback(
+    () => getRandomElement(
       data.filter(
         ingredient => ingredient.type === "bun"
       )
-    )
-  );
+    ),
+    [data]       
+    );
 
-  const [chosenIngredients, setChosenIngredients] = React.useState(
-    getRandomElements(
+  const chooseIngredients = React.useCallback(
+    () => getNRandomElements(
       data.filter(
         ingredient => ingredient.type !== "bun"
       ),
       7
-    )
+    ),
+    [data]       
   );
 
-  const [totalPrice, setTotalPrice] = React.useState(
-    chosenIngredients.reduce(
-      (cum, item) => cum + item.price, 
-      0
-    ) + chosenBun.price * 2
+  React.useEffect(
+    () => {
+      setChosenBun(chooseBun());
+      setChosenIngredients(chooseIngredients());
+    },
+    [chooseBun, chooseIngredients]
   );
+
+  const totalPrice = React.useMemo(
+    () => {
+      if (chosenBun && chosenIngredients.length) {
+        return chosenIngredients.reduce(
+          (acc, curr) => acc + curr.price, 0
+        ) + chosenBun.price * 2;
+      }
+      return 0;
+    },
+    [chosenBun, chosenIngredients]
+  );  
 
   return (
     <section className={styles.constructor}>
       <ul className={styles.content}>
-        <TopRow bun={chosenBun}/>
-        <ul className={styles.contentScrollable}>
-          {
-            chosenIngredients.map(
-              (ingredient, index) => {
-                return <MiddleRow ingredient={ingredient} key={index} />
-              }
-            )
-          }
-        </ul>
-        <BottomRow bun={chosenBun}/>
+        {chosenBun && <TopRow bun={chosenBun}/> }
+        <li className={styles.scrollableContentContainer}>
+          <ul className={styles.scrollableContent}>
+            {
+              chosenIngredients.map(
+                (ingredient, index) => {
+                  return <MiddleRow ingredient={ingredient} key={index} />
+                }
+              )
+            }
+          </ul>
+        </li>
+        {chosenBun && <BottomRow bun={chosenBun}/> }
       </ul>
       <div className={styles.summary}>
         <p className={styles.price}>
@@ -80,7 +100,7 @@ export default function BurgerConstructor({ data }) {
         </p>        
         <Button htmlType="button" type="primary" size="large">
           Оформить заказ
-        </Button>        
+        </Button>
       </div>
     </section>
   );
