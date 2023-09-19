@@ -65,6 +65,12 @@ export function MiddleRow({ ingredient }) {
         text={ingredient.name}
         price={ingredient.price}
         thumbnail={ingredient.image_large}
+        handleClose={
+          event => {
+            const currentRow = event.target.closest(`.${styles.freeRow}`);
+            currentRow.remove();
+          }
+        }
       />
     </li>  
   );
