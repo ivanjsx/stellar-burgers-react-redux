@@ -1,5 +1,5 @@
 .lockedRow {
-  composes: pl-8 from global;
+  composes: pl-8 pr-4 from global;
 }
 
 .freeRow {

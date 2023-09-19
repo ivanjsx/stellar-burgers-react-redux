@@ -3,14 +3,13 @@
 }
 
 .gallery {
-  composes: mb-10 from global;
+  composes: mb-10 pl-4 from global;
   margin-top: 0;
-  padding: 0;
   list-style: none;  
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  row-gap: 24px;
-  column-gap: 32px;
+  row-gap: 32px;
+  column-gap: 24px;
 }
 
 .gallery:last-child {

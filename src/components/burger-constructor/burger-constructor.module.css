@@ -1,4 +1,5 @@
 .constructor {
+  composes: pl-4 from global;
   display: grid;
   grid-template-rows: minmax(0, 1fr) auto;
   gap: 40px;
@@ -11,21 +12,26 @@
   gap: 16px;
 }
 
-.contentScrollable {
-  composes: ul custom-scroll from global;
-  display: flex;
-  flex-direction: column;  
-  gap: 16px;  
+.scrollableContentContainer {
+  composes: pr-2 custom-scroll from global;
   overflow: scroll;
 }
 
-.contentScrollable::-webkit-scrollbar {
+.scrollableContentContainer::-webkit-scrollbar {
   height: 0;
+  width: 8px;  
 }
 
-.contentScrollable::-webkit-scrollbar-thumb {
+.scrollableContentContainer::-webkit-scrollbar-thumb {
   border: none;
   border-radius: 0;
+}
+
+.scrollableContent {
+  composes: ul from global;
+  display: flex;
+  flex-direction: column;  
+  gap: 16px;  
 }
 
 .summary {
