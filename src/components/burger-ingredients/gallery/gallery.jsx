@@ -10,6 +10,9 @@ import styles from "./gallery.module.css";
 // utils
 import { ingredientPropType } from "../../../utils/prop-types";
 
+// constants
+import { DEFAULT_INGREDIENT_QUANTITY } from "../../../utils/constants";
+
 
 
 export default function Gallery({ id, title, cards }) {
@@ -21,7 +24,7 @@ export default function Gallery({ id, title, cards }) {
       <ul className={styles.gallery}>
         {
           cards.map(
-            card => <Card info={card} count={1} key={card._id} />
+            card => <Card info={card} count={DEFAULT_INGREDIENT_QUANTITY} key={card._id} />
           )
         }
       </ul>

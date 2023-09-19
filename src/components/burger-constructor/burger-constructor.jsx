@@ -15,6 +15,9 @@ import styles from "./burger-constructor.module.css";
 // utils
 import { ingredientPropType } from "../../utils/prop-types";
 
+// constants
+import { BUNS_IN_BURGER_COUNT } from "../../utils/constants";
+import { CHOSEN_INGREDIENTS_COUNT } from "../../utils/constants";
 
 
 function getRandomElement(array) {
@@ -52,7 +55,7 @@ export default function BurgerConstructor({ data }) {
       data.filter(
         ingredient => ingredient.type !== "bun"
       ),
-      7
+      CHOSEN_INGREDIENTS_COUNT
     ),
     [data]       
   );
@@ -70,7 +73,7 @@ export default function BurgerConstructor({ data }) {
       if (chosenBun && chosenIngredients.length) {
         return chosenIngredients.reduce(
           (acc, curr) => acc + curr.price, 0
-        ) + chosenBun.price * 2;
+        ) + chosenBun.price * BUNS_IN_BURGER_COUNT;
       }
       return 0;
     },
