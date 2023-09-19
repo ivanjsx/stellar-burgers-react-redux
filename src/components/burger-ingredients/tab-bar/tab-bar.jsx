@@ -10,9 +10,9 @@ import styles from "./tab-bar.module.css";
 
 
 
-function ActionTab({ value, title, activeValue, clickHandler }) {
+function ActionTab({ value, title, onClick, currentlyActive }) {
   return (
-    <Tab value={value} active={activeValue === value} onClick={clickHandler}>
+    <Tab value={value} active={currentlyActive === value} onClick={onClick}>
       <a href={`#${value}`} className={styles.tabLink}>{title}</a>
     </Tab>  
   );
@@ -22,35 +22,35 @@ ActionTab.propTypes = PropTypes.exact(
   {
     value: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
-    activeValue: PropTypes.string.isRequired,
-    clickHandler: PropTypes.func.isRequired
+    onClick: PropTypes.func.isRequired,
+    currentlyActive: PropTypes.string.isRequired
   }
 ).isRequired;
 
 
 
 export default function TabBar () {
-  const [active, setActive] = React.useState("bun");
+  const [currentlyActive, setCurrentlyActive] = React.useState("bun");
   return (
     <nav>
       <ul className={styles.tabBar}>
         <ActionTab 
           value="bun"
           title="Булки"
-          activeValue={active}
-          clickHandler={setActive}
+          onClick={setCurrentlyActive}
+          currentlyActive={currentlyActive}
         />
         <ActionTab 
           value="sauce"
           title="Соусы"
-          activeValue={active}
-          clickHandler={setActive}
+          onClick={setCurrentlyActive}
+          currentlyActive={currentlyActive}
         />
         <ActionTab 
           value="main"
           title="Начинки"
-          activeValue={active}
-          clickHandler={setActive}
+          onClick={setCurrentlyActive}
+          currentlyActive={currentlyActive}
         />
       </ul>
     </nav>

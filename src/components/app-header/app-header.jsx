@@ -16,21 +16,7 @@ import styles from "./app-header.module.css";
 export default function AppHeader() {
   
   const MemoizedLogo = React.memo(Logo);
-  const [active, setActive] = React.useState("constructor");
-
-  function defineIconType(targetItem) {
-    return active === targetItem ? "primary" : "secondary";
-  };
-
-  function defineTextClass(targetItem) {
-    return active === targetItem ? styles.menuTextActive : styles.menuTextInactive;
-  };
-
-  function setActiveTarget(targetItem) {
-    return function() {
-      setActive(targetItem);
-    };
-  };
+  const [currentlyActive, setCurrentlyActive] = React.useState("constructor");
 
   return (
     <header className={styles.header}>
@@ -41,18 +27,18 @@ export default function AppHeader() {
 
             <MenuItem 
               text="Конструктор"
+              value="constructor"
               IconComponent={BurgerIcon}
-              iconType={defineIconType("constructor")}
-              textClass={defineTextClass("constructor")}
-              clickHandler={setActiveTarget("constructor")}
+              onClick={setCurrentlyActive}
+              currentlyActive={currentlyActive}
             />
 
             <MenuItem 
               text="Лента&nbsp;заказов"
+              value="feed"            
               IconComponent={ListIcon}
-              iconType={defineIconType("feed")}
-              textClass={defineTextClass("feed")}
-              clickHandler={setActiveTarget("feed")}
+              onClick={setCurrentlyActive}
+              currentlyActive={currentlyActive}
             />
           
           </ul>
@@ -68,10 +54,10 @@ export default function AppHeader() {
 
             <MenuItem 
               text="Личный&nbsp;кабинет"
+              value="profile"
               IconComponent={ProfileIcon}
-              iconType={defineIconType("profile")}
-              textClass={defineTextClass("profile")}
-              clickHandler={setActiveTarget("profile")}
+              onClick={setCurrentlyActive}
+              currentlyActive={currentlyActive}
             />          
 
           </ul>

@@ -7,13 +7,22 @@ import styles from "./menu-item.module.css";
 
 
 
-export default function MenuItem({ text, IconComponent, iconType, textClass, clickHandler }) {
+export default function MenuItem({ text, value, IconComponent, onClick, currentlyActive }) {
   const MemoizedIcon = React.memo(IconComponent);
+
+  function defineIconType() {
+    return currentlyActive === value ? "primary" : "secondary";
+  };
+  
+  function defineTextClass() {
+    return currentlyActive === value ? styles.menuTextActive : styles.menuTextInactive;
+  };  
+
   return (
     <li>
-      <button className={styles.menuLink} onClick={clickHandler}>
-        <MemoizedIcon type={iconType} />
-        <p className={textClass}>{text}</p> 
+      <button className={styles.menuLink} onClick={() => {onClick(value);}} >
+        <MemoizedIcon type={defineIconType()} />
+        <p className={defineTextClass()}>{text}</p> 
       </button>
     </li>  
   );
@@ -22,9 +31,9 @@ export default function MenuItem({ text, IconComponent, iconType, textClass, cli
 MenuItem.propTypes = PropTypes.exact(
   {
     text: PropTypes.string.isRequired,
+    value: PropTypes.string.isRequired,
     IconComponent: PropTypes.elementType.isRequired,
-    iconType: PropTypes.string.isRequired,
-    textClass: PropTypes.string.isRequired,
-    clickHandler: PropTypes.func.isRequired
+    onClick: PropTypes.func.isRequired,
+    currentlyActive: PropTypes.string.isRequired
   }
 ).isRequired;

@@ -1,11 +1,3 @@
-.menuTextActive {
-  composes: text text_type_main-default from global;
-}
-
-.menuTextInactive {
-  composes: text text_type_main-default text_color_inactive from global;
-}
-
 .header { 
   composes: m-10 p-4 from global;
   background-color: #1C1C21;
