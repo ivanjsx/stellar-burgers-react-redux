@@ -13,8 +13,6 @@ import styles from "./modal-overlay.module.css";
 
 
 
-const modalRoot = document.querySelector("#react-modals");
-
 export default function ModalOverlay({ data, mode, isVisible, closeHandler }) {
   
   const overlayClassName = React.useMemo(
@@ -63,6 +61,8 @@ export default function ModalOverlay({ data, mode, isVisible, closeHandler }) {
     [closeHandler]
   );      
 
+  const modalRoot = document.querySelector("#react-modals");
+
   return ReactDOM.createPortal(
     (
       <div className={overlayClassName} onClick={handleOverlayClick}>
@@ -75,10 +75,13 @@ export default function ModalOverlay({ data, mode, isVisible, closeHandler }) {
   );
 };
 
+
+
 ModalOverlay.propTypes = PropTypes.exact(
   {
+    data: PropTypes.object.isRequired,
     mode: PropTypes.string.isRequired,
-    isVisible: PropTypes.bool.isRequired
+    isVisible: PropTypes.bool.isRequired,
+    closeHandler: PropTypes.func.isRequired
   }
 ).isRequired;
-

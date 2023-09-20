@@ -51,7 +51,6 @@ export default function AppHeader() {
         <nav className={styles.profileArea}>
           <ul className={styles.profile}>
             
-
             <MenuItem 
               text="Личный&nbsp;кабинет"
               value="profile"

@@ -40,10 +40,14 @@ export default function Gallery({ id, title, addToCartHandler, cardClickHandler,
   );
 };
 
+
+
 Gallery.propTypes = PropTypes.exact(
   {
     id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
+    addToCartHandler: PropTypes.func.isRequired,
+    cardClickHandler: PropTypes.func.isRequired,
     ingredients: PropTypes.arrayOf(
       ingredientPropType.isRequired      
     ).isRequired

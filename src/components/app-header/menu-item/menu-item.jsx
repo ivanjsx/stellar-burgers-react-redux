@@ -30,6 +30,8 @@ export default function MenuItem({ text, value, IconComponent, onClick, currentl
   );
 };
 
+
+
 MenuItem.propTypes = PropTypes.exact(
   {
     text: PropTypes.string.isRequired,

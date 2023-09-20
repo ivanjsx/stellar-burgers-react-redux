@@ -107,40 +107,47 @@ export default function BurgerConstructor({ cart, orderClickHandler }) {
   return (
     <section className={styles.constructor}>
       <ul className={styles.content}>
+
         {chosenBun && <TopRow bun={chosenBun}/> }
+        
         <li className={styles.scrollableContentContainer}>
           <ul className={styles.scrollableContent}>
             {
               chosenIngredients.map(
-                (ingredient, index) => {
-                  return (
-                    <MiddleRow 
-                      key={index}
-                      ingredient={ingredient} 
-                      deleteHandler={deleteIngredient(index)}
-                    />
-                  )
-                }
+                (ingredient, index) => (
+                  <MiddleRow 
+                    key={index}
+                    ingredient={ingredient} 
+                    deleteHandler={deleteIngredient(index)}
+                  />
+                )
               )
             }
           </ul>
         </li>
+        
         {chosenBun && <BottomRow bun={chosenBun} />}
+      
       </ul>
+      
       <div className={styles.summary}>
         <p className={styles.price}>
           {totalPrice} <MemoizedIcon type="primary" />
         </p>        
         {MemoizedButton}
       </div>
+    
     </section>
   );
 };
+
+
 
 BurgerConstructor.propTypes = PropTypes.exact(
   {
     cart: PropTypes.arrayOf(
       ingredientPropType.isRequired      
-    ).isRequired
+    ).isRequired,
+    orderClickHandler: PropTypes.func.isRequired
   }
 ).isRequired;

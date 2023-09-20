@@ -36,6 +36,8 @@ export default function Card({ ingredient, count, onClick, addToCart }) {
   );
 };
 
+
+
 Card.propTypes = PropTypes.exact(
   {
     ingredient: ingredientPropType.isRequired,

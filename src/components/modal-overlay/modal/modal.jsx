@@ -1,5 +1,6 @@
 // libraries
 import React from "react";
+import PropTypes from "prop-types";
 
 // components
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -23,3 +24,13 @@ export default function Modal({ heading, closeHandler, children }) {
     </div>
   );
 };
+
+
+
+Modal.propTypes = PropTypes.exact(
+  {
+    heading: PropTypes.string.isRequired,
+    closeHandler: PropTypes.func.isRequired,
+    children: PropTypes.any.isRequired
+  }
+).isRequired;
