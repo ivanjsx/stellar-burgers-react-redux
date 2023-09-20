@@ -1,6 +1,7 @@
 // libraries
 import React from "react";
 import ReactDOM from "react-dom";
+import PropTypes from "prop-types";
 
 // components
 import Modal from "./modal/modal";
@@ -10,18 +11,18 @@ import IngredientDetails from "./ingredient-details/ingredient-details";
 // styles 
 import styles from "./modal-overlay.module.css";
 
-// data
-import { orderData } from "../../utils/order-data";
-import { ingData } from "../../utils/order-data";
-
 
 
 const modalRoot = document.querySelector("#react-modals");
 
-export default function ModalOverlay({ mode }) {
+export default function ModalOverlay({ data, mode, isVisible, closeHandler }) {
   
-  const [isVisible, setIsVisible] = React.useState(true);
-  const [selectedIngredient, setSelectedIngredient] = React.useState(ingData);
+  const overlayClassName = React.useMemo(
+    () => isVisible
+          ? `${styles.overlay} ${styles.visible}`
+          : styles.overlay,
+    [isVisible]
+  );
 
   const heading = React.useMemo(
     () => {
@@ -42,66 +43,30 @@ export default function ModalOverlay({ mode }) {
       switch (mode) {
         case "ingredient":
           return (
-            <IngredientDetails info={selectedIngredient} />
+            <IngredientDetails ingredient={data} />
           );
         case "order": 
-          return <OrderDetails info={orderData} />;
+          return <OrderDetails order={data} />;
         default:
           return "";
       }
     },
-    [mode, selectedIngredient, orderData]    
+    [mode, data]    
   );
-  
-  const overlayClassName = React.useMemo(
-    () => isVisible
-          ? `${styles.overlay} ${styles.visible}`
-          : styles.overlay,
-    [isVisible]
-  );
-
-  const handleEscapePress = React.useCallback(
-    event => {
-      if (event.key === "Escape") {
-        close();
-      };
-    },
-    []
-  );    
 
   const handleOverlayClick = React.useCallback(
     event => {
       if (event.target === event.currentTarget) {
-        close();
+        closeHandler();
       };
     },
-    []
+    [closeHandler]
   );      
-
-  const open = React.useCallback(
-    () => {
-      setIsVisible(true);
-      document.addEventListener(
-        "keydown", handleEscapePress
-      )
-    },
-    []
-  );
-
-  const close = React.useCallback(
-    () => {
-      setIsVisible(false);
-      document.removeEventListener(
-        "keydown", handleEscapePress
-      )      
-    },
-    []
-  );
 
   return ReactDOM.createPortal(
     (
       <div className={overlayClassName} onClick={handleOverlayClick}>
-        <Modal heading={heading} closeHandler={close}>
+        <Modal heading={heading} closeHandler={closeHandler}>
           {content}
         </Modal>
       </div>
@@ -110,16 +75,10 @@ export default function ModalOverlay({ mode }) {
   );
 };
 
+ModalOverlay.propTypes = PropTypes.exact(
+  {
+    mode: PropTypes.string.isRequired,
+    isVisible: PropTypes.bool.isRequired
+  }
+).isRequired;
 
-
-
-
-
-
-  // _makeOpenable(openButtonElement) {
-  //     openButtonElement.addEventListener(
-  //         "click", () => {
-  //             this._open();
-  //         }            
-  //     );        
-  // };

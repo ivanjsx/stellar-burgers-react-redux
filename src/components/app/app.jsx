@@ -20,9 +20,15 @@ import { orderData } from "../../utils/order-data";
 
 export default function App() {
 
-  const [isLoading, setIsLoading] = React.useState(false);
-  const [hasError, setHasError] = React.useState(false);
   const [data, setData] = React.useState([]);
+  const [hasError, setHasError] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(false);
+
+  const [modalData, setModalData] = React.useState({});
+  const [modalMode, setModalMode] = React.useState("order");
+  const [isModalVisible, setIsModalVisible] = React.useState(false);
+
+  const [cart, setCart] = React.useState([]);
 
   const getData = React.useCallback(
     () => {
@@ -60,7 +66,63 @@ export default function App() {
     [getData]
   );
 
-  
+  const handleEscapePress = React.useCallback(
+    event => {
+      if (event.key === "Escape") {
+        closeModal();
+      };
+    },
+    []
+  );      
+
+  const openModal = React.useCallback(
+    () => {
+      setIsModalVisible(true);
+      document.addEventListener(
+        "keydown", handleEscapePress
+      )
+    },
+    [handleEscapePress]
+  );
+
+  const closeModal = React.useCallback(
+    () => {
+      setIsModalVisible(false);
+      document.removeEventListener(
+        "keydown", handleEscapePress
+      )      
+    },
+    [handleEscapePress]
+  );  
+
+  const orderClickHandler = React.useCallback(
+    () => {
+      setModalData(orderData);
+      setModalMode("order");
+      openModal();
+    },
+    [openModal, orderData]
+  );
+
+  const cardClickHandler = React.useCallback(
+    () => {
+      return ingredient => {
+        setModalData(ingredient);
+        setModalMode("ingredient");
+        openModal();        
+      };
+    },
+    [openModal]
+  );
+
+  const addToCart = React.useCallback(
+    () => {
+      return ingredient => {
+        setCart([...cart, ingredient]);
+      };
+    },
+    [cart]
+  );  
 
   return (
     <div className={styles.app}>
@@ -71,11 +133,31 @@ export default function App() {
       {
         !isLoading && !hasError && data.length &&
         <main className={styles.main}>
-          <BurgerIngredients data={data} />
-          <BurgerConstructor data={data} />
+          <BurgerIngredients 
+            cart={cart}
+            available={data} 
+            cardClickHandler={cardClickHandler} 
+          />
+          <BurgerConstructor 
+            // пока что добавляем в корзину всё что есть,
+            // а потом внутри компонента случайно выбираем
+            // булку и заданное число ингредиентов.
+            // поменяем механику, когда реализуем 
+            // функционал добавления ингредиента в корзину
+            cart={data}
+            orderClickHandler={orderClickHandler} 
+          />
         </main>         
       }
-      <ModalOverlay mode="ingredient"/>
+      {
+        isModalVisible && modalData &&
+        <ModalOverlay 
+          data={modalData}
+          mode={modalMode}
+          isVisible={isModalVisible}
+          closeHandler={closeModal}
+        />
+      } 
     </div>
   );
 };
