@@ -26,6 +26,19 @@ import { CHOSEN_INGREDIENTS_COUNT } from "../../utils/constants";
 export default function BurgerConstructor({ cart, orderClickHandler }) {
 
   const MemoizedIcon = React.memo(CurrencyIcon);
+  const MemoizedButton = React.useMemo(
+    () => (
+      <Button 
+        htmlType="button" 
+        type="primary" 
+        size="large" 
+        onClick={orderClickHandler}
+      >
+        Оформить заказ
+      </Button>    
+    ),
+    [orderClickHandler]
+  );
 
   // значения будут браться из пропсов после того как
   // реализуется функционал добавления в корзину
@@ -118,14 +131,7 @@ export default function BurgerConstructor({ cart, orderClickHandler }) {
         <p className={styles.price}>
           {totalPrice} <MemoizedIcon type="primary" />
         </p>        
-        <Button 
-          htmlType="button" 
-          type="primary" 
-          size="large" 
-          onClick={orderClickHandler}
-        >
-          Оформить заказ
-        </Button>
+        {MemoizedButton}
       </div>
     </section>
   );

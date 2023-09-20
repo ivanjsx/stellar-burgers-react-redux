@@ -24,11 +24,13 @@ export default function App() {
   const [hasError, setHasError] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
 
-  const [modalData, setModalData] = React.useState({});
+  const [modalData, setModalData] = React.useState(null);
   const [modalMode, setModalMode] = React.useState("order");
   const [isModalVisible, setIsModalVisible] = React.useState(false);
 
   const [cart, setCart] = React.useState([]);
+
+  const MemoizedHeader = React.memo(AppHeader);
 
   const getData = React.useCallback(
     () => {
@@ -105,8 +107,8 @@ export default function App() {
   );
 
   const cardClickHandler = React.useCallback(
-    () => {
-      return ingredient => {
+    ingredient => {
+      return () => {
         setModalData(ingredient);
         setModalMode("ingredient");
         openModal();        
@@ -131,7 +133,7 @@ export default function App() {
 
   return (
     <div className={styles.app}>
-      <AppHeader />
+      <MemoizedHeader />
       <h1 className={styles.heading}>
         Соберите бургер
       </h1>
