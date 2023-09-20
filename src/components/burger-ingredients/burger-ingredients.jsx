@@ -13,7 +13,7 @@ import { ingredientPropType } from "../../utils/prop-types";
 
 
 
-export default function BurgerIngredients({ available, cardClickHandler }) {
+export default function BurgerIngredients({ available, addToCartHandler, cardClickHandler }) {
   return (
     <section className={styles.ingredients}>
       <TabBar />
@@ -21,6 +21,7 @@ export default function BurgerIngredients({ available, cardClickHandler }) {
         <Gallery 
           id="bun"
           title="Булки"
+          addToCartHandler={addToCartHandler}
           cardClickHandler={cardClickHandler}
           ingredients={
             available.filter(
@@ -31,6 +32,7 @@ export default function BurgerIngredients({ available, cardClickHandler }) {
         <Gallery 
           id="sauce"
           title="Соусы"   
+          addToCartHandler={addToCartHandler}
           cardClickHandler={cardClickHandler}
           ingredients={
             available.filter(
@@ -41,6 +43,7 @@ export default function BurgerIngredients({ available, cardClickHandler }) {
         <Gallery 
           id="main"
           title="Начинки"     
+          addToCartHandler={addToCartHandler}
           cardClickHandler={cardClickHandler}
           ingredients={
             available.filter(
@@ -57,6 +60,7 @@ BurgerIngredients.propTypes = PropTypes.exact(
   {
     available: PropTypes.arrayOf(
       ingredientPropType.isRequired      
-    ).isRequired
+    ).isRequired,
+    cardClickHandler: PropTypes.func.isRequired
   }
 ).isRequired;

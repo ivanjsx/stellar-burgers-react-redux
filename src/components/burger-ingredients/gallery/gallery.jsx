@@ -15,7 +15,7 @@ import { DEFAULT_INGREDIENT_QUANTITY } from "../../../utils/constants";
 
 
 
-export default function Gallery({ id, title, cardClickHandler, ingredients }) {
+export default function Gallery({ id, title, addToCartHandler, cardClickHandler, ingredients }) {
   return (
     <>
       <h2 className={styles.heading} id={id}>
@@ -26,10 +26,11 @@ export default function Gallery({ id, title, cardClickHandler, ingredients }) {
           ingredients.map(
             ingredient => (
               <Card 
-                ingredient={ingredient} 
                 key={ingredient._id} 
-                onClick={cardClickHandler}
+                ingredient={ingredient} 
                 count={DEFAULT_INGREDIENT_QUANTITY} 
+                onClick={cardClickHandler(ingredient)}
+                addToCart={addToCartHandler(ingredient)}                
               />
             )
           )

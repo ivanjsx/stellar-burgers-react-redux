@@ -14,11 +14,11 @@ import { ingredientPropType } from "../../../utils/prop-types";
 
 
 
-export default function Card({ ingredient, onClick, count }) {
+export default function Card({ ingredient, count, onClick, addToCart }) {
   const MemoizedIcon = React.memo(CurrencyIcon);
   return (
     <div className={styles.container}>
-      <figure className={styles.card} onClick={onClick(ingredient)}>
+      <figure className={styles.card} onClick={onClick}>
         <img 
           src={ingredient.image_large} 
           alt="фото ингредиента" 
@@ -39,6 +39,8 @@ export default function Card({ ingredient, onClick, count }) {
 Card.propTypes = PropTypes.exact(
   {
     ingredient: ingredientPropType.isRequired,
-    count: PropTypes.number.isRequired
+    count: PropTypes.number.isRequired,
+    onClick: PropTypes.func.isRequired,
+    addToCart: PropTypes.func.isRequired
   }
 ).isRequired;

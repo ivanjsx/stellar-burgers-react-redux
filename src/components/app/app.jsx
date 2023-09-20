@@ -14,7 +14,7 @@ import styles from "./app.module.css";
 import { BASE_URL } from "../../utils/constants";
 
 // data
-import { orderData } from "../../utils/order-data";
+import { sampleOrderData } from "../../utils/sample-order-data";
 
 
 
@@ -97,11 +97,11 @@ export default function App() {
 
   const orderClickHandler = React.useCallback(
     () => {
-      setModalData(orderData);
+      setModalData(sampleOrderData);
       setModalMode("order");
       openModal();
     },
-    [openModal, orderData]
+    [openModal, sampleOrderData]
   );
 
   const cardClickHandler = React.useCallback(
@@ -115,10 +115,15 @@ export default function App() {
     [openModal]
   );
 
-  const addToCart = React.useCallback(
+  // заготовка функции для реализации добавления в корзину
+  const addToCartHandler = React.useCallback(
     () => {
       return ingredient => {
-        setCart([...cart, ingredient]);
+        // добавить проверку: в корзине не может быть 
+        // больше одной булки (наверное)
+        setCart(
+          [...cart, ingredient]
+        );
       };
     },
     [cart]
@@ -134,8 +139,13 @@ export default function App() {
         !isLoading && !hasError && data.length &&
         <main className={styles.main}>
           <BurgerIngredients 
-            cart={cart}
+            // пока что корзину в компонент не передаём.
+            // позже начнём (когда реализуем 
+            // функционал добавления ингредиента в корзину),
+            // чтобы рассчитывать значения счётчиков на карточках
+            // cart={cart}
             available={data} 
+            addToCartHandler={addToCartHandler}
             cardClickHandler={cardClickHandler} 
           />
           <BurgerConstructor 

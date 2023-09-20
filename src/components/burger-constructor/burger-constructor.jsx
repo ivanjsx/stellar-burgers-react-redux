@@ -11,7 +11,6 @@ import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components
 
 // styles
 import styles from "./burger-constructor.module.css";
-import rowStyles from "./row/row.module.css";
 
 // utils
 import { getRandomElement } from "../../utils/functions";
@@ -28,9 +27,13 @@ export default function BurgerConstructor({ cart, orderClickHandler }) {
 
   const MemoizedIcon = React.memo(CurrencyIcon);
 
-  const [chosenBun, setChosenBun] = React.useState({});
+  // значения будут браться из пропсов после того как
+  // реализуется функционал добавления в корзину
+  const [chosenBun, setChosenBun] = React.useState(null);
   const [chosenIngredients, setChosenIngredients] = React.useState([]);
 
+  // функция будет удалена после того как 
+  // реализуется функционал добавления в корзину
   const chooseBun = React.useCallback(
     () => getRandomElement(
       cart.filter(
@@ -38,8 +41,10 @@ export default function BurgerConstructor({ cart, orderClickHandler }) {
       )
     ),
     [cart]       
-    );
+  );
 
+  // функция будет удалена после того как 
+  // реализуется функционал добавления в корзину  
   const chooseIngredients = React.useCallback(
     () => getNRandomElements(
       cart.filter(
@@ -50,6 +55,8 @@ export default function BurgerConstructor({ cart, orderClickHandler }) {
     [cart]       
   );
 
+  // значения будут браться из пропсов после того как
+  // реализуется функционал добавления в корзину  
   React.useEffect(
     () => {
       setChosenBun(chooseBun());
@@ -58,18 +65,8 @@ export default function BurgerConstructor({ cart, orderClickHandler }) {
     [chooseBun, chooseIngredients]
   );
 
-  const totalPrice = React.useMemo(
-    () => {
-      if (chosenBun && chosenIngredients.length) {
-        return chosenIngredients.reduce(
-          (acc, curr) => acc + curr.price, 0
-        ) + chosenBun.price * BUNS_IN_BURGER_COUNT;
-      }
-      return 0;
-    },
-    [chosenBun, chosenIngredients]
-  );  
-
+  // функция будет вынесена в родительский компонент после того как
+  // реализуется функционал добавления в корзину
   function deleteIngredient(index) {
     return () => {
       setChosenIngredients(
@@ -77,6 +74,22 @@ export default function BurgerConstructor({ cart, orderClickHandler }) {
       );
     };
   };
+
+  const totalPrice = React.useMemo(
+    () => {
+      let result = 0;
+      if (chosenBun) {
+        result += chosenBun.price * BUNS_IN_BURGER_COUNT
+      };
+      if (chosenIngredients.length) {
+        result += chosenIngredients.reduce(
+          (acc, curr) => acc + curr.price, 0
+        )
+      };
+      return result;
+    },
+    [chosenBun, chosenIngredients]
+  );  
 
   return (
     <section className={styles.constructor}>
@@ -99,7 +112,7 @@ export default function BurgerConstructor({ cart, orderClickHandler }) {
             }
           </ul>
         </li>
-        {chosenBun && <BottomRow bun={chosenBun}/> }
+        {chosenBun && <BottomRow bun={chosenBun} />}
       </ul>
       <div className={styles.summary}>
         <p className={styles.price}>
