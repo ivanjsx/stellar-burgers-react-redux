@@ -11,6 +11,7 @@ import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components
 
 // styles
 import styles from "./burger-constructor.module.css";
+import rowStyles from "./row/row.module.css";
 
 // utils
 import { ingredientPropType } from "../../utils/prop-types";
@@ -80,6 +81,16 @@ export default function BurgerConstructor({ data }) {
     [chosenBun, chosenIngredients]
   );  
 
+  function deleteIngredient(index) {
+    return event => {
+      setChosenIngredients(
+        chosenIngredients.toSpliced(index, 1)
+      );              
+      const currentRow = event.target.closest(`.${rowStyles.freeRow}`);
+      currentRow.remove();
+    }      
+  };
+
   return (
     <section className={styles.constructor}>
       <ul className={styles.content}>
@@ -89,7 +100,13 @@ export default function BurgerConstructor({ data }) {
             {
               chosenIngredients.map(
                 (ingredient, index) => {
-                  return <MiddleRow ingredient={ingredient} key={index} />
+                  return (
+                    <MiddleRow 
+                      key={index}
+                      ingredient={ingredient} 
+                      deleteHandler={deleteIngredient(index)}
+                    />
+                  )
                 }
               )
             }

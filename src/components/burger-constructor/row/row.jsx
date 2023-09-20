@@ -1,4 +1,5 @@
 // libraries
+import React from "react";
 import PropTypes from "prop-types";
 
 // components
@@ -57,20 +58,16 @@ BottomRow.propTypes = PropTypes.exact(
 
 
 
-export function MiddleRow({ ingredient }) {
+export function MiddleRow({ ingredient, deleteHandler }) {
+  const MemoizedIcon = React.memo(DragIcon);
   return (
     <li className={styles.freeRow}>
-      <DragIcon type="primary" />  
+      <MemoizedIcon type="primary" />  
       <ConstructorElement
         text={ingredient.name}
         price={ingredient.price}
         thumbnail={ingredient.image_large}
-        handleClose={
-          event => {
-            const currentRow = event.target.closest(`.${styles.freeRow}`);
-            currentRow.remove();
-          }
-        }
+        handleClose={deleteHandler}
       />
     </li>  
   );
