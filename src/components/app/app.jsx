@@ -6,11 +6,15 @@ import AppHeader from "../app-header/app-header";
 import ModalOverlay from "../modal-overlay/modal-overlay";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
+
 // styles
 import styles from "./app.module.css";
 
 // constants
 import { BASE_URL } from "../../utils/constants";
+
+// data
+import { orderData } from "../../utils/order-data";
 
 
 
@@ -20,38 +24,43 @@ export default function App() {
   const [hasError, setHasError] = React.useState(false);
   const [data, setData] = React.useState([]);
 
-  function getData() {
-    setIsLoading(true);
-    fetch(
-      BASE_URL, {method: "GET"}
-    ).then(
-      response => response.ok
-                  ? response.json()
-                  : Promise.reject(`error: ${response.status} ${response.statusText}`)
-    ).then(
-      object => (object.success && object.data.length)
-                ? object.data
-                : Promise.reject(`error: ${object}`)
-    ).then(
-      array => {
-        setData(array);
-      }
-    ).catch(
-      error => {
-        console.error('error:', error.message);
-        setHasError(true);
-      }
-    ).finally(
-      () => {
-        setIsLoading(false);
-      }
-    );
-  };
+  const getData = React.useCallback(
+    () => {
+      setIsLoading(true);
+      fetch(
+        BASE_URL, {method: "GET"}
+      ).then(
+        response => response.ok
+                    ? response.json()
+                    : Promise.reject(`error: ${response.status} ${response.statusText}`)
+      ).then(
+        object => (object.success && object.data.length)
+                  ? object.data
+                  : Promise.reject(`error: ${object}`)
+      ).then(
+        array => {
+          setData(array);
+        }
+      ).catch(
+        error => {
+          console.error('error:', error.message);
+          setHasError(true);
+        }
+      ).finally(
+        () => {
+          setIsLoading(false);
+        }
+      );
+    },
+    []
+  );
 
   React.useEffect(
     getData,
-    []
+    [getData]
   );
+
+  
 
   return (
     <div className={styles.app}>
@@ -66,7 +75,7 @@ export default function App() {
           <BurgerConstructor data={data} />
         </main>         
       }
-      <ModalOverlay />
+      <ModalOverlay mode="ingredient"/>
     </div>
   );
 };

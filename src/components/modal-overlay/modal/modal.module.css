@@ -1,0 +1,34 @@
+.modal {
+  composes: pl-10 pt-10 pr-10 from global;
+
+  width: 100%;
+  max-width: 720px;
+  height: min-content;
+  box-sizing: border-box;
+
+  border-radius: 40px;
+  border: 1px solid rgba(76, 76, 255, 0.2);
+  background-color: #1C1C21;
+  
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+}
+
+.header {
+  width: 100%;
+  min-height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.heading {
+  composes: text text_type_main-large from global;
+}
+
+.close {
+  width: 24px;
+  height: 24px;
+  composes: button from global;
+}
