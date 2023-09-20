@@ -2,9 +2,10 @@
 
 /* rest of app styles */
 
-* {
+/* debugging purposes */
+/* * {
   border: 1px solid red;
-}
+} */
 
 .root {
   margin: 0;
