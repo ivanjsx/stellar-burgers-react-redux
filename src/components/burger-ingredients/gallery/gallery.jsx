@@ -15,7 +15,7 @@ import { DEFAULT_INGREDIENT_QUANTITY } from "../../../utils/constants";
 
 
 
-export default function Gallery({ id, title, cards }) {
+export default function Gallery({ id, title, cardClickHandler, ingredients }) {
   return (
     <>
       <h2 className={styles.heading} id={id}>
@@ -23,8 +23,15 @@ export default function Gallery({ id, title, cards }) {
       </h2>    
       <ul className={styles.gallery}>
         {
-          cards.map(
-            card => <Card info={card} count={DEFAULT_INGREDIENT_QUANTITY} key={card._id} />
+          ingredients.map(
+            ingredient => (
+              <Card 
+                ingredient={ingredient} 
+                key={ingredient._id} 
+                onClick={cardClickHandler}
+                count={DEFAULT_INGREDIENT_QUANTITY} 
+              />
+            )
           )
         }
       </ul>
@@ -36,7 +43,7 @@ Gallery.propTypes = PropTypes.exact(
   {
     id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
-    cards: PropTypes.arrayOf(
+    ingredients: PropTypes.arrayOf(
       ingredientPropType.isRequired      
     ).isRequired
   }

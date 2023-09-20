@@ -1,9 +1,13 @@
+.container {
+  position: relative;
+}
+
 .card {
   margin: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
-  position: relative;
+  cursor: pointer;
 }
 
 .image {

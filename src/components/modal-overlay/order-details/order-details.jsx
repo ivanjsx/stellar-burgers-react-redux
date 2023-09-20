@@ -9,11 +9,11 @@ import done from "../../../images/done.svg";
 
 
 
-export default function OrderDetails({ info }) {
+export default function OrderDetails({ order }) {
   return (
     <div className={styles.container}>
       <h3 className={styles.id}>
-        {info.id}
+        {order.id}
       </h3>
       <p className={styles.description}>
         идентификатор заказа
@@ -21,10 +21,10 @@ export default function OrderDetails({ info }) {
       <img src={done} alt="иконка успешного принятия заказа" className={styles.done} />
       <div className={styles.textArea}>
         <p className={styles.text}>
-          {info.status}
+          {order.status}
         </p>      
         <p className={`${styles.text} ${styles.inactive}`}>
-          {info.suggestion}          
+          {order.suggestion}          
         </p>      
       </div>
     </div>
@@ -35,7 +35,7 @@ export default function OrderDetails({ info }) {
 
 OrderDetails.propTypes = PropTypes.exact(
   {
-    info: PropTypes.shape(
+    order: PropTypes.shape(
       { 
         id: PropTypes.number.isRequired,
         status: PropTypes.string.isRequired,

@@ -11,9 +11,11 @@ import styles from "./action-tab.module.css";
 
 export default function ActionTab({ value, title, onClick, currentlyActive }) {
   return (
-    <Tab value={value} active={currentlyActive === value} onClick={onClick}>
-      <a href={`#${value}`} className={styles.tabLink}>{title}</a>
-    </Tab>  
+    <a href={`#${value}`} className={styles.tabLink}> 
+      <Tab value={value} active={currentlyActive === value} onClick={onClick}>
+        {title}
+      </Tab>  
+    </a>   
   );
 };
 

@@ -24,30 +24,30 @@ import { CHOSEN_INGREDIENTS_COUNT } from "../../utils/constants";
 
 
 
-export default function BurgerConstructor({ data }) {
+export default function BurgerConstructor({ cart, orderClickHandler }) {
 
   const MemoizedIcon = React.memo(CurrencyIcon);
 
-  const [chosenBun, setChosenBun] = React.useState(null);
+  const [chosenBun, setChosenBun] = React.useState({});
   const [chosenIngredients, setChosenIngredients] = React.useState([]);
 
   const chooseBun = React.useCallback(
     () => getRandomElement(
-      data.filter(
+      cart.filter(
         ingredient => ingredient.type === "bun"
       )
     ),
-    [data]       
+    [cart]       
     );
 
   const chooseIngredients = React.useCallback(
     () => getNRandomElements(
-      data.filter(
+      cart.filter(
         ingredient => ingredient.type !== "bun"
       ),
       CHOSEN_INGREDIENTS_COUNT
     ),
-    [data]       
+    [cart]       
   );
 
   React.useEffect(
@@ -71,13 +71,11 @@ export default function BurgerConstructor({ data }) {
   );  
 
   function deleteIngredient(index) {
-    return event => {
+    return () => {
       setChosenIngredients(
         chosenIngredients.toSpliced(index, 1)
-      );              
-      const currentRow = event.target.closest(`.${rowStyles.freeRow}`);
-      currentRow.remove();
-    }      
+      );
+    };
   };
 
   return (
@@ -107,7 +105,12 @@ export default function BurgerConstructor({ data }) {
         <p className={styles.price}>
           {totalPrice} <MemoizedIcon type="primary" />
         </p>        
-        <Button htmlType="button" type="primary" size="large">
+        <Button 
+          htmlType="button" 
+          type="primary" 
+          size="large" 
+          onClick={orderClickHandler}
+        >
           Оформить заказ
         </Button>
       </div>
@@ -117,7 +120,7 @@ export default function BurgerConstructor({ data }) {
 
 BurgerConstructor.propTypes = PropTypes.exact(
   {
-    data: PropTypes.arrayOf(
+    cart: PropTypes.arrayOf(
       ingredientPropType.isRequired      
     ).isRequired
   }
