@@ -3,9 +3,9 @@ import React from "react";
 
 // components
 import AppHeader from "../app-header/app-header";
+import ModalOverlay from "../modal-overlay/modal-overlay";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
-
 // styles
 import styles from "./app.module.css";
 
@@ -66,6 +66,7 @@ export default function App() {
           <BurgerConstructor data={data} />
         </main>         
       }
+      <ModalOverlay />
     </div>
   );
 };
