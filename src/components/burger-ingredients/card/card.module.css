@@ -9,7 +9,6 @@
 .image {
   composes: pl-4 pr-4 from global;
   width: 100%;
-  object-fit: cover;  
   box-sizing: border-box;
 }
 

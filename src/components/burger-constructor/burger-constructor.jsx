@@ -14,24 +14,13 @@ import styles from "./burger-constructor.module.css";
 import rowStyles from "./row/row.module.css";
 
 // utils
+import { getRandomElement } from "../../utils/functions";
+import { getNRandomElements } from "../../utils/functions";
 import { ingredientPropType } from "../../utils/prop-types";
 
 // constants
 import { BUNS_IN_BURGER_COUNT } from "../../utils/constants";
 import { CHOSEN_INGREDIENTS_COUNT } from "../../utils/constants";
-
-
-function getRandomElement(array) {
-  return array[Math.floor(Math.random() * array.length)];
-};
-
-function getNRandomElements(array, number) {
-  let result = [];
-  for (let i = 0; i < number; i++) {
-    result.push(getRandomElement(array))
-  }
-  return result;
-};
 
 
 

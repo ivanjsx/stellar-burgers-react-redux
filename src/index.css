@@ -16,7 +16,7 @@
 .react-modals {
   margin: 0;
   padding: 0;  
-  box-sizing: border-box;  
+  position: relative;
 }
 
 .ul {
@@ -29,4 +29,11 @@
   color: inherit;
   text-decoration: none;
   background-color: inherit;
+}
+
+.button {
+  padding: 0;
+  border: none;
+  cursor: pointer;
+  background-color: transparent;  
 }
