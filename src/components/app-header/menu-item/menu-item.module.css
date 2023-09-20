@@ -1,9 +1,9 @@
-.menuTextActive {
+.menuText {
   composes: text text_type_main-default from global;
 }
 
-.menuTextInactive {
-  composes: text text_type_main-default text_color_inactive from global;
+.inactive {
+  composes: text_color_inactive from global;
 }
 
 .menuLink {

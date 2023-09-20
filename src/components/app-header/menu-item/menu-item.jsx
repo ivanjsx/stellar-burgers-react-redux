@@ -15,7 +15,9 @@ export default function MenuItem({ text, value, IconComponent, onClick, currentl
   };
   
   function defineTextClass() {
-    return currentlyActive === value ? styles.menuTextActive : styles.menuTextInactive;
+    return  currentlyActive === value 
+            ? styles.menuText 
+            : `${styles.menuText} ${styles.inactive}`;
   };  
 
   return (
