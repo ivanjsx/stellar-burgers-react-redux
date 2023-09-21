@@ -19,33 +19,27 @@ function ModalOverlay({ data, mode, isVisible, closeHandler }) {
                             ? `${styles.overlay} ${styles.visible}`
                             : styles.overlay;
 
-  const heading = React.useMemo(
-    () => {
-      switch (mode) {
-        case "ingredient":
-          return "Детали ингредиента";
-        default:
-          return "";
-      }
-    },
-    [mode]
-  );
+  function inferHeading() {
+    switch (mode) {
+      case "ingredient":
+        return "Детали ингредиента";
+      default:
+        return "";
+    };
+  };
 
-  const content = React.useMemo(
-    () => {
-      switch (mode) {
-        case "ingredient":
-          return (
-            <IngredientDetails ingredient={data} />
-          );
-        case "order": 
-          return <OrderDetails order={data} />;
-        default:
-          return null;
-      }
-    },
-    [mode, data]    
-  );
+  function inferContent() {
+    switch (mode) {
+      case "ingredient":
+        return (
+          <IngredientDetails ingredient={data} />
+        );
+      case "order": 
+        return <OrderDetails order={data} />;
+      default:
+        return null;
+    };
+  };
 
   const handleOverlayClick = React.useCallback(
     event => {
@@ -61,8 +55,8 @@ function ModalOverlay({ data, mode, isVisible, closeHandler }) {
   return ReactDOM.createPortal(
     (
       <div className={overlayClassName} onClick={handleOverlayClick}>
-        <Modal heading={heading} closeHandler={closeHandler}>
-          {content}
+        <Modal heading={inferHeading()} closeHandler={closeHandler}>
+          {inferContent()}
         </Modal>
       </div>
     ), 

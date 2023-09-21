@@ -73,21 +73,18 @@ function BurgerConstructor({ cart, orderClickHandler }) {
     };
   };
 
-  const totalPrice = React.useMemo(
-    () => {
-      let result = 0;
-      if (chosenBun) {
-        result += chosenBun.price * BUNS_IN_BURGER_COUNT
-      };
-      if (chosenIngredients.length) {
-        result += chosenIngredients.reduce(
-          (acc, curr) => acc + curr.price, 0
-        )
-      };
-      return result;
-    },
-    [chosenBun, chosenIngredients]
-  );  
+  function computeTotalPrice() {
+    let result = 0;
+    if (chosenBun) {
+      result += chosenBun.price * BUNS_IN_BURGER_COUNT;
+    };
+    if (chosenIngredients.length) {
+      result += chosenIngredients.reduce(
+        (acc, curr) => acc + curr.price, 0
+      );
+    };
+    return result;
+  };
 
   return (
     <section className={styles.constructor}>
@@ -117,7 +114,7 @@ function BurgerConstructor({ cart, orderClickHandler }) {
       
       <div className={styles.summary}>
         <p className={styles.price}>
-          {totalPrice} <CurrencyIcon type="primary" />
+          {computeTotalPrice()} <CurrencyIcon type="primary" />
         </p>        
         <Button 
           htmlType="button" 
