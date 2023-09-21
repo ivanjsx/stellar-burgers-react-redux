@@ -21,7 +21,11 @@ export default function OrderDetails({ order }) {
       <p className={styles.description}>
         идентификатор заказа
       </p>
-      <img src={done} alt="иконка успешного принятия заказа" className={styles.done} />
+      <img 
+        src={done}
+        className={styles.done}
+        alt="иконка статуса заказа: заказ успешно принят"
+      />
       <div className={styles.textArea}>
         <p className={styles.text}>
           {order.status}

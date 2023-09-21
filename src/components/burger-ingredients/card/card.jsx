@@ -21,7 +21,7 @@ export default function Card({ ingredient, count, onClick, addToCart }) {
       <figure className={styles.card} onClick={onClick}>
         <img 
           src={ingredient.image_large} 
-          alt="фото ингредиента" 
+          alt={`фото ингредиента ${ingredient.name} стоимостью ${ingredient.price}`}
           className={styles.image} 
         />
         <p className={styles.price}>

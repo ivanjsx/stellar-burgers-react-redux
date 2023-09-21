@@ -19,7 +19,7 @@ export default function IngredientDetails({ ingredient }) {
       <figure className={styles.figure}>
         <img 
           src={ingredient.image_large} 
-          alt="фото ингредиента" 
+          alt={`фото ингредиента ${ingredient.name} энергетической ценностью ${ingredient.calories}`}
           className={styles.image} 
         />
         <figcaption className={styles.caption}>
