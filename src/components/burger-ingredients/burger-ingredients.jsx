@@ -13,7 +13,7 @@ import { ingredientPropType } from "../../utils/prop-types";
 
 
 
-export default function BurgerIngredients({ available, addToCartHandler, cardClickHandler }) {
+function BurgerIngredients({ available, addToCartHandler, cardClickHandler }) {
   return (
     <section className={styles.ingredients}>
       <TabBar />
@@ -56,8 +56,6 @@ export default function BurgerIngredients({ available, addToCartHandler, cardCli
   );
 };
 
-
-
 BurgerIngredients.propTypes = {
   available: PropTypes.arrayOf(
     PropTypes.shape(ingredientPropType)
@@ -65,3 +63,5 @@ BurgerIngredients.propTypes = {
   addToCartHandler: PropTypes.func.isRequired,
   cardClickHandler: PropTypes.func.isRequired
 };
+
+export default BurgerIngredients;

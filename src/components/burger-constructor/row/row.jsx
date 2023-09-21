@@ -1,5 +1,4 @@
 // libraries
-import React from "react";
 import PropTypes from "prop-types";
 
 // components
@@ -14,7 +13,7 @@ import { ingredientPropType } from "../../../utils/prop-types";
 
 
 
-export function TopRow({ bun }) {
+function TopRow({ bun }) {
   return (
     <li className={styles.lockedRow}>
       <ConstructorElement
@@ -32,9 +31,11 @@ TopRow.propTypes = {
   bun: PropTypes.shape(ingredientPropType).isRequired
 };
 
+export { TopRow };
 
 
-export function BottomRow({ bun }) {
+
+function BottomRow({ bun }) {
   return (
     <li className={styles.lockedRow}>
       <ConstructorElement
@@ -52,13 +53,14 @@ BottomRow.propTypes = {
   bun: PropTypes.shape(ingredientPropType).isRequired
 };
 
+export { BottomRow };
 
 
-export function MiddleRow({ ingredient, deleteHandler }) {
-  const MemoizedIcon = React.memo(DragIcon);
+
+function MiddleRow({ ingredient, deleteHandler }) {
   return (
     <li className={styles.freeRow}>
-      <MemoizedIcon type="primary" />  
+      <DragIcon type="primary" />  
       <ConstructorElement
         text={ingredient.name}
         price={ingredient.price}
@@ -72,3 +74,5 @@ export function MiddleRow({ ingredient, deleteHandler }) {
 MiddleRow.propTypes = {
   ingredient: PropTypes.shape(ingredientPropType).isRequired
 };
+
+export { MiddleRow };

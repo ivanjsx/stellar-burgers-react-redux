@@ -9,7 +9,7 @@ import styles from "./action-tab.module.css";
 
 
 
-export default function ActionTab({ value, title, onClick, currentlyActive }) {
+function ActionTab({ value, title, onClick, currentlyActive }) {
   return (
     <a href={`#${value}`} className={styles.tabLink}> 
       <Tab value={value} active={currentlyActive === value} onClick={onClick}>
@@ -19,11 +19,11 @@ export default function ActionTab({ value, title, onClick, currentlyActive }) {
   );
 };
 
-
-
 ActionTab.propTypes = {
   value: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
   currentlyActive: PropTypes.string.isRequired
 };
+
+export default ActionTab;

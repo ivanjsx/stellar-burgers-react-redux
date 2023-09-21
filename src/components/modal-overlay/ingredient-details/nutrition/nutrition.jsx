@@ -6,7 +6,7 @@ import styles from "./nutrition.module.css";
 
 
 
-export default function Nutrition({ name, value }) {
+function Nutrition({ name, value }) {
   return (
     <li className={styles.nutrition}>
       <p className={`${styles.text} ${styles.name}`}>{name}</p>
@@ -15,9 +15,9 @@ export default function Nutrition({ name, value }) {
   );
 };
 
-
-
 Nutrition.propTypes = {
   name: PropTypes.string.isRequired,
   value: PropTypes.number.isRequired
 };
+
+export default Nutrition;

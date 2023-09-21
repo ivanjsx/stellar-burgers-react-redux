@@ -18,7 +18,7 @@ import { sampleOrderData } from "../../utils/sample-order-data";
 
 
 
-export default function App() {
+function App() {
 
   const [data, setData] = React.useState([]);
   const [hasError, setHasError] = React.useState(false);
@@ -29,8 +29,6 @@ export default function App() {
   const [isModalVisible, setIsModalVisible] = React.useState(false);
 
   const [cart, setCart] = React.useState([]);
-
-  const MemoizedHeader = React.memo(AppHeader);
 
   const getData = React.useCallback(
     () => {
@@ -133,7 +131,7 @@ export default function App() {
 
   return (
     <div className={styles.app}>
-      <MemoizedHeader />
+      <AppHeader />
       <h1 className={styles.heading}>
         Соберите бургер
       </h1>
@@ -173,3 +171,5 @@ export default function App() {
     </div>
   );
 };
+
+export default App;

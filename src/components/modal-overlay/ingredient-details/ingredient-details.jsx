@@ -12,7 +12,7 @@ import { ingredientPropType } from "../../../utils/prop-types";
 
 
 
-export default function IngredientDetails({ ingredient }) {
+function IngredientDetails({ ingredient }) {
   return (
     <div className={styles.container}>
       
@@ -38,8 +38,8 @@ export default function IngredientDetails({ ingredient }) {
   );
 };
 
-
-
 IngredientDetails.propTypes = {
   ingredient: PropTypes.shape(ingredientPropType).isRequired
 };
+
+export default IngredientDetails;

@@ -10,14 +10,13 @@ import styles from "./modal.module.css";
 
 
 
-export default function Modal({ heading, closeHandler, children }) {
-  const MemoizedIcon = React.memo(CloseIcon);
+function Modal({ heading, closeHandler, children }) {
   return (
     <div className={styles.modal}>
       <div className={styles.header}>
         <h2 className={styles.heading}>{heading}</h2>
         <button className={styles.close} onClick={closeHandler} type="button">
-          <MemoizedIcon type="primary" />
+          <CloseIcon type="primary" />
         </button>
       </div>
       {children}
@@ -25,10 +24,10 @@ export default function Modal({ heading, closeHandler, children }) {
   );
 };
 
-
-
 Modal.propTypes = {
   heading: PropTypes.string.isRequired,
   closeHandler: PropTypes.func.isRequired,
   children: PropTypes.any.isRequired
 };
+
+export default Modal;

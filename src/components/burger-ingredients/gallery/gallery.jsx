@@ -15,7 +15,7 @@ import { DEFAULT_INGREDIENT_QUANTITY } from "../../../utils/constants";
 
 
 
-export default function Gallery({ id, title, addToCartHandler, cardClickHandler, ingredients }) {
+function Gallery({ id, title, addToCartHandler, cardClickHandler, ingredients }) {
   return (
     <>
       <h2 className={styles.heading} id={id}>
@@ -40,8 +40,6 @@ export default function Gallery({ id, title, addToCartHandler, cardClickHandler,
   );
 };
 
-
-
 Gallery.propTypes = {
   id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
@@ -51,3 +49,5 @@ Gallery.propTypes = {
     PropTypes.shape(ingredientPropType)
   ).isRequired
 };
+
+export default Gallery;

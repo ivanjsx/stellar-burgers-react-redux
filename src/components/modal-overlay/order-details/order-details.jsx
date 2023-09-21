@@ -12,7 +12,7 @@ import { orderPropType } from "../../../utils/prop-types";
 
 
 
-export default function OrderDetails({ order }) {
+function OrderDetails({ order }) {
   return (
     <div className={styles.container}>
       <h3 className={styles.id}>
@@ -38,8 +38,8 @@ export default function OrderDetails({ order }) {
   );
 };
 
-
-
 OrderDetails.propTypes = {
   order: PropTypes.shape(orderPropType).isRequired
 };
+
+export default OrderDetails;

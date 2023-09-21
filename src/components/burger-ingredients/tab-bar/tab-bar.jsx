@@ -9,7 +9,7 @@ import styles from "./tab-bar.module.css";
 
 
 
-export default function TabBar () {
+function TabBar () {
   const [currentlyActive, setCurrentlyActive] = React.useState("bun");
   return (
     <nav>
@@ -36,3 +36,5 @@ export default function TabBar () {
     </nav>
   );
 };
+
+export default TabBar;

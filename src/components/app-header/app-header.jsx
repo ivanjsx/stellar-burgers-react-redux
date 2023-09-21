@@ -13,9 +13,8 @@ import styles from "./app-header.module.css";
 
 
 
-export default function AppHeader() {
+function AppHeader() {
   
-  const MemoizedLogo = React.memo(Logo);
   const [currentlyActive, setCurrentlyActive] = React.useState("constructor");
 
   return (
@@ -45,7 +44,7 @@ export default function AppHeader() {
         </nav>
 
         <div className={styles.logoArea}>
-          <MemoizedLogo />
+          <Logo />
         </div>  
         
         <nav className={styles.profileArea}>
@@ -66,3 +65,5 @@ export default function AppHeader() {
     </header>
   );
 };
+
+export default AppHeader;

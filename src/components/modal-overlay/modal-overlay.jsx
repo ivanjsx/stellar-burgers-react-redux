@@ -13,22 +13,17 @@ import styles from "./modal-overlay.module.css";
 
 
 
-export default function ModalOverlay({ data, mode, isVisible, closeHandler }) {
+function ModalOverlay({ data, mode, isVisible, closeHandler }) {
   
-  const overlayClassName = React.useMemo(
-    () => isVisible
-          ? `${styles.overlay} ${styles.visible}`
-          : styles.overlay,
-    [isVisible]
-  );
+  const overlayClassName =  isVisible
+                            ? `${styles.overlay} ${styles.visible}`
+                            : styles.overlay;
 
   const heading = React.useMemo(
     () => {
       switch (mode) {
         case "ingredient":
           return "Детали ингредиента";
-        case "order": 
-          return "";
         default:
           return "";
       }
@@ -46,7 +41,7 @@ export default function ModalOverlay({ data, mode, isVisible, closeHandler }) {
         case "order": 
           return <OrderDetails order={data} />;
         default:
-          return "";
+          return null;
       }
     },
     [mode, data]    
@@ -75,11 +70,11 @@ export default function ModalOverlay({ data, mode, isVisible, closeHandler }) {
   );
 };
 
-
-
 ModalOverlay.propTypes = {
   data: PropTypes.object.isRequired,
   mode: PropTypes.string.isRequired,
   isVisible: PropTypes.bool.isRequired,
   closeHandler: PropTypes.func.isRequired
 };
+
+export default ModalOverlay;

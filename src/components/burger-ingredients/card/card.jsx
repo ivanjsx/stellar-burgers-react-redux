@@ -1,5 +1,4 @@
 // libraries
-import React from "react";
 import PropTypes from "prop-types";
 
 // components
@@ -14,8 +13,7 @@ import { ingredientPropType } from "../../../utils/prop-types";
 
 
 
-export default function Card({ ingredient, count, onClick, addToCart }) {
-  const MemoizedIcon = React.memo(CurrencyIcon);
+function Card({ ingredient, count, onClick, addToCart }) {
   return (
     <div className={styles.container}>
       <figure className={styles.card} onClick={onClick}>
@@ -25,7 +23,7 @@ export default function Card({ ingredient, count, onClick, addToCart }) {
           className={styles.image} 
         />
         <p className={styles.price}>
-          {ingredient.price} <MemoizedIcon type="primary" />
+          {ingredient.price} <CurrencyIcon type="primary" />
         </p>
         <figcaption className={styles.name}>
           {ingredient.name}
@@ -36,11 +34,11 @@ export default function Card({ ingredient, count, onClick, addToCart }) {
   );
 };
 
-
-
 Card.propTypes = {
   ingredient: PropTypes.shape(ingredientPropType).isRequired,
   count: PropTypes.number.isRequired,
   onClick: PropTypes.func.isRequired,
   addToCart: PropTypes.func.isRequired
 };
+
+export default Card;
