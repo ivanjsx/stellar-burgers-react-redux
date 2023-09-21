@@ -27,10 +27,8 @@ export default function Modal({ heading, closeHandler, children }) {
 
 
 
-Modal.propTypes = PropTypes.exact(
-  {
-    heading: PropTypes.string.isRequired,
-    closeHandler: PropTypes.func.isRequired,
-    children: PropTypes.any.isRequired
-  }
-).isRequired;
+Modal.propTypes = {
+  heading: PropTypes.string.isRequired,
+  closeHandler: PropTypes.func.isRequired,
+  children: PropTypes.any.isRequired
+};

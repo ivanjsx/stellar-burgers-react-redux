@@ -7,6 +7,9 @@ import Nutrition from "./nutrition/nutrition";
 // styles
 import styles from "./ingredient-details.module.css";
 
+// utils
+import { ingredientPropType } from "../../../utils/prop-types";
+
 
 
 export default function IngredientDetails({ ingredient }) {
@@ -37,17 +40,6 @@ export default function IngredientDetails({ ingredient }) {
 
 
 
-IngredientDetails.propTypes = PropTypes.exact(
-  {
-    ingredient: PropTypes.shape(
-      { 
-        image_large: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-        calories: PropTypes.number.isRequired,
-        proteins: PropTypes.number.isRequired,
-        fat: PropTypes.number.isRequired,
-        carbohydrates: PropTypes.number.isRequired
-      }
-    ).isRequired
-  }
-).isRequired;
+IngredientDetails.propTypes = {
+  ingredient: PropTypes.shape(ingredientPropType).isRequired
+};

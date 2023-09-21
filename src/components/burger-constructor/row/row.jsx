@@ -28,11 +28,9 @@ export function TopRow({ bun }) {
   );
 };
 
-TopRow.propTypes = PropTypes.exact(
-  {
-    bun: ingredientPropType.isRequired
-  }
-).isRequired;
+TopRow.propTypes = {
+  bun: PropTypes.shape(ingredientPropType).isRequired
+};
 
 
 
@@ -50,11 +48,9 @@ export function BottomRow({ bun }) {
   );
 };
 
-BottomRow.propTypes = PropTypes.exact(
-  {
-    bun: ingredientPropType.isRequired
-  }
-).isRequired;
+BottomRow.propTypes = {
+  bun: PropTypes.shape(ingredientPropType).isRequired
+};
 
 
 
@@ -73,8 +69,6 @@ export function MiddleRow({ ingredient, deleteHandler }) {
   );
 };
 
-MiddleRow.propTypes = PropTypes.exact(
-  {
-    ingredient: ingredientPropType.isRequired
-  }
-).isRequired;
+MiddleRow.propTypes = {
+  ingredient: PropTypes.shape(ingredientPropType).isRequired
+};

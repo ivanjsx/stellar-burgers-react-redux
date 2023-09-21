@@ -21,11 +21,9 @@ export default function ActionTab({ value, title, onClick, currentlyActive }) {
 
 
 
-ActionTab.propTypes = PropTypes.exact(
-  {
-    value: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    onClick: PropTypes.func.isRequired,
-    currentlyActive: PropTypes.string.isRequired
-  }
-).isRequired;
+ActionTab.propTypes = {
+  value: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
+  currentlyActive: PropTypes.string.isRequired
+};

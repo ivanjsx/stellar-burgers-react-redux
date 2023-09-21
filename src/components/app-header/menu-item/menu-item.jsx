@@ -32,12 +32,10 @@ export default function MenuItem({ text, value, IconComponent, onClick, currentl
 
 
 
-MenuItem.propTypes = PropTypes.exact(
-  {
-    text: PropTypes.string.isRequired,
-    value: PropTypes.string.isRequired,
-    IconComponent: PropTypes.elementType.isRequired,
-    onClick: PropTypes.func.isRequired,
-    currentlyActive: PropTypes.string.isRequired
-  }
-).isRequired;
+MenuItem.propTypes = {
+  text: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
+  IconComponent: PropTypes.elementType.isRequired,
+  onClick: PropTypes.func.isRequired,
+  currentlyActive: PropTypes.string.isRequired
+};

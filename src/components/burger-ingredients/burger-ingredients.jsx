@@ -58,12 +58,10 @@ export default function BurgerIngredients({ available, addToCartHandler, cardCli
 
 
 
-BurgerIngredients.propTypes = PropTypes.exact(
-  {
-    available: PropTypes.arrayOf(
-      ingredientPropType.isRequired      
-    ).isRequired,
-    addToCartHandler: PropTypes.func.isRequired,
-    cardClickHandler: PropTypes.func.isRequired
-  }
-).isRequired;
+BurgerIngredients.propTypes = {
+  available: PropTypes.arrayOf(
+    PropTypes.shape(ingredientPropType)
+  ).isRequired,
+  addToCartHandler: PropTypes.func.isRequired,
+  cardClickHandler: PropTypes.func.isRequired
+};

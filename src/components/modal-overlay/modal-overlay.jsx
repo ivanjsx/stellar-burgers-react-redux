@@ -77,11 +77,9 @@ export default function ModalOverlay({ data, mode, isVisible, closeHandler }) {
 
 
 
-ModalOverlay.propTypes = PropTypes.exact(
-  {
-    data: PropTypes.object.isRequired,
-    mode: PropTypes.string.isRequired,
-    isVisible: PropTypes.bool.isRequired,
-    closeHandler: PropTypes.func.isRequired
-  }
-).isRequired;
+ModalOverlay.propTypes = {
+  data: PropTypes.object.isRequired,
+  mode: PropTypes.string.isRequired,
+  isVisible: PropTypes.bool.isRequired,
+  closeHandler: PropTypes.func.isRequired
+};

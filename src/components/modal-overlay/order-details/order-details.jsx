@@ -7,6 +7,9 @@ import styles from "./order-details.module.css";
 // images
 import done from "../../../images/done.svg";
 
+// utils
+import { orderPropType } from "../../../utils/prop-types";
+
 
 
 export default function OrderDetails({ order }) {
@@ -33,14 +36,6 @@ export default function OrderDetails({ order }) {
 
 
 
-OrderDetails.propTypes = PropTypes.exact(
-  {
-    order: PropTypes.shape(
-      { 
-        id: PropTypes.number.isRequired,
-        status: PropTypes.string.isRequired,
-        suggestion: PropTypes.string.isRequired
-      }
-    ).isRequired
-  }
-).isRequired;
+OrderDetails.propTypes = {
+  order: PropTypes.shape(orderPropType).isRequired
+};

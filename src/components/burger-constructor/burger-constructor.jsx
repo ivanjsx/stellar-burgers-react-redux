@@ -143,11 +143,9 @@ export default function BurgerConstructor({ cart, orderClickHandler }) {
 
 
 
-BurgerConstructor.propTypes = PropTypes.exact(
-  {
-    cart: PropTypes.arrayOf(
-      ingredientPropType.isRequired      
-    ).isRequired,
-    orderClickHandler: PropTypes.func.isRequired
-  }
-).isRequired;
+BurgerConstructor.propTypes = {
+  cart: PropTypes.arrayOf(
+    PropTypes.shape(ingredientPropType)
+  ).isRequired,
+  orderClickHandler: PropTypes.func.isRequired
+};

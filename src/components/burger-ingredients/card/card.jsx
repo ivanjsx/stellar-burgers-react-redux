@@ -38,11 +38,9 @@ export default function Card({ ingredient, count, onClick, addToCart }) {
 
 
 
-Card.propTypes = PropTypes.exact(
-  {
-    ingredient: ingredientPropType.isRequired,
-    count: PropTypes.number.isRequired,
-    onClick: PropTypes.func.isRequired,
-    addToCart: PropTypes.func.isRequired
-  }
-).isRequired;
+Card.propTypes = {
+  ingredient: PropTypes.shape(ingredientPropType).isRequired,
+  count: PropTypes.number.isRequired,
+  onClick: PropTypes.func.isRequired,
+  addToCart: PropTypes.func.isRequired
+};

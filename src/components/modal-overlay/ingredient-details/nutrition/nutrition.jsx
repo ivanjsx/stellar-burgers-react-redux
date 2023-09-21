@@ -17,9 +17,7 @@ export default function Nutrition({ name, value }) {
 
 
 
-Nutrition.propTypes = PropTypes.exact(
-  {
-    name: PropTypes.string.isRequired,
-    value: PropTypes.number.isRequired
-  }
-).isRequired;
+Nutrition.propTypes = {
+  name: PropTypes.string.isRequired,
+  value: PropTypes.number.isRequired
+};
