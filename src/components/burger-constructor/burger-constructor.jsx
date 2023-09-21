@@ -32,26 +32,24 @@ function BurgerConstructor({ cart, orderClickHandler }) {
 
   // функция будет удалена после того как 
   // реализуется функционал добавления в корзину
-  const chooseBun = React.useCallback(
-    () => getRandomElement(
+  function chooseBun() {
+    return getRandomElement(
       cart.filter(
         ingredient => ingredient.type === "bun"
       )
-    ),
-    [cart]       
-  );
+    );
+  };
 
   // функция будет удалена после того как 
   // реализуется функционал добавления в корзину  
-  const chooseIngredients = React.useCallback(
-    () => getNRandomElements(
+  function chooseIngredients() {
+    return getNRandomElements(
       cart.filter(
         ingredient => ingredient.type !== "bun"
       ),
       CHOSEN_INGREDIENTS_COUNT
-    ),
-    [cart]       
-  );
+    );
+  };
 
   // значения будут браться из пропсов после того как
   // реализуется функционал добавления в корзину  
@@ -60,7 +58,7 @@ function BurgerConstructor({ cart, orderClickHandler }) {
       setChosenBun(chooseBun());
       setChosenIngredients(chooseIngredients());
     },
-    [chooseBun, chooseIngredients]
+    []
   );
 
   // функция будет вынесена в родительский компонент после того как

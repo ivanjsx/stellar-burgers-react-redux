@@ -30,104 +30,83 @@ function App() {
 
   const [cart, setCart] = React.useState([]);
 
-  const getData = React.useCallback(
-    () => {
-      setIsLoading(true);
-      fetch(
-        BASE_URL, {method: "GET"}
-      ).then(
-        response => response.ok
-                    ? response.json()
-                    : Promise.reject(`error: ${response.status} ${response.statusText}`)
-      ).then(
-        object => (object.success && object.data.length)
-                  ? object.data
-                  : Promise.reject(`error: ${object}`)
-      ).then(
-        array => {
-          setData(array);
-        }
-      ).catch(
-        error => {
-          console.error('error:', error.message);
-          setHasError(true);
-        }
-      ).finally(
-        () => {
-          setIsLoading(false);
-        }
-      );
-    },
-    []
-  );
+  function getData() {
+    setIsLoading(true);
+    fetch(
+      BASE_URL, {method: "GET"}
+    ).then(
+      response => response.ok
+                  ? response.json()
+                  : Promise.reject(`error: ${response.status} ${response.statusText}`)
+    ).then(
+      object => (object.success && object.data.length)
+                ? object.data
+                : Promise.reject(`error: ${object}`)
+    ).then(
+      array => {
+        setData(array);
+      }
+    ).catch(
+      error => {
+        console.error('error:', error.message);
+        setHasError(true);
+      }
+    ).finally(
+      () => {
+        setIsLoading(false);
+      }
+    );
+  };
 
   React.useEffect(
     getData,
-    [getData]
-  );
-
-  const handleEscapePress = React.useCallback(
-    event => {
-      if (event.key === "Escape") {
-        closeModal();
-      };
-    },
     []
-  );      
-
-  const openModal = React.useCallback(
-    () => {
-      setIsModalVisible(true);
-      document.addEventListener(
-        "keydown", handleEscapePress
-      )
-    },
-    [handleEscapePress]
   );
 
-  const closeModal = React.useCallback(
-    () => {
-      setIsModalVisible(false);
-      document.removeEventListener(
-        "keydown", handleEscapePress
-      )      
-    },
-    [handleEscapePress]
-  );  
+  function handleEscapePress(event) {
+    if (event.key === "Escape") {
+      closeModal();
+    };
+  };
 
-  const orderClickHandler = React.useCallback(
-    () => {
-      setModalData(sampleOrderData);
-      setModalMode("order");
-      openModal();
-    },
-    [openModal, sampleOrderData]
-  );
+  function openModal() {
+    setIsModalVisible(true);
+    document.addEventListener(
+      "keydown", handleEscapePress
+    )
+  };
 
-  const cardClickHandler = React.useCallback(
-    ingredient => {
-      return () => {
-        setModalData(ingredient);
-        setModalMode("ingredient");
-        openModal();        
-      };
-    },
-    [openModal]
-  );
+  function closeModal() {
+    setIsModalVisible(false);
+    document.removeEventListener(
+      "keydown", handleEscapePress
+    )      
+  };  
+
+  function orderClickHandler() {
+    setModalData(sampleOrderData);
+    setModalMode("order");
+    openModal();
+  };
+
+  function cardClickHandler(ingredient) {
+    return () => {
+      setModalData(ingredient);
+      setModalMode("ingredient");
+      openModal();        
+    };
+  };
 
   // заготовка функции для реализации добавления в корзину
-  const addToCartHandler = React.useCallback(
-    () => {
-      return ingredient => {
-        // добавить проверку: в корзине не может быть 
-        // больше одной булки (наверное)
-        setCart(
-          [...cart, ingredient]
-        );
-      };
-    },
-    [cart]
-  );  
+  function addToCartHandler() {
+    return ingredient => {
+      // добавить проверку: в корзине не может быть 
+      // больше одной булки (наверное)
+      setCart(
+        [...cart, ingredient]
+      );
+    };
+  };  
 
   return (
     <div className={styles.app}>

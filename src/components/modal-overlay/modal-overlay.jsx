@@ -41,14 +41,11 @@ function ModalOverlay({ data, mode, isVisible, closeHandler }) {
     };
   };
 
-  const handleOverlayClick = React.useCallback(
-    event => {
-      if (event.target === event.currentTarget) {
-        closeHandler();
-      };
-    },
-    [closeHandler]
-  );      
+  function handleOverlayClick(event) {
+    if (event.target === event.currentTarget) {
+      closeHandler();
+    };
+  };      
 
   const modalRoot = document.querySelector("#react-modals");
 
