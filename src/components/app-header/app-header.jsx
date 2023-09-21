@@ -11,6 +11,9 @@ import { ProfileIcon } from "@ya.praktikum/react-developer-burger-ui-components"
 // styles
 import styles from "./app-header.module.css";
 
+// memoization
+const MemoizedLogo = React.memo(Logo);
+
 
 
 function AppHeader() {
@@ -44,7 +47,7 @@ function AppHeader() {
         </nav>
 
         <div className={styles.logoArea}>
-          <Logo />
+          <MemoizedLogo />
         </div>  
         
         <nav className={styles.profileArea}>
@@ -66,4 +69,5 @@ function AppHeader() {
   );
 };
 
-export default AppHeader;
+const MemoizedAppHeader = React.memo(AppHeader);
+export default MemoizedAppHeader;

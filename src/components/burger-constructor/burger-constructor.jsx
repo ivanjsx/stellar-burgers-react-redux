@@ -3,8 +3,8 @@ import React from "react";
 import PropTypes from "prop-types";
 
 // components
-import { TopRow } from "./row/row";
-import { BottomRow } from "./row/row";
+import { MemoizedTopRow } from "./row/row";
+import { MemoizedBottomRow } from "./row/row";
 import { MiddleRow } from "./row/row";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components"
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components"
@@ -90,7 +90,7 @@ function BurgerConstructor({ cart, orderClickHandler }) {
     <section className={styles.constructor}>
       <ul className={styles.content}>
 
-        {chosenBun && <TopRow bun={chosenBun}/> }
+        {chosenBun && <MemoizedTopRow bun={chosenBun}/> }
         
         <li className={styles.scrollableContentContainer}>
           <ul className={styles.scrollableContent}>
@@ -108,7 +108,7 @@ function BurgerConstructor({ cart, orderClickHandler }) {
           </ul>
         </li>
         
-        {chosenBun && <BottomRow bun={chosenBun} />}
+        {chosenBun && <MemoizedBottomRow bun={chosenBun} />}
       
       </ul>
       
@@ -137,4 +137,5 @@ BurgerConstructor.propTypes = {
   orderClickHandler: PropTypes.func.isRequired
 };
 
-export default BurgerConstructor;
+const MemoizedBurgerConstructor = React.memo(BurgerConstructor);
+export default MemoizedBurgerConstructor;

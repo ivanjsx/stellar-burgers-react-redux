@@ -1,4 +1,5 @@
 // libraries
+import React from "react";
 import PropTypes from "prop-types";
 
 // components
@@ -31,7 +32,8 @@ TopRow.propTypes = {
   bun: PropTypes.shape(ingredientPropType).isRequired
 };
 
-export { TopRow };
+const MemoizedTopRow = React.memo(TopRow);
+export { MemoizedTopRow };
 
 
 
@@ -53,7 +55,8 @@ BottomRow.propTypes = {
   bun: PropTypes.shape(ingredientPropType).isRequired
 };
 
-export { BottomRow };
+const MemoizedBottomRow = React.memo(BottomRow);
+export { MemoizedBottomRow };
 
 
 

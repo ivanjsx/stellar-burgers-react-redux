@@ -1,4 +1,5 @@
 // libraries
+import React from "react";
 import PropTypes from "prop-types";
 
 // components
@@ -64,4 +65,5 @@ BurgerIngredients.propTypes = {
   cardClickHandler: PropTypes.func.isRequired
 };
 
-export default BurgerIngredients;
+const MemoizedBurgerIngredients = React.memo(BurgerIngredients);
+export default MemoizedBurgerIngredients;
