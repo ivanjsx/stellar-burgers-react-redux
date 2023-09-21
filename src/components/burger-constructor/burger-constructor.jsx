@@ -69,16 +69,13 @@ function BurgerConstructor({ cart, orderClickHandler }) {
         chosenIngredients.toSpliced(index, 1)
       );
     };
-  };
+  }; 
 
   function computeTotalPrice() {
-    let result = 0;
-    if (chosenBun) {
-      result += chosenBun.price * BUNS_IN_BURGER_COUNT;
-    };
+    const result = chosenBun ? chosenBun.price * BUNS_IN_BURGER_COUNT : 0;
     if (chosenIngredients.length) {
-      result += chosenIngredients.reduce(
-        (acc, curr) => acc + curr.price, 0
+      return chosenIngredients.reduce(
+        (accumulator, current) => accumulator + current.price, result
       );
     };
     return result;
@@ -93,6 +90,7 @@ function BurgerConstructor({ cart, orderClickHandler }) {
         <li className={styles.scrollableContentContainer}>
           <ul className={styles.scrollableContent}>
             {
+              chosenIngredients.length && 
               chosenIngredients.map(
                 (ingredient, index) => (
                   <MiddleRow 

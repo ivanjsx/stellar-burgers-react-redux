@@ -83,30 +83,39 @@ function App() {
     )      
   };  
 
-  function orderClickHandler() {
-    setModalData(sampleOrderData);
-    setModalMode("order");
-    openModal();
-  };
+  const orderClickHandler = React.useCallback(
+    () => {
+      setModalData(sampleOrderData);
+      setModalMode("order");
+      openModal();      
+    },
+    []
+  );
 
-  function cardClickHandler(ingredient) {
-    return () => {
-      setModalData(ingredient);
-      setModalMode("ingredient");
-      openModal();        
-    };
-  };
+  const cardClickHandler = React.useCallback(
+    ingredient => {
+      return () => {
+        setModalData(ingredient);
+        setModalMode("ingredient");
+        openModal();        
+      };      
+    },
+    []
+  );
 
   // заготовка функции для реализации добавления в корзину
-  function addToCartHandler() {
-    return ingredient => {
-      // добавить проверку: в корзине не может быть 
-      // больше одной булки (наверное)
-      setCart(
-        [...cart, ingredient]
-      );
-    };
-  };  
+  const addToCartHandler = React.useCallback(
+    () => {
+      return ingredient => {
+        // добавить проверку: в корзине не может быть 
+        // больше одной булки (наверное)
+        setCart(
+          [...cart, ingredient]
+        );
+      };      
+    },
+    [cart]
+  );
 
   return (
     <div className={styles.app}>
