@@ -1,71 +1,33 @@
 // libraries
-import React from "react";
-import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
-
-// components
-import Modal from "./modal/modal";
-import OrderDetails from "./order-details/order-details";
-import IngredientDetails from "./ingredient-details/ingredient-details";
 
 // styles 
 import styles from "./modal-overlay.module.css";
 
 
 
-function ModalOverlay({ data, mode, isVisible, closeHandler }) {
-  
-  const overlayClassName =  isVisible
-                            ? `${styles.overlay} ${styles.visible}`
-                            : styles.overlay;
-
-  function inferHeading() {
-    switch (mode) {
-      case "ingredient":
-        return "Детали ингредиента";
-      default:
-        return "";
-    };
-  };
-
-  function inferContent() {
-    switch (mode) {
-      case "ingredient":
-        return (
-          <IngredientDetails ingredient={data} />
-        );
-      case "order": 
-        return <OrderDetails order={data} />;
-      default:
-        return null;
-    };
-  };
+function ModalOverlay({ isVisible, close, children }) {
 
   function handleOverlayClick(event) {
     if (event.target === event.currentTarget) {
-      closeHandler();
+      close();
     };
   };      
 
-  const modalRoot = document.querySelector("#react-modals");
-
-  return ReactDOM.createPortal(
-    (
-      <div className={overlayClassName} onClick={handleOverlayClick}>
-        <Modal heading={inferHeading()} closeHandler={closeHandler}>
-          {inferContent()}
-        </Modal>
-      </div>
-    ), 
-    modalRoot
+  return (
+    <div 
+      className={isVisible ? `${styles.overlay} ${styles.visible}` : styles.overlay} 
+      onClick={handleOverlayClick}
+    >
+      {children}
+    </div>
   );
 };
 
 ModalOverlay.propTypes = {
-  data: PropTypes.object.isRequired,
-  mode: PropTypes.string.isRequired,
   isVisible: PropTypes.bool.isRequired,
-  closeHandler: PropTypes.func.isRequired
+  close: PropTypes.func.isRequired,
+  children: PropTypes.element.isRequired
 };
 
 export default ModalOverlay;

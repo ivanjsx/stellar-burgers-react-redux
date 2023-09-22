@@ -2,10 +2,15 @@
 import React from "react";
 
 // components
+import Modal from "../modal-overlay/modal/modal";
 import MemoizedAppHeader from "../app-header/app-header";
-import ModalOverlay from "../modal-overlay/modal-overlay";
+import OrderDetails from "../modal-overlay/order-details/order-details";
 import MemoizedBurgerIngredients from "../burger-ingredients/burger-ingredients";
 import MemoizedBurgerConstructor from "../burger-constructor/burger-constructor";
+import IngredientDetails from "../modal-overlay/ingredient-details/ingredient-details";
+
+// hooks
+import useModal from "../../hooks/useModal";
 
 // styles
 import styles from "./app.module.css";
@@ -25,8 +30,8 @@ function App() {
   const [isLoading, setIsLoading] = React.useState(false);
 
   const [modalData, setModalData] = React.useState(null);
-  const [modalMode, setModalMode] = React.useState("order");
-  const [isModalVisible, setIsModalVisible] = React.useState(false);
+  const [modalMode, setModalMode] = React.useState(null);
+  const { isModalVisible, openModal, closeModal } = useModal();
 
   const [cart, setCart] = React.useState([]);
 
@@ -48,7 +53,7 @@ function App() {
       }
     ).catch(
       error => {
-        console.error('error:', error.message);
+        console.error("error:", error.message);
         setHasError(true);
       }
     ).finally(
@@ -63,31 +68,11 @@ function App() {
     []
   );
 
-  function handleEscapePress(event) {
-    if (event.key === "Escape") {
-      closeModal();
-    };
-  };
-
-  function openModal() {
-    setIsModalVisible(true);
-    document.addEventListener(
-      "keydown", handleEscapePress
-    )
-  };
-
-  function closeModal() {
-    setIsModalVisible(false);
-    document.removeEventListener(
-      "keydown", handleEscapePress
-    )      
-  };  
-
   const orderClickHandler = React.useCallback(
     () => {
       setModalData(sampleOrderData);
       setModalMode("order");
-      openModal();      
+      openModal();
     },
     []
   );
@@ -97,7 +82,7 @@ function App() {
       return () => {
         setModalData(ingredient);
         setModalMode("ingredient");
-        openModal();        
+        openModal();
       };      
     },
     []
@@ -117,8 +102,9 @@ function App() {
     [cart]
   );
 
+
   return (
-    <div className={styles.app}>
+    <section className={styles.app}>
       <MemoizedAppHeader />
       <h1 className={styles.heading}>
         Соберите бургер
@@ -148,15 +134,17 @@ function App() {
         </main>         
       }
       {
-        isModalVisible && modalData &&
-        <ModalOverlay 
-          data={modalData}
-          mode={modalMode}
+        isModalVisible && 
+        <Modal
+          heading={modalMode === "ingredient" ? "Детали ингредиента" : ""}
           isVisible={isModalVisible}
-          closeHandler={closeModal}
-        />
-      } 
-    </div>
+          close={closeModal}
+        >
+          {modalMode === "ingredient" && <IngredientDetails ingredient={modalData} />}
+          {modalMode === "order" && <OrderDetails order={modalData} />}              
+        </Modal>
+      }
+    </section>
   );
 };
 
