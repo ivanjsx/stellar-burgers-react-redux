@@ -3,9 +3,9 @@ import React from "react";
 import PropTypes from "prop-types";
 
 // components
+import { MiddleRow } from "./row/row";
 import { MemoizedTopRow } from "./row/row";
 import { MemoizedBottomRow } from "./row/row";
-import { MiddleRow } from "./row/row";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components"
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components"
 

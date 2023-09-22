@@ -1,4 +1,4 @@
-.modal {
+.container {
   composes: pl-10 pt-10 pr-10 from global;
 
   width: 100%;
