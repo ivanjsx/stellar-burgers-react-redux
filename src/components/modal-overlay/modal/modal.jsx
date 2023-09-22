@@ -14,14 +14,13 @@ import styles from "./modal.module.css";
 
 function Modal({ heading, isVisible, close, children }) {
 
-  function handleEscapePress(event) {
-    if (event.key === "Escape") {
-      close();
-    };
-  };
-
   React.useEffect(
     () => {
+      function handleEscapePress(event) {
+        if (event.key === "Escape") {
+          close();
+        };
+      };      
       if (isVisible) {
         document.addEventListener("keydown", handleEscapePress);
       };
