@@ -1,1 +1,21 @@
-.burger-ingredients {}
+.ingredients {
+  display: flex;
+  flex-direction: column;  
+  max-width: 600px;
+}
+
+.content {
+  composes: pr-2 custom-scroll from global;
+  overflow: scroll;
+}
+
+.content::-webkit-scrollbar {
+  height: 0;
+  width: 8px;    
+}
+
+.content::-webkit-scrollbar-thumb {
+  border: none;
+  border-radius: 0;
+};
+
