@@ -69,5 +69,4 @@ function AppHeader() {
   );
 };
 
-const MemoizedAppHeader = React.memo(AppHeader);
-export default MemoizedAppHeader;
+export default React.memo(AppHeader);

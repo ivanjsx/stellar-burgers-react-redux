@@ -65,5 +65,4 @@ BurgerIngredients.propTypes = {
   cardClickHandler: PropTypes.func.isRequired
 };
 
-const MemoizedBurgerIngredients = React.memo(BurgerIngredients);
-export default MemoizedBurgerIngredients;
+export default React.memo(BurgerIngredients);

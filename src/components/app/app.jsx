@@ -3,10 +3,10 @@ import React from "react";
 
 // components
 import Modal from "../modal-overlay/modal/modal";
-import MemoizedAppHeader from "../app-header/app-header";
+import AppHeader from "../app-header/app-header";
 import OrderDetails from "../modal-overlay/order-details/order-details";
-import MemoizedBurgerIngredients from "../burger-ingredients/burger-ingredients";
-import MemoizedBurgerConstructor from "../burger-constructor/burger-constructor";
+import BurgerIngredients from "../burger-ingredients/burger-ingredients";
+import BurgerConstructor from "../burger-constructor/burger-constructor";
 import IngredientDetails from "../modal-overlay/ingredient-details/ingredient-details";
 
 // hooks
@@ -105,14 +105,14 @@ function App() {
 
   return (
     <section className={styles.app}>
-      <MemoizedAppHeader />
+      <AppHeader />
       <h1 className={styles.heading}>
         Соберите бургер
       </h1>
       {
         !isLoading && !hasError && data.length &&
         <main className={styles.main}>
-          <MemoizedBurgerIngredients 
+          <BurgerIngredients 
             // пока что корзину в компонент не передаём.
             // позже начнём (когда реализуем 
             // функционал добавления ингредиента в корзину),
@@ -122,7 +122,7 @@ function App() {
             addToCartHandler={addToCartHandler}
             cardClickHandler={cardClickHandler} 
           />
-          <MemoizedBurgerConstructor 
+          <BurgerConstructor 
             // пока что добавляем в корзину всё что есть,
             // а потом внутри компонента случайно выбираем
             // булку и заданное число ингредиентов.
