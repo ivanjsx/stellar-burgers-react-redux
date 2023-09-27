@@ -23,22 +23,7 @@ import { CHOSEN_INGREDIENTS_COUNT } from "../../utils/constants";
 
 
 
-export default function BurgerConstructor({ cart, orderClickHandler }) {
-
-  const MemoizedIcon = React.memo(CurrencyIcon);
-  const MemoizedButton = React.useMemo(
-    () => (
-      <Button 
-        htmlType="button" 
-        type="primary" 
-        size="large" 
-        onClick={orderClickHandler}
-      >
-        Оформить заказ
-      </Button>    
-    ),
-    [orderClickHandler]
-  );
+function BurgerConstructor({ cart, orderClickHandler }) {
 
   // значения будут браться из пропсов после того как
   // реализуется функционал добавления в корзину
@@ -47,26 +32,24 @@ export default function BurgerConstructor({ cart, orderClickHandler }) {
 
   // функция будет удалена после того как 
   // реализуется функционал добавления в корзину
-  const chooseBun = React.useCallback(
-    () => getRandomElement(
+  function chooseBun() {
+    return getRandomElement(
       cart.filter(
         ingredient => ingredient.type === "bun"
       )
-    ),
-    [cart]       
-  );
+    );
+  };
 
   // функция будет удалена после того как 
   // реализуется функционал добавления в корзину  
-  const chooseIngredients = React.useCallback(
-    () => getNRandomElements(
+  function chooseIngredients() {
+    return getNRandomElements(
       cart.filter(
         ingredient => ingredient.type !== "bun"
       ),
       CHOSEN_INGREDIENTS_COUNT
-    ),
-    [cart]       
-  );
+    );
+  };
 
   // значения будут браться из пропсов после того как
   // реализуется функционал добавления в корзину  
@@ -75,7 +58,7 @@ export default function BurgerConstructor({ cart, orderClickHandler }) {
       setChosenBun(chooseBun());
       setChosenIngredients(chooseIngredients());
     },
-    [chooseBun, chooseIngredients]
+    []
   );
 
   // функция будет вынесена в родительский компонент после того как
@@ -86,23 +69,17 @@ export default function BurgerConstructor({ cart, orderClickHandler }) {
         chosenIngredients.toSpliced(index, 1)
       );
     };
-  };
+  }; 
 
-  const totalPrice = React.useMemo(
-    () => {
-      let result = 0;
-      if (chosenBun) {
-        result += chosenBun.price * BUNS_IN_BURGER_COUNT
-      };
-      if (chosenIngredients.length) {
-        result += chosenIngredients.reduce(
-          (acc, curr) => acc + curr.price, 0
-        )
-      };
-      return result;
-    },
-    [chosenBun, chosenIngredients]
-  );  
+  function computeTotalPrice() {
+    const result = chosenBun ? chosenBun.price * BUNS_IN_BURGER_COUNT : 0;
+    if (chosenIngredients.length) {
+      return chosenIngredients.reduce(
+        (accumulator, current) => accumulator + current.price, result
+      );
+    };
+    return result;
+  };
 
   return (
     <section className={styles.constructor}>
@@ -113,6 +90,7 @@ export default function BurgerConstructor({ cart, orderClickHandler }) {
         <li className={styles.scrollableContentContainer}>
           <ul className={styles.scrollableContent}>
             {
+              chosenIngredients.length && 
               chosenIngredients.map(
                 (ingredient, index) => (
                   <MiddleRow 
@@ -132,22 +110,27 @@ export default function BurgerConstructor({ cart, orderClickHandler }) {
       
       <div className={styles.summary}>
         <p className={styles.price}>
-          {totalPrice} <MemoizedIcon type="primary" />
+          {computeTotalPrice()} <CurrencyIcon type="primary" />
         </p>        
-        {MemoizedButton}
+        <Button 
+          htmlType="button" 
+          type="primary" 
+          size="large" 
+          onClick={orderClickHandler}
+        >
+          Оформить заказ
+        </Button>   
       </div>
     
     </section>
   );
 };
 
+BurgerConstructor.propTypes = {
+  cart: PropTypes.arrayOf(
+    PropTypes.shape(ingredientPropType)
+  ).isRequired,
+  orderClickHandler: PropTypes.func.isRequired
+};
 
-
-BurgerConstructor.propTypes = PropTypes.exact(
-  {
-    cart: PropTypes.arrayOf(
-      ingredientPropType.isRequired      
-    ).isRequired,
-    orderClickHandler: PropTypes.func.isRequired
-  }
-).isRequired;
+export default React.memo(BurgerConstructor);

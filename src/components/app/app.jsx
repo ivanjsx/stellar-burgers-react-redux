@@ -2,10 +2,15 @@
 import React from "react";
 
 // components
+import Modal from "../modal-overlay/modal/modal";
 import AppHeader from "../app-header/app-header";
-import ModalOverlay from "../modal-overlay/modal-overlay";
+import OrderDetails from "../modal-overlay/order-details/order-details";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
+import IngredientDetails from "../modal-overlay/ingredient-details/ingredient-details";
+
+// hooks
+import useModal from "../../hooks/useModal";
 
 // styles
 import styles from "./app.module.css";
@@ -18,84 +23,50 @@ import { sampleOrderData } from "../../utils/sample-order-data";
 
 
 
-export default function App() {
+function App() {
 
   const [data, setData] = React.useState([]);
   const [hasError, setHasError] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
 
   const [modalData, setModalData] = React.useState(null);
-  const [modalMode, setModalMode] = React.useState("order");
-  const [isModalVisible, setIsModalVisible] = React.useState(false);
+  const [modalMode, setModalMode] = React.useState(null);
+  const { isModalVisible, openModal, closeModal } = useModal();
 
   const [cart, setCart] = React.useState([]);
 
-  const MemoizedHeader = React.memo(AppHeader);
-
-  const getData = React.useCallback(
-    () => {
-      setIsLoading(true);
-      fetch(
-        BASE_URL, {method: "GET"}
-      ).then(
-        response => response.ok
-                    ? response.json()
-                    : Promise.reject(`error: ${response.status} ${response.statusText}`)
-      ).then(
-        object => (object.success && object.data.length)
-                  ? object.data
-                  : Promise.reject(`error: ${object}`)
-      ).then(
-        array => {
-          setData(array);
-        }
-      ).catch(
-        error => {
-          console.error('error:', error.message);
-          setHasError(true);
-        }
-      ).finally(
-        () => {
-          setIsLoading(false);
-        }
-      );
-    },
-    []
-  );
+  function getData() {
+    setIsLoading(true);
+    fetch(
+      BASE_URL, {method: "GET"}
+    ).then(
+      response => response.ok
+                  ? response.json()
+                  : Promise.reject(`error: ${response.status} ${response.statusText}`)
+    ).then(
+      object => (object.success && object.data.length)
+                ? object.data
+                : Promise.reject(`error: ${object}`)
+    ).then(
+      array => {
+        setData(array);
+      }
+    ).catch(
+      error => {
+        console.error("error:", error.message);
+        setHasError(true);
+      }
+    ).finally(
+      () => {
+        setIsLoading(false);
+      }
+    );
+  };
 
   React.useEffect(
     getData,
-    [getData]
-  );
-
-  const handleEscapePress = React.useCallback(
-    event => {
-      if (event.key === "Escape") {
-        closeModal();
-      };
-    },
     []
-  );      
-
-  const openModal = React.useCallback(
-    () => {
-      setIsModalVisible(true);
-      document.addEventListener(
-        "keydown", handleEscapePress
-      )
-    },
-    [handleEscapePress]
   );
-
-  const closeModal = React.useCallback(
-    () => {
-      setIsModalVisible(false);
-      document.removeEventListener(
-        "keydown", handleEscapePress
-      )      
-    },
-    [handleEscapePress]
-  );  
 
   const orderClickHandler = React.useCallback(
     () => {
@@ -103,7 +74,7 @@ export default function App() {
       setModalMode("order");
       openModal();
     },
-    [openModal, sampleOrderData]
+    []
   );
 
   const cardClickHandler = React.useCallback(
@@ -111,10 +82,10 @@ export default function App() {
       return () => {
         setModalData(ingredient);
         setModalMode("ingredient");
-        openModal();        
-      };
+        openModal();
+      };      
     },
-    [openModal]
+    []
   );
 
   // заготовка функции для реализации добавления в корзину
@@ -126,14 +97,15 @@ export default function App() {
         setCart(
           [...cart, ingredient]
         );
-      };
+      };      
     },
     [cart]
-  );  
+  );
+
 
   return (
-    <div className={styles.app}>
-      <MemoizedHeader />
+    <section className={styles.app}>
+      <AppHeader />
       <h1 className={styles.heading}>
         Соберите бургер
       </h1>
@@ -162,14 +134,18 @@ export default function App() {
         </main>         
       }
       {
-        isModalVisible && modalData &&
-        <ModalOverlay 
-          data={modalData}
-          mode={modalMode}
+        isModalVisible && 
+        <Modal
+          heading={modalMode === "ingredient" ? "Детали ингредиента" : ""}
           isVisible={isModalVisible}
-          closeHandler={closeModal}
-        />
-      } 
-    </div>
+          close={closeModal}
+        >
+          {modalMode === "ingredient" && <IngredientDetails ingredient={modalData} />}
+          {modalMode === "order" && <OrderDetails order={modalData} />}              
+        </Modal>
+      }
+    </section>
   );
 };
+
+export default App;

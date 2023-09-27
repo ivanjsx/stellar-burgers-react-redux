@@ -7,9 +7,12 @@ import styles from "./order-details.module.css";
 // images
 import done from "../../../images/done.svg";
 
+// utils
+import { orderPropType } from "../../../utils/prop-types";
 
 
-export default function OrderDetails({ order }) {
+
+function OrderDetails({ order }) {
   return (
     <div className={styles.container}>
       <h3 className={styles.id}>
@@ -18,7 +21,11 @@ export default function OrderDetails({ order }) {
       <p className={styles.description}>
         идентификатор заказа
       </p>
-      <img src={done} alt="иконка успешного принятия заказа" className={styles.done} />
+      <img 
+        src={done}
+        className={styles.done}
+        alt="иконка статуса заказа: заказ успешно принят"
+      />
       <div className={styles.textArea}>
         <p className={styles.text}>
           {order.status}
@@ -31,16 +38,8 @@ export default function OrderDetails({ order }) {
   );
 };
 
+OrderDetails.propTypes = {
+  order: PropTypes.shape(orderPropType).isRequired
+};
 
-
-OrderDetails.propTypes = PropTypes.exact(
-  {
-    order: PropTypes.shape(
-      { 
-        id: PropTypes.number.isRequired,
-        status: PropTypes.string.isRequired,
-        suggestion: PropTypes.string.isRequired
-      }
-    ).isRequired
-  }
-).isRequired;
+export default OrderDetails;

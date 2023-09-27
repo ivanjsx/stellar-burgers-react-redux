@@ -9,11 +9,14 @@ import styles from "./tab-bar.module.css";
 
 
 
-export default function TabBar () {
+function TabBar () {
+  
   const [currentlyActive, setCurrentlyActive] = React.useState("bun");
+  
   return (
     <nav>
       <ul className={styles.tabBar}>
+        
         <ActionTab 
           value="bun"
           title="Булки"
@@ -32,7 +35,10 @@ export default function TabBar () {
           onClick={setCurrentlyActive}
           currentlyActive={currentlyActive}
         />
+      
       </ul>
     </nav>
   );
 };
+
+export default TabBar;

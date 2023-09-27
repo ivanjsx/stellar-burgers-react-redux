@@ -1,4 +1,5 @@
 // libraries
+import React from "react";
 import PropTypes from "prop-types";
 
 // components
@@ -13,7 +14,7 @@ import { ingredientPropType } from "../../utils/prop-types";
 
 
 
-export default function BurgerIngredients({ available, addToCartHandler, cardClickHandler }) {
+function BurgerIngredients({ available, addToCartHandler, cardClickHandler }) {
   return (
     <section className={styles.ingredients}>
       <TabBar />
@@ -56,14 +57,12 @@ export default function BurgerIngredients({ available, addToCartHandler, cardCli
   );
 };
 
+BurgerIngredients.propTypes = {
+  available: PropTypes.arrayOf(
+    PropTypes.shape(ingredientPropType)
+  ).isRequired,
+  addToCartHandler: PropTypes.func.isRequired,
+  cardClickHandler: PropTypes.func.isRequired
+};
 
-
-BurgerIngredients.propTypes = PropTypes.exact(
-  {
-    available: PropTypes.arrayOf(
-      ingredientPropType.isRequired      
-    ).isRequired,
-    addToCartHandler: PropTypes.func.isRequired,
-    cardClickHandler: PropTypes.func.isRequired
-  }
-).isRequired;
+export default React.memo(BurgerIngredients);

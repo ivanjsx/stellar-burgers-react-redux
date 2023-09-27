@@ -14,55 +14,58 @@ import { ingredientPropType } from "../../../utils/prop-types";
 
 
 
-export function TopRow({ bun }) {
-  return (
-    <li className={styles.lockedRow}>
-      <ConstructorElement
-        type="top"
-        isLocked={true}
-        text={`${bun.name} (верх)`}
-        price={bun.price}
-        thumbnail={bun.image_large}
-      />
-    </li>
-  );
+const TopRow = React.memo(
+  function ({ bun }) {
+    return (
+      <li className={styles.lockedRow}>
+        <ConstructorElement
+          type="top"
+          isLocked={true}
+          text={`${bun.name} (верх)`}
+          price={bun.price}
+          thumbnail={bun.image_large}
+        />
+      </li>
+    );
+  }
+);
+
+TopRow.propTypes = {
+  bun: PropTypes.shape(ingredientPropType).isRequired
 };
 
-TopRow.propTypes = PropTypes.exact(
-  {
-    bun: ingredientPropType.isRequired
+export { TopRow };
+
+
+
+const BottomRow = React.memo(
+  function ({ bun }) {
+    return (
+      <li className={styles.lockedRow}>
+        <ConstructorElement
+          type="bottom"
+          isLocked={true}
+          text={`${bun.name} (низ)`}
+          price={bun.price}
+          thumbnail={bun.image_large}
+        />
+      </li>
+    );
   }
-).isRequired;
+);
 
-
-
-export function BottomRow({ bun }) {
-  return (
-    <li className={styles.lockedRow}>
-      <ConstructorElement
-        type="bottom"
-        isLocked={true}
-        text={`${bun.name} (низ)`}
-        price={bun.price}
-        thumbnail={bun.image_large}
-      />
-    </li>
-  );
+BottomRow.propTypes = {
+  bun: PropTypes.shape(ingredientPropType).isRequired
 };
 
-BottomRow.propTypes = PropTypes.exact(
-  {
-    bun: ingredientPropType.isRequired
-  }
-).isRequired;
+export { BottomRow };
 
 
 
-export function MiddleRow({ ingredient, deleteHandler }) {
-  const MemoizedIcon = React.memo(DragIcon);
+function MiddleRow({ ingredient, deleteHandler }) {
   return (
     <li className={styles.freeRow}>
-      <MemoizedIcon type="primary" />  
+      <DragIcon type="primary" />  
       <ConstructorElement
         text={ingredient.name}
         price={ingredient.price}
@@ -73,8 +76,8 @@ export function MiddleRow({ ingredient, deleteHandler }) {
   );
 };
 
-MiddleRow.propTypes = PropTypes.exact(
-  {
-    ingredient: ingredientPropType.isRequired
-  }
-).isRequired;
+MiddleRow.propTypes = {
+  ingredient: PropTypes.shape(ingredientPropType).isRequired
+};
+
+export { MiddleRow };

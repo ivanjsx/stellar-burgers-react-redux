@@ -11,11 +11,13 @@ import { ProfileIcon } from "@ya.praktikum/react-developer-burger-ui-components"
 // styles
 import styles from "./app-header.module.css";
 
+// memoization
+const MemoizedLogo = React.memo(Logo);
 
 
-export default function AppHeader() {
+
+function AppHeader() {
   
-  const MemoizedLogo = React.memo(Logo);
   const [currentlyActive, setCurrentlyActive] = React.useState("constructor");
 
   return (
@@ -66,3 +68,5 @@ export default function AppHeader() {
     </header>
   );
 };
+
+export default React.memo(AppHeader);
