@@ -13,10 +13,8 @@ function MenuItem({ text, value, IconComponent, onClick, currentlyActive }) {
   };
   
   function defineTextClass() {
-    return  currentlyActive === value 
-            ? styles.menuText 
-            : `${styles.menuText} ${styles.inactive}`;
-  };  
+    return `${styles.menuText} ${currentlyActive === value ? "" : styles.inactive}`;
+  };
 
   return (
     <li>

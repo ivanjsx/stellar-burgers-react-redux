@@ -16,7 +16,7 @@ function ModalOverlay({ isVisible, close, children }) {
 
   return (
     <div 
-      className={isVisible ? `${styles.overlay} ${styles.visible}` : styles.overlay} 
+      className={`${styles.overlay} ${isVisible ? styles.visible : ""}`}
       onClick={handleOverlayClick}
     >
       {children}
