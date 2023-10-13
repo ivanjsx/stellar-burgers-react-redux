@@ -2,12 +2,12 @@
 import React from "react";
 
 // components
-import Modal from "../modal-overlay/modal/modal";
+import Modal from "../modal/modal";
 import AppHeader from "../app-header/app-header";
-import OrderDetails from "../modal-overlay/order-details/order-details";
+import OrderDetails from "../modal/order-details/order-details";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
-import IngredientDetails from "../modal-overlay/ingredient-details/ingredient-details";
+import IngredientDetails from "../modal/ingredient-details/ingredient-details";
 
 // hooks
 import useModal from "../../hooks/useModal";
