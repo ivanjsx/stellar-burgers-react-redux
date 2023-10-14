@@ -1,4 +1,4 @@
-export const BASE_URL = "https://norma.nomoreparties.space/api/ingredients";
+export const BASE_URL = "https://norma.nomoreparties.space/api/";
 
 export const DEFAULT_INGREDIENT_QUANTITY = 1;
 export const CHOSEN_INGREDIENTS_COUNT = 7;
