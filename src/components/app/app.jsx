@@ -49,7 +49,7 @@ function App() {
       {
         !errorFetchingIngredients &&
         !pendingFetchingIngredients &&
-        availableIngredientsStock.length &&
+        availableIngredientsStock &&
         <main className={styles.main}>
           <DndProvider backend={HTML5Backend}>
             <BurgerIngredients />

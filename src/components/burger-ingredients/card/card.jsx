@@ -43,7 +43,9 @@ function Card({ ingredient, count }) {
           {ingredient.name}
         </figcaption>
       </figure>
-      {count && <Counter count={count} size="default" />}
+      {
+        <Counter count={count} size="default" />
+      }
     </div>
   );
 };

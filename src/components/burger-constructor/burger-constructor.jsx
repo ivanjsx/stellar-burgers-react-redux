@@ -29,12 +29,9 @@ function BurgerConstructor() {
   const totalPrice = React.useMemo(
     () => {
       const result = chosenBun ? chosenBun.price * BUNS_IN_BURGER_COUNT : 0;
-      if (chosenToppings.length) {
-        return chosenToppings.reduce(
-          (accumulator, current) => accumulator + current.price, result
-        );
-      };
-      return result;      
+      return chosenToppings.reduce(
+        (accumulator, current) => accumulator + current.price, result
+      );    
     },
     [chosenBun, chosenToppings]
   );
@@ -66,7 +63,6 @@ function BurgerConstructor() {
         <li className={styles.scrollableContentContainer}>
           <ul className={styles.scrollableContent}>
             {
-              chosenToppings.length && 
               chosenToppings.map(
                 (topping, index) => (
                   <MiddleRow 

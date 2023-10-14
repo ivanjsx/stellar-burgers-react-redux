@@ -21,19 +21,19 @@ function TabBar () {
           value="bun"
           title="Булки"
           onClick={setActiveTab}
-          active={activeTab === this.value}
+          active={activeTab === "bun"}
         />
         <ActionTab 
           value="sauce"
           title="Соусы"
           onClick={setActiveTab}
-          active={activeTab === this.value}
+          active={activeTab === "sauce"}
         />
         <ActionTab 
           value="main"
           title="Начинки"
           onClick={setActiveTab}
-          active={activeTab === this.value}
+          active={activeTab === "main"}
         />
       
       </ul>

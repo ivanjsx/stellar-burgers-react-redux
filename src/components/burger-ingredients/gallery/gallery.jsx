@@ -1,4 +1,5 @@
 // libraries
+import React from "react";
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 
@@ -15,6 +16,16 @@ function Gallery({ category, title }) {
   const { availableIngredientsStock } = useSelector(state => state.burgerIngredients);
   const { chosenBun, chosenToppings } = useSelector(state => state.burgerConstructor);
   
+  const countIngredient = React.useCallback(
+    ingredient => {
+      let result = chosenBun ? Number(chosenBun._id === ingredient._id) : 0;
+      return chosenToppings.reduce(
+        (accumulator, current) => accumulator + Number(current._id === ingredient._id), result
+      );
+    },
+    [chosenBun, chosenToppings]
+  );
+  
   return (
     <>
       <h2 className={styles.heading} id={category}>
@@ -23,17 +34,13 @@ function Gallery({ category, title }) {
       <ul className={styles.gallery}>
         {
           availableIngredientsStock.filter(
-            availableIngredient => availableIngredient.type === category
+            ingredient => ingredient.type === category
           ).map(
-            availableIngredient => (
+            ingredient => (
               <Card 
-                key={availableIngredient._id} 
-                ingredient={availableIngredient} 
-                count={
-                  [chosenBun, ...chosenToppings].filter(
-                    chosenIngredient => chosenIngredient._id === availableIngredient._id
-                  ).length
-                }
+                key={ingredient._id} 
+                ingredient={ingredient} 
+                count={countIngredient(ingredient)}
               />
             )
           )

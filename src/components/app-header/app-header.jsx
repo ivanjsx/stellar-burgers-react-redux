@@ -32,7 +32,7 @@ function AppHeader() {
               value="constructor"
               IconComponent={BurgerIcon}
               setActiveTab={setActiveTab}
-              active={activeTab === this.value}
+              active={activeTab === "constructor"}
             />
             
             <MenuItem 
@@ -40,7 +40,7 @@ function AppHeader() {
               value="feed"            
               IconComponent={ListIcon}
               setActiveTab={setActiveTab}
-              active={activeTab === this.value}
+              active={activeTab === "feed"}
             />
             
           </ul>
@@ -58,7 +58,7 @@ function AppHeader() {
               value="profile"
               IconComponent={ProfileIcon}
               setActiveTab={setActiveTab}
-              active={activeTab === this.value}
+              active={activeTab === "profile"}
             />          
             
           </ul>

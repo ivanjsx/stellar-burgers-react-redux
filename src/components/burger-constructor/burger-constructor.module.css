@@ -3,6 +3,7 @@
   display: grid;
   grid-template-rows: minmax(0, 1fr) auto;
   gap: 40px;
+  width: 600px;
 }
 
 .content {
@@ -15,6 +16,7 @@
 .scrollableContentContainer {
   composes: pr-2 custom-scroll from global;
   overflow: scroll;
+  min-height: 600px;  
 }
 
 .scrollableContentContainer::-webkit-scrollbar {
