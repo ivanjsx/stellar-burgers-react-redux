@@ -24,7 +24,7 @@ import { removeTopping, fetchOrderPlacement, emptyCart } from "../../services/bu
 function BurgerConstructor() {
   
   const dispatch = useDispatch();
-  const { chosenBun, chosenToppings, placedOrder } = useSelector(state => state.burgerConstructor);
+  const { chosenBun, chosenToppings, canPlaceOrder, placedOrder } = useSelector(state => state.burgerConstructor);
   
   const totalPrice = React.useMemo(
     () => {
@@ -97,6 +97,7 @@ function BurgerConstructor() {
           type="primary" 
           htmlType="button" 
           onClick={placeOrder}
+          disabled={!canPlaceOrder}
         >
           Оформить заказ
         </Button>   

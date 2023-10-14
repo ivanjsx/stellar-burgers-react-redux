@@ -39,24 +39,29 @@ export const burgerConstructorSlice = createSlice(
     name: "burgerConstructor",
     initialState: {
       chosenBun: null,
-      chosenToppings: null,
+      chosenToppings: [],
       errorFetchingOrder: false,
       pendingFetchingOrder: false,
+      canPlaceOrder: false,
       placedOrder: null
     },
     reducers: {
       emptyCart: state => {
         state.chosenBun = null;
-        state.chosenToppings = null;
+        state.chosenToppings = [];
+        state.canPlaceOrder = false;
       },
       setChosenBun: (state, action) => {
         state.chosenBun = action.payload;
+        state.canPlaceOrder = state.chosenBun._id && state.chosenToppings.length;
       },
       addTopping: (state, action) => {
         state.chosenToppings.push(action.payload);
+        state.canPlaceOrder = state.chosenBun._id && state.chosenToppings.length;
       },
       removeTopping: (state, action) => {
         state.chosenToppings.splice(action.payload, 1)
+        state.canPlaceOrder = state.chosenBun._id && state.chosenToppings.length;
       }
     },
     extraReducers: builder => {
