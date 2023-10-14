@@ -1,5 +1,5 @@
 // libraries
-import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
 
 // components
 import Nutrition from "./nutrition/nutrition";
@@ -7,39 +7,35 @@ import Nutrition from "./nutrition/nutrition";
 // styles
 import styles from "./ingredient-details.module.css";
 
-// utils
-import { ingredientPropType } from "../../../utils/prop-types";
 
 
+function IngredientDetails() {
 
-function IngredientDetails({ ingredient }) {
+  const { previewableIngredient } = useSelector(state => state.modal);
+
   return (
     <div className={styles.container}>
       
       <figure className={styles.figure}>
         <img 
-          src={ingredient.image_large} 
-          alt={`фото ингредиента ${ingredient.name} энергетической ценностью ${ingredient.calories}`}
+          src={previewableIngredient.image_large} 
+          alt={`фото ингредиента ${previewableIngredient.name} энергетической ценностью ${previewableIngredient.calories}`}
           className={styles.image} 
         />
         <figcaption className={styles.caption}>
-          {ingredient.name}
+          {previewableIngredient.name}
         </figcaption>
       </figure>
       
       <ul className={styles.details}>
-        <Nutrition name="Калории, ккал" value={ingredient.calories} />
-        <Nutrition name="Белки, г" value={ingredient.proteins} />
-        <Nutrition name="Жиры, г" value={ingredient.fat} />
-        <Nutrition name="Углеводы, г" value={ingredient.carbohydrates} />
+        <Nutrition name="Калории, ккал" value={previewableIngredient.calories} />
+        <Nutrition name="Белки, г" value={previewableIngredient.proteins} />
+        <Nutrition name="Жиры, г" value={previewableIngredient.fat} />
+        <Nutrition name="Углеводы, г" value={previewableIngredient.carbohydrates} />
       </ul>
     
     </div>
   );
-};
-
-IngredientDetails.propTypes = {
-  ingredient: PropTypes.shape(ingredientPropType).isRequired
 };
 
 export default IngredientDetails;
