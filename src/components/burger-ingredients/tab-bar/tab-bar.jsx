@@ -1,4 +1,4 @@
-// libraries
+// libraries 
 import React from "react";
 
 // components
@@ -10,8 +10,8 @@ import styles from "./tab-bar.module.css";
 
 
 function TabBar () {
-  
-  const [currentlyActive, setCurrentlyActive] = React.useState("bun");
+
+  const [activeTab, setActiveTab] = React.useState("bun");
   
   return (
     <nav>
@@ -20,20 +20,20 @@ function TabBar () {
         <ActionTab 
           value="bun"
           title="Булки"
-          onClick={setCurrentlyActive}
-          currentlyActive={currentlyActive}
+          onClick={setActiveTab}
+          active={activeTab === this.value}
         />
         <ActionTab 
           value="sauce"
           title="Соусы"
-          onClick={setCurrentlyActive}
-          currentlyActive={currentlyActive}
+          onClick={setActiveTab}
+          active={activeTab === this.value}
         />
         <ActionTab 
           value="main"
           title="Начинки"
-          onClick={setCurrentlyActive}
-          currentlyActive={currentlyActive}
+          onClick={setActiveTab}
+          active={activeTab === this.value}
         />
       
       </ul>

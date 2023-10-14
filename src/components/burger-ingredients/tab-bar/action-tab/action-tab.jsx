@@ -9,10 +9,10 @@ import styles from "./action-tab.module.css";
 
 
 
-function ActionTab({ value, title, onClick, currentlyActive }) {
+function ActionTab({ value, title, onClick, active }) {
   return (
     <a href={`#${value}`} className={styles.tabLink}> 
-      <Tab value={value} active={currentlyActive === value} onClick={onClick}>
+      <Tab value={value} active={active} onClick={onClick}>
         {title}
       </Tab>  
     </a>   
@@ -23,7 +23,7 @@ ActionTab.propTypes = {
   value: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
-  currentlyActive: PropTypes.string.isRequired
+  active: PropTypes.bool.isRequired
 };
 
 export default ActionTab;

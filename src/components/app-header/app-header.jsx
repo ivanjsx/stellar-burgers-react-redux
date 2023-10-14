@@ -18,34 +18,34 @@ const MemoizedLogo = React.memo(Logo);
 
 function AppHeader() {
   
-  const [currentlyActive, setCurrentlyActive] = React.useState("constructor");
-
+  const [activeTab, setActiveTab] = React.useState("constructor");
+  
   return (
     <header className={styles.header}>
       <div className={styles.container}>
-
+        
         <nav className={styles.menuArea}>
           <ul className={styles.menu}>
-
+            
             <MenuItem 
               text="Конструктор"
               value="constructor"
               IconComponent={BurgerIcon}
-              onClick={setCurrentlyActive}
-              currentlyActive={currentlyActive}
+              setActiveTab={setActiveTab}
+              active={activeTab === this.value}
             />
-
+            
             <MenuItem 
               text="Лента&nbsp;заказов"
               value="feed"            
               IconComponent={ListIcon}
-              onClick={setCurrentlyActive}
-              currentlyActive={currentlyActive}
+              setActiveTab={setActiveTab}
+              active={activeTab === this.value}
             />
-          
+            
           </ul>
         </nav>
-
+        
         <div className={styles.logoArea}>
           <MemoizedLogo />
         </div>  
@@ -57,13 +57,13 @@ function AppHeader() {
               text="Личный&nbsp;кабинет"
               value="profile"
               IconComponent={ProfileIcon}
-              onClick={setCurrentlyActive}
-              currentlyActive={currentlyActive}
+              setActiveTab={setActiveTab}
+              active={activeTab === this.value}
             />          
-
+            
           </ul>
         </nav>      
-
+        
       </div>
     </header>
   );
