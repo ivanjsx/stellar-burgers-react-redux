@@ -4,7 +4,7 @@ import logger from "redux-logger";
 import { configureStore } from "@reduxjs/toolkit";
 
 // reducers
-import rootReducer from "./reducer"
+import { rootReducer } from "./reducer"
 
 
 

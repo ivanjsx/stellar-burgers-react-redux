@@ -16,7 +16,7 @@ import IngredientDetails from "../modal/ingredient-details/ingredient-details";
 import styles from "./app.module.css";
 
 // actions
-import { fetchAvailableStock } from "../../services/burger-ingredients-slice";
+import { fetchAvailableIngredientsStock } from "../../services/burger-ingredients-slice";
 
 
 
@@ -35,7 +35,7 @@ function App() {
   
   React.useEffect(
     () => {
-      dispatch(fetchAvailableStock());
+      dispatch(fetchAvailableIngredientsStock());
     },
     []
   );
