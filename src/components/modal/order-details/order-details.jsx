@@ -1,5 +1,5 @@
 // libraries
-import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
 
 // styles
 import styles from "./order-details.module.css";
@@ -7,16 +7,16 @@ import styles from "./order-details.module.css";
 // images
 import done from "../../../images/done.svg";
 
-// utils
-import { orderPropType } from "../../../utils/prop-types";
 
 
+function OrderDetails() {
 
-function OrderDetails({ order }) {
+  const { orderDetails } = useSelector(state => state.modal);
+
   return (
     <div className={styles.container}>
       <h3 className={styles.id}>
-        {order.id}
+        {orderDetails.order.number}
       </h3>
       <p className={styles.description}>
         идентификатор заказа
@@ -28,18 +28,22 @@ function OrderDetails({ order }) {
       />
       <div className={styles.textArea}>
         <p className={styles.text}>
-          {order.status}
+          {
+            orderDetails.success 
+            ? "Ваш заказ начали готовить" 
+            : "Что-то пошло не так :("
+          }
         </p>      
         <p className={`${styles.text} ${styles.inactive}`}>
-          {order.suggestion}          
+          {
+            orderDetails.success 
+            ? "Дождитесь готовности на орбитальной станции" 
+            : "Лучше всего будет, если вы напишете в поддержку"
+          }    
         </p>      
       </div>
     </div>
   );
-};
-
-OrderDetails.propTypes = {
-  order: PropTypes.shape(orderPropType).isRequired
 };
 
 export default OrderDetails;
