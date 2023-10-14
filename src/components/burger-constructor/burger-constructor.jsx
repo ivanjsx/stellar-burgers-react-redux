@@ -27,7 +27,7 @@ function BurgerConstructor() {
   const dispatch = useDispatch();
   const { chosenBun, chosenToppings, canPlaceOrder, placedOrder } = useSelector(state => state.burgerConstructor);
   
-  const [{ canDrop, isOver }, dropTargetRef] = useDrop(
+  const [{ canDrop }, dropTargetRef] = useDrop(
     {
       accept: "ingredient",
       drop(item) {
@@ -39,8 +39,7 @@ function BurgerConstructor() {
       },
       collect: monitor => (
         {
-          canDrop: monitor.canDrop(),
-          isOver: monitor.isOver()
+          canDrop: monitor.canDrop()
         }
       )
     }
@@ -77,12 +76,13 @@ function BurgerConstructor() {
   return (
     <section className={styles.constructor}>
       <ul 
-        className={`${styles.content} ${canDrop ? styles.invitingShadow : ""} ${isOver ? styles.welcomingShadow : ""}`} 
+        className={`${styles.content} ${canDrop ? styles.welcomingShadow : ""}`} 
         ref={dropTargetRef}
       >
         
         {chosenBun && <TopRow /> }
-        
+        {
+          chosenToppings.length > 0 && 
         <li className={styles.scrollableContentContainer}>
           <ul className={styles.scrollableContent}>
             {
@@ -102,7 +102,7 @@ function BurgerConstructor() {
             }
           </ul>
         </li>
-        
+        }
         {chosenBun && <BottomRow />}
         
       </ul>
