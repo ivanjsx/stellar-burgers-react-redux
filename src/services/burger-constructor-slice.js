@@ -53,15 +53,13 @@ export const burgerConstructorSlice = createSlice(
       },
       setChosenBun: (state, action) => {
         state.chosenBun = action.payload;
-        state.canPlaceOrder = state.chosenBun._id && state.chosenToppings.length;
+        state.canPlaceOrder = true;
       },
       addTopping: (state, action) => {
         state.chosenToppings.push(action.payload);
-        state.canPlaceOrder = state.chosenBun._id && state.chosenToppings.length;
       },
       removeTopping: (state, action) => {
         state.chosenToppings.splice(action.payload, 1)
-        state.canPlaceOrder = state.chosenBun._id && state.chosenToppings.length;
       }
     },
     extraReducers: builder => {

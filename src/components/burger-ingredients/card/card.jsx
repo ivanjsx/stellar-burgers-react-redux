@@ -1,5 +1,6 @@
 // libraries
 import PropTypes from "prop-types";
+import { useDrag } from "react-dnd";
 import { useDispatch } from "react-redux";
 
 // components
@@ -21,9 +22,17 @@ function Card({ ingredient, count }) {
   
   const dispatch = useDispatch();
   
+  const [, dragRef] = useDrag(
+    {
+      item: ingredient,
+      type: "ingredient"
+    }
+  );
+  
   return (
     <div className={styles.container}>
       <figure 
+        ref={dragRef}
         className={styles.card} 
         onClick={
           () => {

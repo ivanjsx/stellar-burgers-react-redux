@@ -1,5 +1,6 @@
 // libraries
 import React from "react";
+import { useDrop } from "react-dnd";
 import { useDispatch, useSelector } from "react-redux";
 
 // components
@@ -17,7 +18,7 @@ import { BUNS_IN_BURGER_COUNT } from "../../utils/constants";
 
 // actions
 import { openModalInOrderMode } from "../../services/modal-slice";
-import { removeTopping, fetchOrderPlacement, emptyCart } from "../../services/burger-constructor-slice";
+import { setChosenBun, addTopping, removeTopping, fetchOrderPlacement, emptyCart } from "../../services/burger-constructor-slice";
 
 
 
@@ -25,6 +26,25 @@ function BurgerConstructor() {
   
   const dispatch = useDispatch();
   const { chosenBun, chosenToppings, canPlaceOrder, placedOrder } = useSelector(state => state.burgerConstructor);
+  
+  const [{ canDrop, isOver }, dropTargetRef] = useDrop(
+    {
+      accept: "ingredient",
+      drop(item) {
+        if (item.type === "bun") {
+          dispatch(setChosenBun(item));
+        } else {
+          dispatch(addTopping(item));
+        };
+      },
+      collect: monitor => (
+        {
+          canDrop: monitor.canDrop(),
+          isOver: monitor.isOver()
+        }
+      )
+    }
+  );
   
   const totalPrice = React.useMemo(
     () => {
@@ -56,7 +76,10 @@ function BurgerConstructor() {
   
   return (
     <section className={styles.constructor}>
-      <ul className={styles.content}>
+      <ul 
+        className={`${styles.content} ${canDrop ? styles.invitingShadow : ""} ${isOver ? styles.welcomingShadow : ""}`} 
+        ref={dropTargetRef}
+      >
         
         {chosenBun && <TopRow /> }
         
