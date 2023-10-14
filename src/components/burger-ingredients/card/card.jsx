@@ -1,5 +1,6 @@
 // libraries
 import PropTypes from "prop-types";
+import { useDispatch } from "react-redux";
 
 // components
 import { Counter } from "@ya.praktikum/react-developer-burger-ui-components"
@@ -11,12 +12,25 @@ import styles from "./card.module.css";
 // utils
 import { ingredientPropType } from "../../../utils/prop-types";
 
+// actions
+import { openModalInIngredientMode } from "../../../services/modal-slice";
 
 
-function Card({ ingredient, count, onClick, addToCart }) {
+
+function Card({ ingredient, count }) {
+  
+  const dispatch = useDispatch();
+  
   return (
     <div className={styles.container}>
-      <figure className={styles.card} onClick={onClick}>
+      <figure 
+        className={styles.card} 
+        onClick={
+          () => {
+            dispatch(openModalInIngredientMode(ingredient));
+          }
+        }
+      >
         <img 
           src={ingredient.image_large} 
           alt={`фото ингредиента ${ingredient.name} стоимостью ${ingredient.price}`}
@@ -37,8 +51,6 @@ function Card({ ingredient, count, onClick, addToCart }) {
 Card.propTypes = {
   ingredient: PropTypes.shape(ingredientPropType).isRequired,
   count: PropTypes.number.isRequired,
-  onClick: PropTypes.func.isRequired,
-  addToCart: PropTypes.func.isRequired
 };
 
 export default Card;

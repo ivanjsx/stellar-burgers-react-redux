@@ -1,5 +1,6 @@
 // libraries
 import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
 
 // components
 import Card from "../card/card";
@@ -7,30 +8,32 @@ import Card from "../card/card";
 // styles
 import styles from "./gallery.module.css";
 
-// utils
-import { ingredientPropType } from "../../../utils/prop-types";
-
-// constants
-import { DEFAULT_INGREDIENT_QUANTITY } from "../../../utils/constants";
 
 
-
-function Gallery({ id, title, addToCartHandler, cardClickHandler, ingredients }) {
+function Gallery({ category, title }) {
+  
+  const { availableIngredientsStock } = useSelector(state => state.burgerIngredients);
+  const { chosenBun, chosenToppings } = useSelector(state => state.burgerConstructor);
+  
   return (
     <>
-      <h2 className={styles.heading} id={id}>
+      <h2 className={styles.heading} id={category}>
         {title}
       </h2>    
       <ul className={styles.gallery}>
         {
-          ingredients.map(
-            ingredient => (
+          availableIngredientsStock.filter(
+            availableIngredient => availableIngredient.type === category
+          ).map(
+            availableIngredient => (
               <Card 
-                key={ingredient._id} 
-                ingredient={ingredient} 
-                count={DEFAULT_INGREDIENT_QUANTITY} 
-                onClick={cardClickHandler(ingredient)}
-                addToCart={addToCartHandler(ingredient)}                
+                key={availableIngredient._id} 
+                ingredient={availableIngredient} 
+                count={
+                  [chosenBun, ...chosenToppings].filter(
+                    chosenIngredient => chosenIngredient._id === availableIngredient._id
+                  ).length
+                }
               />
             )
           )
@@ -41,13 +44,8 @@ function Gallery({ id, title, addToCartHandler, cardClickHandler, ingredients })
 };
 
 Gallery.propTypes = {
-  id: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-  addToCartHandler: PropTypes.func.isRequired,
-  cardClickHandler: PropTypes.func.isRequired,
-  ingredients: PropTypes.arrayOf(
-    PropTypes.shape(ingredientPropType)
-  ).isRequired
+  category: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired
 };
 
 export default Gallery;
