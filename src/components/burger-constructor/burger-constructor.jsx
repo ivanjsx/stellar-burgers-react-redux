@@ -1,6 +1,6 @@
 // libraries
 import React from "react";
-import PropTypes from "prop-types";
+import { useDispatch, useSelector } from "react-redux";
 
 // components
 import { TopRow } from "./row/row";
@@ -12,91 +12,71 @@ import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components
 // styles
 import styles from "./burger-constructor.module.css";
 
-// utils
-import { getRandomElement } from "../../utils/functions";
-import { getNRandomElements } from "../../utils/functions";
-import { ingredientPropType } from "../../utils/prop-types";
-
 // constants
 import { BUNS_IN_BURGER_COUNT } from "../../utils/constants";
-import { CHOSEN_INGREDIENTS_COUNT } from "../../utils/constants";
+
+// actions
+import { openModalInOrderMode } from "../../services/modal-slice";
+import { removeTopping, fetchOrderPlacement, emptyCart } from "../../services/burger-constructor-slice";
 
 
 
-function BurgerConstructor({ cart, orderClickHandler }) {
-
-  // значения будут браться из пропсов после того как
-  // реализуется функционал добавления в корзину
-  const [chosenBun, setChosenBun] = React.useState(null);
-  const [chosenIngredients, setChosenIngredients] = React.useState([]);
-
-  // функция будет удалена после того как 
-  // реализуется функционал добавления в корзину
-  function chooseBun() {
-    return getRandomElement(
-      cart.filter(
-        ingredient => ingredient.type === "bun"
-      )
-    );
-  };
-
-  // функция будет удалена после того как 
-  // реализуется функционал добавления в корзину  
-  function chooseIngredients() {
-    return getNRandomElements(
-      cart.filter(
-        ingredient => ingredient.type !== "bun"
-      ),
-      CHOSEN_INGREDIENTS_COUNT
-    );
-  };
-
-  // значения будут браться из пропсов после того как
-  // реализуется функционал добавления в корзину  
-  React.useEffect(
+function BurgerConstructor() {
+  
+  const dispatch = useDispatch();
+  const { chosenBun, chosenToppings, placedOrder } = useSelector(state => state.burgerConstructor);
+  
+  const totalPrice = React.useMemo(
     () => {
-      setChosenBun(chooseBun());
-      setChosenIngredients(chooseIngredients());
+      const result = chosenBun ? chosenBun.price * BUNS_IN_BURGER_COUNT : 0;
+      if (chosenToppings.length) {
+        return chosenToppings.reduce(
+          (accumulator, current) => accumulator + current.price, result
+        );
+      };
+      return result;      
     },
-    []
+    [chosenBun, chosenToppings]
   );
-
-  // функция будет вынесена в родительский компонент после того как
-  // реализуется функционал добавления в корзину
-  function deleteIngredient(index) {
-    return () => {
-      setChosenIngredients(
-        chosenIngredients.toSpliced(index, 1)
-      );
-    };
-  }; 
-
-  function computeTotalPrice() {
-    const result = chosenBun ? chosenBun.price * BUNS_IN_BURGER_COUNT : 0;
-    if (chosenIngredients.length) {
-      return chosenIngredients.reduce(
-        (accumulator, current) => accumulator + current.price, result
-      );
-    };
-    return result;
+  
+  function placeOrder() {
+    dispatch(
+      fetchOrderPlacement(
+        [chosenBun, ...chosenToppings].map(
+          ingredient => ingredient._id
+        )
+      )
+    ).then(
+      () => {
+        dispatch(openModalInOrderMode(placedOrder))
+      }
+    ).then(
+      () => {
+        dispatch(emptyCart())
+      }
+    );
   };
-
+  
   return (
     <section className={styles.constructor}>
       <ul className={styles.content}>
-
-        {chosenBun && <TopRow bun={chosenBun}/> }
+        
+        {chosenBun && <TopRow /> }
         
         <li className={styles.scrollableContentContainer}>
           <ul className={styles.scrollableContent}>
             {
-              chosenIngredients.length && 
-              chosenIngredients.map(
-                (ingredient, index) => (
+              chosenToppings.length && 
+              chosenToppings.map(
+                (topping, index) => (
                   <MiddleRow 
                     key={index}
-                    ingredient={ingredient} 
-                    deleteHandler={deleteIngredient(index)}
+                    topping={topping} 
+                    deleteHandler={
+                      () => {
+                        dispatch(removeTopping(index));
+                      }
+                    }
                   />
                 )
               )
@@ -104,33 +84,26 @@ function BurgerConstructor({ cart, orderClickHandler }) {
           </ul>
         </li>
         
-        {chosenBun && <BottomRow bun={chosenBun} />}
-      
+        {chosenBun && <BottomRow />}
+        
       </ul>
       
       <div className={styles.summary}>
         <p className={styles.price}>
-          {computeTotalPrice()} <CurrencyIcon type="primary" />
+          {totalPrice} <CurrencyIcon type="primary" />
         </p>        
         <Button 
-          htmlType="button" 
-          type="primary" 
           size="large" 
-          onClick={orderClickHandler}
+          type="primary" 
+          htmlType="button" 
+          onClick={placeOrder}
         >
           Оформить заказ
         </Button>   
       </div>
-    
+      
     </section>
   );
-};
-
-BurgerConstructor.propTypes = {
-  cart: PropTypes.arrayOf(
-    PropTypes.shape(ingredientPropType)
-  ).isRequired,
-  orderClickHandler: PropTypes.func.isRequired
 };
 
 export default React.memo(BurgerConstructor);
