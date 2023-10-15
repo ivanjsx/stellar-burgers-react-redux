@@ -1,40 +1,24 @@
 // libraries
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-// constants
-import { BASE_URL } from "../utils/constants";
-const ENDPOINT_PATH = "orders/";
+// utils
+import request from "../utils/request";
 
 
 
-export const fetchOrderPlacement = createAsyncThunk(
-  "burgerConstructor/fetchOrderPlacement",
-  (arg, thunkAPI) => {
-    return fetch(
-      BASE_URL+ENDPOINT_PATH, {
+export const requestOrderPlacement = createAsyncThunk(
+  "burgerConstructor/requestOrderPlacement",
+  arg => {
+    return request(
+      "orders/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },        
         body: JSON.stringify(
-          {
-            ingredients: arg
-          }
+          { ingredients: arg }
         )
-      }
-    ).then(
-      response => response.ok
-                  ? response.json()
-                  : Promise.reject(`error: ${response.status}`)
-    ).then(
-      object => (object.success && object.order.number)
-                ? object
-                : Promise.reject(`error: ${object}`)
-    ).catch(
-      error => {
-        console.error("error:", error.message);
-        return thunkAPI.rejectWithValue(error);
       }
     );
   }
@@ -49,8 +33,8 @@ export const burgerConstructorSlice = createSlice(
       chosenBun: null,
       chosenToppings: [],
       canPlaceOrder: false,
-      errorFetchingOrder: false,
-      pendingFetchingOrder: false,
+      errorRequestingOrder: false,
+      pendingRequestingOrder: false,
       placedOrder: null
     },
     reducers: {
@@ -97,21 +81,22 @@ export const burgerConstructorSlice = createSlice(
     },
     extraReducers: builder => {
       builder.addCase(
-        fetchOrderPlacement.pending, 
+        requestOrderPlacement.pending, 
         state => {
-          state.pendingFetchingOrder = true;
+          state.pendingRequestingOrder = true;
         }
       ).addCase(
-        fetchOrderPlacement.rejected, 
-        state => {
-          state.errorFetchingOrder = true;
-          state.pendingFetchingOrder = false;
-        }
-      ).addCase(
-        fetchOrderPlacement.fulfilled, 
+        requestOrderPlacement.rejected, 
         (state, action) => {
-          state.errorFetchingOrder = false;
-          state.pendingFetchingOrder = false;
+          state.errorRequestingOrder = true;
+          state.pendingRequestingOrder = false;
+          console.error(action.payload);
+        }
+      ).addCase(
+        requestOrderPlacement.fulfilled, 
+        (state, action) => {
+          state.errorRequestingOrder = false;
+          state.pendingRequestingOrder = false;
           state.placedOrder = action.payload;
         }
       ).addDefaultCase(

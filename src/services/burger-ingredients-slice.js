@@ -1,33 +1,19 @@
 // libraries
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-// constants
-import { BASE_URL } from "../utils/constants";
-const ENDPOINT_PATH = "ingredients/";
+// utils
+import request from "../utils/request";
 
 
 
-export const fetchAvailableIngredientsStock = createAsyncThunk(
-  "burgerIngredients/fetchAvailableIngredientsStock",
-  (arg, thunkAPI) => {
-    return fetch(
-      BASE_URL+ENDPOINT_PATH, {
-        method: "GET"
-      }
+export const requestAvailableIngredientsStock = createAsyncThunk(
+  "burgerIngredients/requestAvailableIngredientsStock",
+  () => {
+    return request(
+      "ingredients/"
     ).then(
-      response => response.ok
-                  ? response.json()
-                  : Promise.reject(`error: ${response.status} ${response.statusText}`)
-    ).then(
-      object => (object.success && object.data.length)
-                ? object.data
-                : Promise.reject(`error: ${object}`)
-    ).catch(
-      error => {
-        console.error("error:", error.message);
-        return thunkAPI.rejectWithValue(error);
-      }
-    );        
+      response => response.data
+    );
   }
 );
 
@@ -38,27 +24,28 @@ export const burgerIngredientsSlice = createSlice(
     name: "burgerIngredients",
     initialState: {
       availableIngredientsStock: [],
-      errorFetchingIngredients: false,
-      pendingFetchingIngredients: false,
+      errorRequestingIngredients: false,
+      pendingRequestingIngredients: false,
     },
     reducers: {},
     extraReducers: builder => {
       builder.addCase(
-        fetchAvailableIngredientsStock.pending, 
+        requestAvailableIngredientsStock.pending, 
         state => {
-          state.pendingFetchingIngredients = true;
+          state.pendingRequestingIngredients = true;
         }
       ).addCase(
-        fetchAvailableIngredientsStock.rejected, 
-        state => {
-          state.errorFetchingIngredients = true;
-          state.pendingFetchingIngredients = false;
-        }
-      ).addCase(
-        fetchAvailableIngredientsStock.fulfilled, 
+        requestAvailableIngredientsStock.rejected, 
         (state, action) => {
-          state.errorFetchingIngredients = false;
-          state.pendingFetchingIngredients = false;
+          state.errorRequestingIngredients = true;
+          state.pendingRequestingIngredients = false;
+          console.error(action.payload);
+        }
+      ).addCase(
+        requestAvailableIngredientsStock.fulfilled, 
+        (state, action) => {
+          state.errorRequestingIngredients = false;
+          state.pendingRequestingIngredients = false;
           state.availableIngredientsStock = action.payload;
         }
       ).addDefaultCase(

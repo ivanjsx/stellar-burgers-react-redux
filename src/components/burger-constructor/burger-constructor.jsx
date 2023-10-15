@@ -22,7 +22,7 @@ import {
   setChosenBun, 
   removeTopping, 
   addTopping, 
-  fetchOrderPlacement 
+  requestOrderPlacement 
 } from "../../services/burger-constructor-slice";
 
 
@@ -66,7 +66,7 @@ function BurgerConstructor() {
     () => {
       if (canPlaceOrder) {
         dispatch(
-          fetchOrderPlacement(
+          requestOrderPlacement(
             [chosenBun, ...chosenToppings].map(
               ingredient => ingredient._id
             )

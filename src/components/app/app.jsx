@@ -16,7 +16,7 @@ import IngredientDetails from "../modal/ingredient-details/ingredient-details";
 import styles from "./app.module.css";
 
 // actions
-import { fetchAvailableIngredientsStock } from "../../services/burger-ingredients-slice";
+import { requestAvailableIngredientsStock } from "../../services/burger-ingredients-slice";
 
 
 
@@ -27,13 +27,13 @@ function App() {
   const { modalMode, modalIsVisible } = useSelector(
     state => state.modal
   );
-  const { errorFetchingIngredients, pendingFetchingIngredients } = useSelector(
+  const { errorRequestingIngredients, pendingRequestingIngredients } = useSelector(
     state => state.burgerIngredients
   );  
   
   React.useEffect(
     () => {
-      dispatch(fetchAvailableIngredientsStock());
+      dispatch(requestAvailableIngredientsStock());
     },
     []
   );
@@ -45,8 +45,8 @@ function App() {
         Соберите бургер
       </h1>
       {
-        !errorFetchingIngredients &&
-        !pendingFetchingIngredients &&
+        !errorRequestingIngredients &&
+        !pendingRequestingIngredients &&
         <main className={styles.main}>
           <DndProvider backend={HTML5Backend}>
             <BurgerIngredients />
