@@ -27,8 +27,8 @@ function Gallery({ category, title }) {
   );
   
   return (
-    <>
-      <h2 className={styles.heading} id={category}>
+    <div className="gallery" id={category}>
+      <h2 className={styles.heading}>
         {title}
       </h2>    
       <ul className={styles.gallery}>
@@ -46,7 +46,7 @@ function Gallery({ category, title }) {
           )
         }
       </ul>
-    </>
+    </div>
   );
 };
 
