@@ -1,4 +1,5 @@
 // libraries
+import React from "react";
 import PropTypes from "prop-types";
 import { useDrag } from "react-dnd";
 import { useDispatch } from "react-redux";
@@ -21,18 +22,24 @@ import { openModalInIngredientMode } from "../../../services/modal-slice";
 function Card({ ingredient, count }) {
   
   const dispatch = useDispatch();
-  
-  const [, dragRef] = useDrag(
+  const ref = React.useRef();
+
+  const [{ isDragging }, dragRef] = useDrag(
     {
+      type: "ingredient",
       item: ingredient,
-      type: "ingredient"
+      collect: monitor => ({
+        isDragging: monitor.isDragging()
+      })      
     }
   );
   
+  dragRef(ref);  
+  
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container} ${isDragging ? styles.isDragging : ""}`}>
       <figure 
-        ref={dragRef}
+        ref={ref}
         className={styles.card} 
         onClick={
           () => {

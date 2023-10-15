@@ -22,7 +22,7 @@ import { dragTopping } from "../../../services/burger-constructor-slice";
 function ToppingRow({ index, topping, deleteHandler }) {
   
   const dispatch = useDispatch();
-  const ref = React.useRef(null);
+  const ref = React.useRef();
 
   const dragRow = React.useCallback(
     (fromIndex, toIndex) => {
@@ -36,9 +36,7 @@ function ToppingRow({ index, topping, deleteHandler }) {
   const [{ isDragging }, dragRef] = useDrag(
     {
       type: "topping",
-      item: () => {
-        return { index }
-      },
+      item: { index },
       collect: monitor => ({
         isDragging: monitor.isDragging()
       })
