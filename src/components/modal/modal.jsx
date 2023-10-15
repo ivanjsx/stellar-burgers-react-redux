@@ -18,15 +18,21 @@ import { closeModal } from "../../services/modal-slice";
 
 function Modal({ children }) {
 
-
   const dispatch = useDispatch();
   const { modalIsVisible, modalHeading } = useSelector(state => state.modal);  
+
+  const closePopup = React.useCallback(
+    () => {
+      dispatch(closeModal());
+    },
+    []
+  );
 
   React.useEffect(
     () => {
       function handleEscapePress(event) {
         if (event.key === "Escape") {
-          dispatch(closeModal());
+          closePopup();
         };
       };      
       if (modalIsVisible) {
@@ -43,7 +49,7 @@ function Modal({ children }) {
 
   return ReactDOM.createPortal(
     (
-      <ModalOverlay>
+      <ModalOverlay closePopup={closePopup}>
         <div className={styles.container}>
           
           <div className={styles.header}>
@@ -51,11 +57,7 @@ function Modal({ children }) {
             <button 
               className={styles.close} 
               type="button"
-              onClick={
-                () => {
-                  dispatch(closeModal());
-                }
-              } 
+              onClick={closePopup} 
             >
               <CloseIcon type="primary" />
             </button>
