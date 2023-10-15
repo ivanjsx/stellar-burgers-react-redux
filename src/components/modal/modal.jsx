@@ -71,12 +71,7 @@ function Modal({ children }) {
 };
 
 Modal.propTypes = {
-  children: PropTypes.arrayOf(
-    PropTypes.oneOfType([
-      PropTypes.element,
-      PropTypes.bool
-    ])    
-  ).isRequired
+  children: PropTypes.element.isRequired
 };
 
 export default Modal;

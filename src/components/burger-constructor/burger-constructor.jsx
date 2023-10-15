@@ -64,11 +64,11 @@ function BurgerConstructor() {
       )
     ).then(
       () => {
-        dispatch(openModalInOrderMode(placedOrder))
+        dispatch(openModalInOrderMode(placedOrder));
       }
     ).then(
       () => {
-        dispatch(emptyCart())
+        dispatch(emptyCart());
       }
     );
   };

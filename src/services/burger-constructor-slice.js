@@ -13,12 +13,19 @@ export const fetchOrderPlacement = createAsyncThunk(
     return fetch(
       BASE_URL+ENDPOINT_PATH, {
         method: "POST",
-        body: JSON.stringify({ingredients: arg})
+        headers: {
+          "Content-Type": "application/json"
+        },        
+        body: JSON.stringify(
+          {
+            ingredients: arg
+          }
+        )
       }
     ).then(
       response => response.ok
                   ? response.json()
-                  : Promise.reject(`error: ${response.status} ${response.statusText}`)
+                  : Promise.reject(`error: ${response.status}`)
     ).then(
       object => (object.success && object.order.number)
                 ? object
