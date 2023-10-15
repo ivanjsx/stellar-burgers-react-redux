@@ -4,9 +4,8 @@ import { useDrop } from "react-dnd";
 import { useDispatch, useSelector } from "react-redux";
 
 // components
-import { TopRow } from "./row/row";
-import { BottomRow } from "./row/row";
-import { MiddleRow } from "./row/row";
+import { BunRow } from "./bun-row/bun-row";
+import { ToppingRow } from "./topping-row/topping-row";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components"
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components"
 
@@ -85,7 +84,7 @@ function BurgerConstructor() {
           className={styles.content} 
         >
           
-          {chosenBun && <TopRow /> }
+          {chosenBun && <BunRow type="top"/>}
           {
             chosenToppings.length > 0 && 
             <li className={styles.scrollableContentContainer}>
@@ -93,8 +92,9 @@ function BurgerConstructor() {
                 {
                   chosenToppings.map(
                     (topping, index) => (
-                      <MiddleRow 
-                        key={index}
+                      <ToppingRow 
+                        key={topping._uuidv4}
+                        index={index}
                         topping={topping} 
                         deleteHandler={
                           () => {
@@ -108,7 +108,7 @@ function BurgerConstructor() {
               </ul>
             </li>
           }
-          {chosenBun && <BottomRow />}
+          {chosenBun && <BunRow type="bottom"/>}
           
         </ul>
       </div>

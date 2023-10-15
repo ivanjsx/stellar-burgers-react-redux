@@ -1,4 +1,5 @@
 // libraries
+import { v4 as uuidv4 } from 'uuid';
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 // constants
@@ -62,11 +63,19 @@ export const burgerConstructorSlice = createSlice(
         state.chosenBun = action.payload;
         state.canPlaceOrder = true;
       },
-      addTopping: (state, action) => {
-        state.chosenToppings.push(action.payload);
-      },
       removeTopping: (state, action) => {
         state.chosenToppings.splice(action.payload, 1)
+      },
+      addTopping: {
+        reducer: (state, action) => {
+          state.chosenToppings.push(action.payload);
+        },
+        prepare: (topping) => {
+          const _uuidv4 = uuidv4();
+          return {
+            payload: { _uuidv4, ...topping } 
+          }
+        },
       }
     },
     extraReducers: builder => {
