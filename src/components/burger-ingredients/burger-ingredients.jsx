@@ -17,28 +17,18 @@ function BurgerIngredients() {
   const bunsRef = React.useRef();
   const saucesRef = React.useRef();
   
-  React.useEffect(
+  const handleScroll = React.useCallback(
     () => {
-      const currentSectionRef = sectionRef.current;      
       const bunsHeight = bunsRef.current.clientHeight;
       const saucesHeight = saucesRef.current.clientHeight;
-      
-      const handleScroll = () => {
-        if (currentSectionRef.scrollTop <= bunsHeight) {
-          setActiveTab("bun");
-        } else if (currentSectionRef.scrollTop <= bunsHeight + saucesHeight) {
-          setActiveTab("sauce");
-        } else {
-          setActiveTab("main");
-        };
+      if (sectionRef.current.scrollTop <= bunsHeight) {
+        setActiveTab("bun");
+      } else if (sectionRef.current.scrollTop <= bunsHeight + saucesHeight) {
+        setActiveTab("sauce");
+      } else {
+        setActiveTab("main");
       };
-      
-      currentSectionRef.addEventListener("scroll", handleScroll);
-      
-      return () => {
-        currentSectionRef.removeEventListener("scroll", handleScroll);
-      };
-    }, 
+    },
     [sectionRef, bunsRef, saucesRef]
   );
   
@@ -47,7 +37,7 @@ function BurgerIngredients() {
       
       <TabBar activeTab={activeTab} setActiveTab={setActiveTab} />
       
-      <div className={styles.content} ref={sectionRef}>
+      <div className={styles.content} ref={sectionRef} onScroll={handleScroll}>
         <Gallery category="bun" title="Булки" ref={bunsRef} />
         <Gallery category="sauce" title="Соусы" ref={saucesRef} />
         <Gallery category="main" title="Начинки" />            
