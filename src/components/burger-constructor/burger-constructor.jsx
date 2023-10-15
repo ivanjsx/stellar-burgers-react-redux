@@ -56,21 +56,23 @@ function BurgerConstructor() {
   );
   
   function placeOrder() {
-    dispatch(
-      fetchOrderPlacement(
-        [chosenBun, ...chosenToppings].map(
-          ingredient => ingredient._id
+    if (canPlaceOrder) {
+      dispatch(
+        fetchOrderPlacement(
+          [chosenBun, ...chosenToppings].map(
+            ingredient => ingredient._id
+          )
         )
-      )
-    ).then(
-      () => {
-        dispatch(openModalInOrderMode(placedOrder));
-      }
-    ).then(
-      () => {
-        dispatch(emptyCart());
-      }
-    );
+      ).then(
+        () => {
+          dispatch(openModalInOrderMode(placedOrder));
+        }
+      ).then(
+        () => {
+          dispatch(emptyCart());
+        }
+      );
+    };
   };
   
   return (
@@ -86,25 +88,25 @@ function BurgerConstructor() {
           {chosenBun && <TopRow /> }
           {
             chosenToppings.length > 0 && 
-          <li className={styles.scrollableContentContainer}>
-            <ul className={styles.scrollableContent}>
-              {
-                chosenToppings.map(
-                  (topping, index) => (
-                    <MiddleRow 
-                      key={index}
-                      topping={topping} 
-                      deleteHandler={
-                        () => {
-                          dispatch(removeTopping(index));
+            <li className={styles.scrollableContentContainer}>
+              <ul className={styles.scrollableContent}>
+                {
+                  chosenToppings.map(
+                    (topping, index) => (
+                      <MiddleRow 
+                        key={index}
+                        topping={topping} 
+                        deleteHandler={
+                          () => {
+                            dispatch(removeTopping(index));
+                          }
                         }
-                      }
-                    />
+                      />
+                    )
                   )
-                )
-              }
-            </ul>
-          </li>
+                }
+              </ul>
+            </li>
           }
           {chosenBun && <BottomRow />}
           

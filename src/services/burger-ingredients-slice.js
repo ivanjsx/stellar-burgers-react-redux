@@ -37,8 +37,7 @@ export const burgerIngredientsSlice = createSlice(
   {
     name: "burgerIngredients",
     initialState: {
-      activeTab: "bun",
-      availableIngredientsStock: null,
+      availableIngredientsStock: [],
       errorFetchingIngredients: false,
       pendingFetchingIngredients: false,
     },

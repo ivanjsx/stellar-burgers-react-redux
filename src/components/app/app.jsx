@@ -24,13 +24,12 @@ function App() {
   
   const dispatch = useDispatch();
   
-  const { modalMode, modalIsVisible } = useSelector(state => state.modal);
-  
-  const { 
-    errorFetchingIngredients,
-    availableIngredientsStock,
-    pendingFetchingIngredients,
-  } = useSelector(state => state.burgerIngredients);  
+  const { modalMode, modalIsVisible } = useSelector(
+    state => state.modal
+  );
+  const { errorFetchingIngredients, pendingFetchingIngredients } = useSelector(
+    state => state.burgerIngredients
+  );  
   
   React.useEffect(
     () => {
@@ -48,7 +47,6 @@ function App() {
       {
         !errorFetchingIngredients &&
         !pendingFetchingIngredients &&
-        availableIngredientsStock &&
         <main className={styles.main}>
           <DndProvider backend={HTML5Backend}>
             <BurgerIngredients />

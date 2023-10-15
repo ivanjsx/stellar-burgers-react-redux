@@ -8,10 +8,9 @@ export const modalSlice = createSlice(
     name: "modal",
     initialState: {
       modalIsVisible: false,
-      modalMode: null,
-      modalHeading: null,
-      orderDetails: null,
-      previewableIngredient: null,
+      modalMode: "",
+      modalHeading: "",
+      previewableContent: null,
     },
     reducers: {
       closeModal: state => {
@@ -20,13 +19,13 @@ export const modalSlice = createSlice(
       openModalInOrderMode: (state, action) => {
         state.modalMode = "order";
         state.modalHeading = "";
-        state.orderDetails = action.payload;
+        state.previewableContent = action.payload;
         state.modalIsVisible = true;
       },
       openModalInIngredientMode: (state, action) => {
         state.modalMode = "ingredient";
         state.modalHeading = "Детали ингредиента";
-        state.previewableIngredient = action.payload;
+        state.previewableContent = action.payload;
         state.modalIsVisible = true;
       }
     }
