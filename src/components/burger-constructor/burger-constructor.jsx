@@ -75,37 +75,41 @@ function BurgerConstructor() {
   
   return (
     <section className={styles.constructor}>
-      <ul 
-        className={`${styles.content} ${canDrop ? styles.welcomingShadow : ""}`} 
+      <div 
+        className={`${styles.shadowWrapper} ${canDrop ? styles.welcomingShadow : ""}`}
         ref={dropTargetRef}
       >
-        
-        {chosenBun && <TopRow /> }
-        {
-          chosenToppings.length > 0 && 
-        <li className={styles.scrollableContentContainer}>
-          <ul className={styles.scrollableContent}>
-            {
-              chosenToppings.map(
-                (topping, index) => (
-                  <MiddleRow 
-                    key={index}
-                    topping={topping} 
-                    deleteHandler={
-                      () => {
-                        dispatch(removeTopping(index));
+        <ul 
+          className={styles.content} 
+        >
+          
+          {chosenBun && <TopRow /> }
+          {
+            chosenToppings.length > 0 && 
+          <li className={styles.scrollableContentContainer}>
+            <ul className={styles.scrollableContent}>
+              {
+                chosenToppings.map(
+                  (topping, index) => (
+                    <MiddleRow 
+                      key={index}
+                      topping={topping} 
+                      deleteHandler={
+                        () => {
+                          dispatch(removeTopping(index));
+                        }
                       }
-                    }
-                  />
+                    />
+                  )
                 )
-              )
-            }
-          </ul>
-        </li>
-        }
-        {chosenBun && <BottomRow />}
-        
-      </ul>
+              }
+            </ul>
+          </li>
+          }
+          {chosenBun && <BottomRow />}
+          
+        </ul>
+      </div>
       
       <div className={styles.summary}>
         <p className={styles.price}>
