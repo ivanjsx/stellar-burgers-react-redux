@@ -46,9 +46,11 @@ function BurgerConstructor() {
   
   const totalPrice = React.useMemo(
     () => {
-      const result = chosenBun ? chosenBun.price * BUNS_IN_BURGER_COUNT : 0;
+      const outcome = chosenBun 
+                      ? chosenBun.price * BUNS_IN_BURGER_COUNT 
+                      : 0;
       return chosenToppings.reduce(
-        (accumulator, current) => accumulator + current.price, result
+        (accumulator, current) => accumulator + current.price, outcome
       );    
     },
     [chosenBun, chosenToppings]

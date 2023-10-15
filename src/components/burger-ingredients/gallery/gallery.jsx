@@ -6,6 +6,9 @@ import { useSelector } from "react-redux";
 // components
 import Card from "../card/card";
 
+// constants
+import { BUNS_IN_BURGER_COUNT } from "../../../utils/constants";
+
 // styles
 import styles from "./gallery.module.css";
 
@@ -19,9 +22,11 @@ const Gallery = React.forwardRef(
     
     const countIngredient = React.useCallback(
       ingredient => {
-        let result = chosenBun ? Number(chosenBun._id === ingredient._id) : 0;
+        let outcome = chosenBun 
+                      ? Number(chosenBun._id === ingredient._id) * BUNS_IN_BURGER_COUNT 
+                      : 0;
         return chosenToppings.reduce(
-          (accumulator, current) => accumulator + Number(current._id === ingredient._id), result
+          (accumulator, current) => accumulator + Number(current._id === ingredient._id), outcome
         );
       },
       [chosenBun, chosenToppings]
