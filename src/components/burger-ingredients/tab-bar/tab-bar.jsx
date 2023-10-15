@@ -1,5 +1,5 @@
 // libraries 
-import React from "react";
+import { useSelector, useDispatch } from "react-redux";
 
 // components
 import ActionTab from "./action-tab/action-tab";
@@ -7,11 +7,15 @@ import ActionTab from "./action-tab/action-tab";
 // styles
 import styles from "./tab-bar.module.css";
 
+// actions
+import { setActiveTab } from "../../../services/burger-ingredients-slice";
+
 
 
 function TabBar () {
-
-  const [activeTab, setActiveTab] = React.useState("bun");
+  
+  const dispatch = useDispatch();
+  const { activeTab } = useSelector(state => state.burgerIngredients);
   
   return (
     <nav>
@@ -20,20 +24,32 @@ function TabBar () {
         <ActionTab 
           value="bun"
           title="Булки"
-          onClick={setActiveTab}
           active={activeTab === "bun"}
+          onClick={
+            () => {
+              dispatch(setActiveTab("bun"))
+            }
+          }
         />
         <ActionTab 
           value="sauce"
           title="Соусы"
-          onClick={setActiveTab}
           active={activeTab === "sauce"}
+          onClick={
+            () => {
+              dispatch(setActiveTab("sauce"))
+            }            
+          }
         />
         <ActionTab 
           value="main"
           title="Начинки"
-          onClick={setActiveTab}
           active={activeTab === "main"}
+          onClick={
+            () => {
+              dispatch(setActiveTab("main"))
+            }            
+          }
         />
       
       </ul>
