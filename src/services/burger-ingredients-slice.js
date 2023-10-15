@@ -42,11 +42,7 @@ export const burgerIngredientsSlice = createSlice(
       errorFetchingIngredients: false,
       pendingFetchingIngredients: false,
     },
-    reducers: {
-      setActiveTab: (state, action) => {
-        state.activeTab = action.payload
-      }
-    },
+    reducers: {},
     extraReducers: builder => {
       builder.addCase(
         fetchAvailableIngredientsStock.pending, 
@@ -72,5 +68,3 @@ export const burgerIngredientsSlice = createSlice(
     }
   }
 );
-
-export const { setActiveTab } = burgerIngredientsSlice.actions;

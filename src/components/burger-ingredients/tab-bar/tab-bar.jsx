@@ -1,5 +1,5 @@
 // libraries
-import React from "react";
+import PropTypes from "prop-types";
 
 // components
 import ActionTab from "./action-tab/action-tab";
@@ -9,14 +9,11 @@ import styles from "./tab-bar.module.css";
 
 
 
-function TabBar () {  
-  
-  const [activeTab, setActiveTab] = React.useState("bun");
-  
+function TabBar ({ activeTab, setActiveTab }) {  
   return (
     <nav>
       <ul className={styles.tabBar}>
-
+        
         <ActionTab 
           value="bun" 
           title="Булки" 
@@ -39,6 +36,11 @@ function TabBar () {
       </ul>
     </nav>
   );
+};
+
+TabBar.propTypes = {
+  activeTab: PropTypes.string.isRequired,
+  setActiveTab: PropTypes.func.isRequired
 };
 
 export default TabBar;

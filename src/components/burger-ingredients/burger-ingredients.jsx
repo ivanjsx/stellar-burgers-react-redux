@@ -1,6 +1,5 @@
 // libraries
 import React from "react";
-import { useDispatch } from "react-redux";
 
 // components
 import TabBar from "./tab-bar/tab-bar";
@@ -9,42 +8,51 @@ import Gallery from "./gallery/gallery";
 // styles
 import styles from "./burger-ingredients.module.css";
 
-// actions
-import { setActiveTab } from "../../services/burger-ingredients-slice";
-
 
 
 function BurgerIngredients() {  
   
+  const [activeTab, setActiveTab] = React.useState("bun");
   const sectionRef = React.useRef();
-  const dispatch = useDispatch();
+  const bunsRef = React.useRef();
+  const saucesRef = React.useRef();
   
   React.useEffect(
     () => {
-      const currentRef = sectionRef.current;
+      const currentSectionRef = sectionRef.current;      
+      const bunsHeight = bunsRef.current.clientHeight;
+      const saucesHeight = saucesRef.current.clientHeight;
+      
       const handleScroll = () => {
-        const getActiveTab = () => {
-          // some logic TBD
-        }
-        const activetab = getActiveTab();
-        dispatch(setActiveTab(activetab));
+        if (currentSectionRef.scrollTop <= bunsHeight) {
+          setActiveTab("bun");
+        } else if (currentSectionRef.scrollTop <= bunsHeight + saucesHeight) {
+          setActiveTab("sauce");
+        } else {
+          setActiveTab("main");
+        };
       };
-      currentRef.addEventListener("scroll", handleScroll);
+      
+      currentSectionRef.addEventListener("scroll", handleScroll);
+      
       return () => {
-        currentRef.removeEventListener("scroll", handleScroll);
+        currentSectionRef.removeEventListener("scroll", handleScroll);
       };
     }, 
-    [sectionRef]
+    [sectionRef, bunsRef, saucesRef]
   );
   
   return (
     <section className={styles.ingredients}>
-      <TabBar />
+      
+      <TabBar activeTab={activeTab} setActiveTab={setActiveTab} />
+      
       <div className={styles.content} ref={sectionRef}>
-        <Gallery category="bun" title="Булки" />
-        <Gallery category="sauce" title="Соусы" />
+        <Gallery category="bun" title="Булки" ref={bunsRef} />
+        <Gallery category="sauce" title="Соусы" ref={saucesRef} />
         <Gallery category="main" title="Начинки" />            
       </div>
+      
     </section>
   );
 };

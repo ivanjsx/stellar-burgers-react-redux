@@ -11,44 +11,46 @@ import styles from "./gallery.module.css";
 
 
 
-function Gallery({ category, title }) {
-  
-  const { availableIngredientsStock } = useSelector(state => state.burgerIngredients);
-  const { chosenBun, chosenToppings } = useSelector(state => state.burgerConstructor);
-  
-  const countIngredient = React.useCallback(
-    ingredient => {
-      let result = chosenBun ? Number(chosenBun._id === ingredient._id) : 0;
-      return chosenToppings.reduce(
-        (accumulator, current) => accumulator + Number(current._id === ingredient._id), result
-      );
-    },
-    [chosenBun, chosenToppings]
-  );
-  
-  return (
-    <div className="gallery" id={category}>
-      <h2 className={styles.heading}>
-        {title}
-      </h2>    
-      <ul className={styles.gallery}>
-        {
-          availableIngredientsStock.filter(
-            ingredient => ingredient.type === category
-          ).map(
-            ingredient => (
-              <Card 
-                key={ingredient._id} 
-                ingredient={ingredient} 
-                count={countIngredient(ingredient)}
-              />
+const Gallery = React.forwardRef(
+  ({ category, title }, ref) => {
+    
+    const { availableIngredientsStock } = useSelector(state => state.burgerIngredients);
+    const { chosenBun, chosenToppings } = useSelector(state => state.burgerConstructor);
+    
+    const countIngredient = React.useCallback(
+      ingredient => {
+        let result = chosenBun ? Number(chosenBun._id === ingredient._id) : 0;
+        return chosenToppings.reduce(
+          (accumulator, current) => accumulator + Number(current._id === ingredient._id), result
+        );
+      },
+      [chosenBun, chosenToppings]
+    );
+    
+    return (
+      <div id={category} ref={ref}>
+        <h2 className={styles.heading}>
+          {title}
+        </h2>    
+        <ul className={styles.gallery}>
+          {
+            availableIngredientsStock.filter(
+              ingredient => ingredient.type === category
+            ).map(
+              ingredient => (
+                <Card 
+                  key={ingredient._id} 
+                  ingredient={ingredient} 
+                  count={countIngredient(ingredient)}
+                />
+              )
             )
-          )
-        }
-      </ul>
-    </div>
-  );
-};
+          }
+        </ul>
+      </div>
+    );    
+  }
+);
 
 Gallery.propTypes = {
   category: PropTypes.string.isRequired,
