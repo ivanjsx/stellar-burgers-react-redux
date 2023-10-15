@@ -17,7 +17,13 @@ import { BUNS_IN_BURGER_COUNT } from "../../utils/constants";
 
 // actions
 import { openModalInOrderMode } from "../../services/modal-slice";
-import { setChosenBun, addTopping, removeTopping, fetchOrderPlacement, emptyCart } from "../../services/burger-constructor-slice";
+import { 
+  emptyCart, 
+  setChosenBun, 
+  removeTopping, 
+  addTopping, 
+  fetchOrderPlacement 
+} from "../../services/burger-constructor-slice";
 
 
 
@@ -56,25 +62,28 @@ function BurgerConstructor() {
     [chosenBun, chosenToppings]
   );
   
-  function placeOrder() {
-    if (canPlaceOrder) {
-      dispatch(
-        fetchOrderPlacement(
-          [chosenBun, ...chosenToppings].map(
-            ingredient => ingredient._id
+  const placeOrder = React.useCallback(
+    () => {
+      if (canPlaceOrder) {
+        dispatch(
+          fetchOrderPlacement(
+            [chosenBun, ...chosenToppings].map(
+              ingredient => ingredient._id
+            )
           )
-        )
-      ).then(
-        () => {
-          dispatch(openModalInOrderMode(placedOrder));
-        }
-      ).then(
-        () => {
-          dispatch(emptyCart());
-        }
-      );
-    };
-  };
+        ).then(
+          () => {
+            dispatch(openModalInOrderMode(placedOrder));
+          }
+        ).then(
+          () => {
+            dispatch(emptyCart());
+          }
+        );
+      };
+    },
+    [canPlaceOrder, chosenBun, chosenToppings, placedOrder]
+  );
   
   return (
     <section className={styles.constructor}>
