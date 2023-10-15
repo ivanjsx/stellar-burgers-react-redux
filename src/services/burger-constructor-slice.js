@@ -48,9 +48,9 @@ export const burgerConstructorSlice = createSlice(
     initialState: {
       chosenBun: null,
       chosenToppings: [],
+      canPlaceOrder: false,
       errorFetchingOrder: false,
       pendingFetchingOrder: false,
-      canPlaceOrder: false,
       placedOrder: null
     },
     reducers: {
@@ -67,16 +67,33 @@ export const burgerConstructorSlice = createSlice(
         state.chosenToppings.splice(action.payload, 1)
       },
       addTopping: {
-        reducer: (state, action) => {
-          state.chosenToppings.push(action.payload);
-        },
-        prepare: (topping) => {
+        prepare: topping => {
           const _uuidv4 = uuidv4();
           return {
-            payload: { _uuidv4, ...topping } 
+            payload: { _uuidv4, ...topping }
+          };
+        },        
+        reducer: (state, action) => {
+          state.chosenToppings.push(action.payload);
+        }
+      },
+      dragTopping: {
+        prepare: (fromIndex, toIndex) => {
+          return {
+            payload: { fromIndex, toIndex }
           }
         },
-      }
+        reducer: (state, action) => {
+          state.chosenToppings.splice(
+            action.payload.toIndex,
+            0,
+            state.chosenToppings.splice(
+              action.payload.fromIndex, 
+              1
+            )[0]
+          )
+        }
+      }            
     },
     extraReducers: builder => {
       builder.addCase(
@@ -104,4 +121,10 @@ export const burgerConstructorSlice = createSlice(
   }
 );
 
-export const {emptyCart, setChosenBun, addTopping, removeTopping} = burgerConstructorSlice.actions;
+export const { 
+  emptyCart, 
+  setChosenBun, 
+  removeTopping, 
+  addTopping, 
+  dragTopping 
+} = burgerConstructorSlice.actions;
