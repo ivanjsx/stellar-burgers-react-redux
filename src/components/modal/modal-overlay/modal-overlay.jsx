@@ -1,22 +1,25 @@
 // libraries
 import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
 
 // styles 
 import styles from "./modal-overlay.module.css";
 
 
 
-function ModalOverlay({ isVisible, close, children }) {
-
+function ModalOverlay({ closePopup, children }) {
+  
+  const modalIsVisible = useSelector(state => state.modal.modalIsVisible);  
+  
   function handleOverlayClick(event) {
     if (event.target === event.currentTarget) {
-      close();
+      closePopup();
     };
   };      
-
+  
   return (
     <div 
-      className={isVisible ? `${styles.overlay} ${styles.visible}` : styles.overlay} 
+      className={`${styles.overlay} ${modalIsVisible ? styles.visible : ""}`}
       onClick={handleOverlayClick}
     >
       {children}
@@ -25,8 +28,7 @@ function ModalOverlay({ isVisible, close, children }) {
 };
 
 ModalOverlay.propTypes = {
-  isVisible: PropTypes.bool.isRequired,
-  close: PropTypes.func.isRequired,
+  closePopup: PropTypes.func.isRequired,
   children: PropTypes.element.isRequired
 };
 

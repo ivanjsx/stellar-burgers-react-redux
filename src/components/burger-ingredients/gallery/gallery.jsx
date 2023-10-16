@@ -1,53 +1,65 @@
 // libraries
+import React from "react";
 import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
 
 // components
 import Card from "../card/card";
 
+// constants
+import { BUNS_IN_BURGER_COUNT } from "../../../utils/constants";
+
 // styles
 import styles from "./gallery.module.css";
 
-// utils
-import { ingredientPropType } from "../../../utils/prop-types";
-
-// constants
-import { DEFAULT_INGREDIENT_QUANTITY } from "../../../utils/constants";
 
 
-
-function Gallery({ id, title, addToCartHandler, cardClickHandler, ingredients }) {
-  return (
-    <>
-      <h2 className={styles.heading} id={id}>
-        {title}
-      </h2>    
-      <ul className={styles.gallery}>
-        {
-          ingredients.map(
-            ingredient => (
-              <Card 
-                key={ingredient._id} 
-                ingredient={ingredient} 
-                count={DEFAULT_INGREDIENT_QUANTITY} 
-                onClick={cardClickHandler(ingredient)}
-                addToCart={addToCartHandler(ingredient)}                
-              />
+const Gallery = React.forwardRef(
+  ({ category, title }, ref) => {
+    
+    const { availableIngredientsStock } = useSelector(state => state.burgerIngredients);
+    const { chosenBun, chosenToppings } = useSelector(state => state.burgerConstructor);
+    
+    const countIngredient = React.useCallback(
+      ingredient => {
+        let outcome = chosenBun 
+                      ? Number(chosenBun._id === ingredient._id) * BUNS_IN_BURGER_COUNT 
+                      : 0;
+        return chosenToppings.reduce(
+          (accumulator, current) => accumulator + Number(current._id === ingredient._id), outcome
+        );
+      },
+      [chosenBun, chosenToppings]
+    );
+    
+    return (
+      <div id={category} ref={ref}>
+        <h2 className={styles.heading}>
+          {title}
+        </h2>    
+        <ul className={styles.gallery}>
+          {
+            availableIngredientsStock.filter(
+              ingredient => ingredient.type === category
+            ).map(
+              ingredient => (
+                <Card 
+                  key={ingredient._id} 
+                  ingredient={ingredient} 
+                  count={countIngredient(ingredient)}
+                />
+              )
             )
-          )
-        }
-      </ul>
-    </>
-  );
-};
+          }
+        </ul>
+      </div>
+    );    
+  }
+);
 
 Gallery.propTypes = {
-  id: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-  addToCartHandler: PropTypes.func.isRequired,
-  cardClickHandler: PropTypes.func.isRequired,
-  ingredients: PropTypes.arrayOf(
-    PropTypes.shape(ingredientPropType)
-  ).isRequired
+  category: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired
 };
 
 export default Gallery;

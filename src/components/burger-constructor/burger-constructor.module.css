@@ -1,15 +1,25 @@
 .constructor {
-  composes: pl-4 from global;
   display: grid;
   grid-template-rows: minmax(0, 1fr) auto;
   gap: 40px;
+  width: 600px;
+}
+
+.shadowWrapper {
+  composes: pl-4 pt-4 pb-4 from global;
+  border-radius: 40px;
+}
+
+.welcomingShadow {
+  box-shadow: 0px 0px 40px #4C4CFF; 
 }
 
 .content {
   composes: ul from global;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-auto-rows: min-content 1fr min-content;
   gap: 16px;
+  height: 100%;  
 }
 
 .scrollableContentContainer {

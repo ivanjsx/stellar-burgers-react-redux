@@ -1,136 +1,146 @@
 // libraries
 import React from "react";
-import PropTypes from "prop-types";
+import { useDrop } from "react-dnd";
+import { useDispatch, useSelector } from "react-redux";
 
 // components
-import { TopRow } from "./row/row";
-import { BottomRow } from "./row/row";
-import { MiddleRow } from "./row/row";
+import { BunRow } from "./bun-row/bun-row";
+import { ToppingRow } from "./topping-row/topping-row";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components"
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components"
 
 // styles
 import styles from "./burger-constructor.module.css";
 
-// utils
-import { getRandomElement } from "../../utils/functions";
-import { getNRandomElements } from "../../utils/functions";
-import { ingredientPropType } from "../../utils/prop-types";
-
 // constants
 import { BUNS_IN_BURGER_COUNT } from "../../utils/constants";
-import { CHOSEN_INGREDIENTS_COUNT } from "../../utils/constants";
+
+// actions
+import { openModalInOrderMode } from "../../services/modal-slice";
+import { 
+  emptyCart, 
+  setChosenBun, 
+  removeTopping, 
+  addTopping, 
+  requestOrderPlacement 
+} from "../../services/burger-constructor-slice";
 
 
 
-function BurgerConstructor({ cart, orderClickHandler }) {
-
-  // значения будут браться из пропсов после того как
-  // реализуется функционал добавления в корзину
-  const [chosenBun, setChosenBun] = React.useState(null);
-  const [chosenIngredients, setChosenIngredients] = React.useState([]);
-
-  // функция будет удалена после того как 
-  // реализуется функционал добавления в корзину
-  function chooseBun() {
-    return getRandomElement(
-      cart.filter(
-        ingredient => ingredient.type === "bun"
+function BurgerConstructor() {
+  
+  const dispatch = useDispatch();
+  const { chosenBun, chosenToppings, canPlaceOrder, placedOrder } = useSelector(state => state.burgerConstructor);
+  
+  const [{ canDrop }, dropTargetRef] = useDrop(
+    {
+      accept: "ingredient",
+      drop(item) {
+        if (item.type === "bun") {
+          dispatch(setChosenBun(item));
+        } else {
+          dispatch(addTopping(item));
+        };
+      },
+      collect: monitor => (
+        {
+          canDrop: monitor.canDrop()
+        }
       )
-    );
-  };
-
-  // функция будет удалена после того как 
-  // реализуется функционал добавления в корзину  
-  function chooseIngredients() {
-    return getNRandomElements(
-      cart.filter(
-        ingredient => ingredient.type !== "bun"
-      ),
-      CHOSEN_INGREDIENTS_COUNT
-    );
-  };
-
-  // значения будут браться из пропсов после того как
-  // реализуется функционал добавления в корзину  
-  React.useEffect(
-    () => {
-      setChosenBun(chooseBun());
-      setChosenIngredients(chooseIngredients());
-    },
-    []
+    }
   );
-
-  // функция будет вынесена в родительский компонент после того как
-  // реализуется функционал добавления в корзину
-  function deleteIngredient(index) {
-    return () => {
-      setChosenIngredients(
-        chosenIngredients.toSpliced(index, 1)
-      );
-    };
-  }; 
-
-  function computeTotalPrice() {
-    const result = chosenBun ? chosenBun.price * BUNS_IN_BURGER_COUNT : 0;
-    if (chosenIngredients.length) {
-      return chosenIngredients.reduce(
-        (accumulator, current) => accumulator + current.price, result
-      );
-    };
-    return result;
-  };
-
+  
+  const totalPrice = React.useMemo(
+    () => {
+      const outcome = chosenBun 
+                      ? chosenBun.price * BUNS_IN_BURGER_COUNT 
+                      : 0;
+      return chosenToppings.reduce(
+        (accumulator, current) => accumulator + current.price, outcome
+      );    
+    },
+    [chosenBun, chosenToppings]
+  );
+  
+  const placeOrder = React.useCallback(
+    () => {
+      if (canPlaceOrder) {
+        dispatch(
+          requestOrderPlacement(
+            [chosenBun, ...chosenToppings].map(
+              ingredient => ingredient._id
+            )
+          )
+        ).then(
+          () => {
+            dispatch(openModalInOrderMode(placedOrder));
+          }
+        ).then(
+          () => {
+            dispatch(emptyCart());
+          }
+        );
+      };
+    },
+    [canPlaceOrder, chosenBun, chosenToppings, placedOrder]
+  );
+  
   return (
     <section className={styles.constructor}>
-      <ul className={styles.content}>
-
-        {chosenBun && <TopRow bun={chosenBun}/> }
-        
-        <li className={styles.scrollableContentContainer}>
-          <ul className={styles.scrollableContent}>
-            {
-              chosenIngredients.length && 
-              chosenIngredients.map(
-                (ingredient, index) => (
-                  <MiddleRow 
-                    key={index}
-                    ingredient={ingredient} 
-                    deleteHandler={deleteIngredient(index)}
-                  />
-                )
-              )
-            }
-          </ul>
-        </li>
-        
-        {chosenBun && <BottomRow bun={chosenBun} />}
-      
-      </ul>
+      <div 
+        className={`${styles.shadowWrapper} ${canDrop ? styles.welcomingShadow : ""}`}
+        ref={dropTargetRef}
+      >
+        <ul 
+          className={styles.content} 
+        >
+          
+          {chosenBun && <BunRow type="top"/>}
+          {
+            chosenToppings.length > 0 && 
+            <li className={styles.scrollableContentContainer}>
+              <ul className={styles.scrollableContent}>
+                {
+                  chosenToppings.map(
+                    (topping, index) => (
+                      <ToppingRow 
+                        key={topping._uuidv4}
+                        index={index}
+                        topping={topping} 
+                        deleteHandler={
+                          () => {
+                            dispatch(removeTopping(index));
+                          }
+                        }
+                      />
+                    )
+                  )
+                }
+              </ul>
+            </li>
+          }
+          {chosenBun && <BunRow type="bottom"/>}
+          
+        </ul>
+      </div>
       
       <div className={styles.summary}>
         <p className={styles.price}>
-          {computeTotalPrice()} <CurrencyIcon type="primary" />
+          {totalPrice} <CurrencyIcon type="primary" />
         </p>        
         <Button 
-          htmlType="button" 
-          type="primary" 
           size="large" 
-          onClick={orderClickHandler}
+          type="primary" 
+          htmlType="button" 
+          onClick={placeOrder}
+          disabled={!canPlaceOrder}
         >
           Оформить заказ
         </Button>   
       </div>
-    
+      
     </section>
   );
-};
-
-BurgerConstructor.propTypes = {
-  cart: PropTypes.arrayOf(
-    PropTypes.shape(ingredientPropType)
-  ).isRequired,
-  orderClickHandler: PropTypes.func.isRequired
 };
 
 export default React.memo(BurgerConstructor);

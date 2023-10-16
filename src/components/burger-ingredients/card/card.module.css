@@ -2,6 +2,10 @@
   position: relative;
 }
 
+.isDragging {
+  opacity: 0;
+}
+
 .card {
   margin: 0;
   display: flex;

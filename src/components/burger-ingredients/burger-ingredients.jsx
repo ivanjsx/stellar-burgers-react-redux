@@ -1,6 +1,5 @@
 // libraries
 import React from "react";
-import PropTypes from "prop-types";
 
 // components
 import TabBar from "./tab-bar/tab-bar";
@@ -9,60 +8,43 @@ import Gallery from "./gallery/gallery";
 // styles
 import styles from "./burger-ingredients.module.css";
 
-// utils
-import { ingredientPropType } from "../../utils/prop-types";
 
 
-
-function BurgerIngredients({ available, addToCartHandler, cardClickHandler }) {
+function BurgerIngredients() {  
+  
+  const [activeTab, setActiveTab] = React.useState("bun");
+  const sectionRef = React.useRef();
+  const bunsRef = React.useRef();
+  const saucesRef = React.useRef();
+  
+  const handleScroll = React.useCallback(
+    () => {
+      const bunsHeight = bunsRef.current.clientHeight;
+      const saucesHeight = saucesRef.current.clientHeight;
+      if (sectionRef.current.scrollTop <= bunsHeight) {
+        setActiveTab("bun");
+      } else if (sectionRef.current.scrollTop <= bunsHeight + saucesHeight) {
+        setActiveTab("sauce");
+      } else {
+        setActiveTab("main");
+      };
+    },
+    [sectionRef, bunsRef, saucesRef]
+  );
+  
   return (
     <section className={styles.ingredients}>
-      <TabBar />
-      <div className={styles.content}>
-        <Gallery 
-          id="bun"
-          title="Булки"
-          addToCartHandler={addToCartHandler}
-          cardClickHandler={cardClickHandler}
-          ingredients={
-            available.filter(
-              ingredient => ingredient.type === "bun"
-            )
-          }
-        />
-        <Gallery 
-          id="sauce"
-          title="Соусы"   
-          addToCartHandler={addToCartHandler}
-          cardClickHandler={cardClickHandler}
-          ingredients={
-            available.filter(
-              ingredient => ingredient.type === "sauce"
-            )
-          }
-        />
-        <Gallery 
-          id="main"
-          title="Начинки"     
-          addToCartHandler={addToCartHandler}
-          cardClickHandler={cardClickHandler}
-          ingredients={
-            available.filter(
-              ingredient => ingredient.type === "main"
-            )
-          }
-        />            
+      
+      <TabBar activeTab={activeTab} setActiveTab={setActiveTab} />
+      
+      <div className={styles.content} ref={sectionRef} onScroll={handleScroll}>
+        <Gallery category="bun" title="Булки" ref={bunsRef} />
+        <Gallery category="sauce" title="Соусы" ref={saucesRef} />
+        <Gallery category="main" title="Начинки" />            
       </div>
+      
     </section>
   );
-};
-
-BurgerIngredients.propTypes = {
-  available: PropTypes.arrayOf(
-    PropTypes.shape(ingredientPropType)
-  ).isRequired,
-  addToCartHandler: PropTypes.func.isRequired,
-  cardClickHandler: PropTypes.func.isRequired
 };
 
 export default React.memo(BurgerIngredients);

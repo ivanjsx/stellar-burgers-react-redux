@@ -1,0 +1,7 @@
+.row {
+  composes: pl-8 pr-4 from global;
+}
+
+.stickToBottom {
+  align-self: flex-end;
+}

@@ -1,9 +1,0 @@
-.lockedRow {
-  composes: pl-8 pr-4 from global;
-}
-
-.freeRow {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
