@@ -1,6 +1,6 @@
 # Учебный проект: Stellar Burgers 
 
-Доступен по адресу https://dinosaurivan.github.io/react-stellar-burger/
+Доступен для просмотра по адресу https://dinosaurivan.github.io/react-stellar-burger/
 
 ### Описание
 Выполнен в рамках изучения технологий **React** и **Redux**.
