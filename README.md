@@ -1,5 +1,7 @@
 # Учебный проект: Stellar Burgers 
 
+Доступен по адресу https://dinosaurivan.github.io/react-stellar-burger/
+
 ### Описание
 Выполнен в рамках изучения технологий **React** и **Redux**.
 
@@ -30,5 +32,4 @@
 - Webpack
 
 ### Автор
-Ваня Шанин
-https://t.me/justicewisdom/
+[Ваня Шанин](https://t.me/justicewisdom/)
