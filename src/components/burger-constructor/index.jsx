@@ -4,8 +4,8 @@ import { useDrop } from "react-dnd";
 import { useDispatch, useSelector } from "react-redux";
 
 // components
-import { BunRow } from "./bun-row";
-import { ToppingRow } from "./topping-row";
+import BunRow from "./bun-row";
+import ToppingRow from "./topping-row";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components"
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components"
 

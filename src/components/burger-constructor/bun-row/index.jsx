@@ -32,4 +32,4 @@ BunRow.propTypes = {
   type: PropTypes.string.isRequired
 };
 
-export { BunRow };
+export default BunRow;

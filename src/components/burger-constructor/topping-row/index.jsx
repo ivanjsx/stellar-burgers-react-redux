@@ -102,4 +102,4 @@ ToppingRow.propTypes = {
   deleteHandler: PropTypes.func.isRequired
 };
 
-export { ToppingRow };
+export default ToppingRow;
