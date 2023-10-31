@@ -5,18 +5,18 @@ import { useSelector, useDispatch } from "react-redux";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
 // components
-import Modal from "../modal/modal";
-import AppHeader from "../app-header/app-header";
-import OrderDetails from "../modal/order-details/order-details";
-import BurgerIngredients from "../burger-ingredients/burger-ingredients";
-import BurgerConstructor from "../burger-constructor/burger-constructor";
-import IngredientDetails from "../modal/ingredient-details/ingredient-details";
+import Modal from "./modal";
+import AppHeader from "./app-header";
+import OrderDetails from "./modal/order-details";
+import BurgerIngredients from "./burger-ingredients";
+import BurgerConstructor from "./burger-constructor";
+import IngredientDetails from "./modal/ingredient-details";
 
 // styles
 import styles from "./app.module.css";
 
 // actions
-import { requestAvailableIngredientsStock } from "../../services/burger-ingredients-slice";
+import { requestAvailableIngredientsStock } from "../services/burger-ingredients-slice";
 
 
 
