@@ -2,7 +2,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 // utils
-import request from "../utils/request";
+import request from "../api/request";
 
 
 
