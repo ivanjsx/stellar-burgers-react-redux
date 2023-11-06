@@ -1,70 +1,76 @@
 // libraries
-import React from "react";
-import { DndProvider } from "react-dnd";
-import { useSelector, useDispatch } from "react-redux";
-import { HTML5Backend } from "react-dnd-html5-backend";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 // components
-import Modal from "./modal";
-import AppHeader from "./app-header";
-import OrderDetails from "./modal/order-details";
-import BurgerIngredients from "./burger-ingredients";
-import BurgerConstructor from "./burger-constructor";
-import IngredientDetails from "./modal/ingredient-details";
+import { ProtectedRouteElement } from "./protected-route-element"
 
-// styles
-import styles from "./app.module.css";
+// layouts
+import { RootLayout } from "../layouts";
 
-// actions
-import { requestAvailableIngredientsStock } from "../services/burger-ingredients-slice";
+// pages
+import { 
+  HomePage,
+  LoginPage,
+  ProfilePage,
+  RegisterPage,
+  IngredientPage,
+  ResetPasswordPage,
+  ForgotPasswordPage,
+} from "../pages";
 
 
 
 function App() {
   
-  const dispatch = useDispatch();
-  
-  const { modalMode, modalIsVisible } = useSelector(
-    state => state.modal
-  );
-  const { errorRequestingIngredients, pendingRequestingIngredients } = useSelector(
-    state => state.burgerIngredients
-  );  
-  
-  React.useEffect(
-    () => {
-      dispatch(requestAvailableIngredientsStock());
-    },
-    []
-  );
-  
+
   return (
-    <section className={styles.app}>
-      <AppHeader />
-      <h1 className={styles.heading}>
-        Соберите бургер
-      </h1>
-      {
-        !errorRequestingIngredients &&
-        !pendingRequestingIngredients &&
-        <main className={styles.main}>
-          <DndProvider backend={HTML5Backend}>
-            <BurgerIngredients />
-            <BurgerConstructor />
-          </DndProvider>
-        </main>         
-      }
-      {
-        modalIsVisible && 
-        <Modal>
-          {
-            modalMode === "order"
-            ? <OrderDetails />
-            : <IngredientDetails />
-          }
-        </Modal>
-      }
-    </section>
+    <Router>
+      <Routes>
+        <Route 
+          index 
+          element={<RootLayout />} 
+        >
+          <Route 
+            index 
+            element={<HomePage />} 
+          />
+          <Route
+            path="login" 
+            element={
+              <ProtectedRouteElement element={<LoginPage />} />
+            }
+          />
+          <Route 
+            path="profile" 
+            element={
+              <ProtectedRouteElement element={<ProfilePage />} />
+            } 
+          />
+          <Route 
+            path="register" 
+            element={
+              <ProtectedRouteElement element={<RegisterPage />} />
+            }             
+          />
+          <Route 
+            path="reset-password" 
+            element={
+              <ProtectedRouteElement element={<ResetPasswordPage />} />
+            }             
+          />
+          <Route 
+            path="forgot-password" 
+            element={
+              <ProtectedRouteElement element={<ForgotPasswordPage />} />
+            }             
+          />
+          <Route 
+            path="ingredients/:ingredientId" 
+            element={<IngredientPage />} 
+          />
+        </Route>
+      </Routes>
+    </Router>
   );
 };
 
