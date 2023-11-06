@@ -2,7 +2,7 @@
 import React from "react";
 
 // components
-import MenuItem from "./menu-item";
+import MenuLink from "./menu-link";
 import { Logo } from "@ya.praktikum/react-developer-burger-ui-components";
 import { ListIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { BurgerIcon } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -18,7 +18,7 @@ const MemoizedLogo = React.memo(Logo);
 
 function AppHeader() {
   
-  const [activeTab, setActiveTab] = React.useState("constructor");
+  const [activeTab, setActiveTab] = React.useState("/");
   
   return (
     <header className={styles.header}>
@@ -27,20 +27,20 @@ function AppHeader() {
         <nav className={styles.menuArea}>
           <ul className={styles.menu}>
             
-            <MenuItem 
+            <MenuLink 
+              path="/"
               text="Конструктор"
-              value="constructor"
               IconComponent={BurgerIcon}
               setActiveTab={setActiveTab}
-              active={activeTab === "constructor"}
+              active={activeTab === "/"}
             />
             
-            <MenuItem 
+            <MenuLink 
+              path="/feed"
               text="Лента&nbsp;заказов"
-              value="feed"            
               IconComponent={ListIcon}
               setActiveTab={setActiveTab}
-              active={activeTab === "feed"}
+              active={activeTab === "/feed"}
             />
             
           </ul>
@@ -53,12 +53,12 @@ function AppHeader() {
         <nav className={styles.profileArea}>
           <ul className={styles.profile}>
             
-            <MenuItem 
+            <MenuLink 
+              path="/profile"
               text="Личный&nbsp;кабинет"
-              value="profile"
               IconComponent={ProfileIcon}
               setActiveTab={setActiveTab}
-              active={activeTab === "profile"}
+              active={activeTab === "/profile"}
             />          
             
           </ul>

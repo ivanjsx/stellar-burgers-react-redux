@@ -1,13 +1,14 @@
 // libraries
 import React from "react";
 import PropTypes from "prop-types";
+import { NavLink } from "react-router-dom";
 
 // styles
-import styles from "./menu-item.module.css";
+import styles from "./menu-link.module.css";
 
 
 
-function MenuItem({ text, value, IconComponent, setActiveTab, active }) {
+function MenuLink({ path, text, IconComponent, setActiveTab, active }) {
   
   const { iconType, textClass } = React.useMemo(
     () => {
@@ -21,27 +22,27 @@ function MenuItem({ text, value, IconComponent, setActiveTab, active }) {
 
   return (
     <li>
-      <button 
+      <NavLink 
         className={styles.menuLink} 
         onClick={
           () => {
-            setActiveTab(value);
+            setActiveTab(path);
           }
         }
       >
         <IconComponent type={iconType} />
         <p className={textClass}>{text}</p> 
-      </button>
+      </NavLink>
     </li>  
   );
 };
 
-MenuItem.propTypes = {
+MenuLink.propTypes = {
+  path: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
   IconComponent: PropTypes.elementType.isRequired,
   setActiveTab: PropTypes.func.isRequired,
   active: PropTypes.bool.isRequired
 };
 
-export default MenuItem;
+export default MenuLink;
