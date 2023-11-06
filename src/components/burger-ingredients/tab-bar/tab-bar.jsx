@@ -2,7 +2,7 @@
 import PropTypes from "prop-types";
 
 // components
-import ActionTab from "./action-tab";
+import ActionTab from "./action-tab/action-tab";
 
 // styles
 import styles from "./tab-bar.module.css";

@@ -2,8 +2,8 @@
 import React from "react";
 
 // components
-import TabBar from "./tab-bar";
-import Gallery from "./gallery";
+import TabBar from "./tab-bar/tab-bar";
+import Gallery from "./gallery/gallery";
 
 // styles
 import styles from "./burger-ingredients.module.css";

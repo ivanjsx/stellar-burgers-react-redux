@@ -2,7 +2,7 @@
 import { useSelector } from "react-redux";
 
 // components
-import Nutrition from "./nutrition";
+import Nutrition from "./nutrition/nutrition";
 
 // styles
 import styles from "./ingredient-details.module.css";

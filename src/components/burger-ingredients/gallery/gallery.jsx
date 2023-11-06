@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 
 // components
-import Card from "../card";
+import Card from "../card/card";
 
 // constants
 import { BUNS_IN_BURGER_COUNT } from "../../../utils/constants";

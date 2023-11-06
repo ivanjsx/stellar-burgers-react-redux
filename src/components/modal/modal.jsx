@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 
 // components
-import ModalOverlay from "./modal-overlay";
+import ModalOverlay from "./modal-overlay/modal-overlay";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
 // styles
