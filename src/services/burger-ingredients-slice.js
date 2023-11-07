@@ -2,14 +2,14 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 // utils
-import request from "../api/request";
+import { getRequest } from "../api/request";
 
 
 
 export const requestAvailableIngredientsStock = createAsyncThunk(
   "burgerIngredients/requestAvailableIngredientsStock",
   () => {
-    return request(
+    return getRequest(
       "ingredients/"
     ).then(
       response => response.data

@@ -3,23 +3,15 @@ import { v4 as uuidv4 } from "uuid";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 // utils
-import request from "../api/request";
+import { postRequest } from "../api/request";
 
 
 
 export const requestOrderPlacement = createAsyncThunk(
   "burgerConstructor/requestOrderPlacement",
   arg => {
-    return request(
-      "orders/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },        
-        body: JSON.stringify(
-          { ingredients: arg }
-        )
-      }
+    return postRequest(
+      "orders/", { ingredients: arg }
     );
   }
 );
