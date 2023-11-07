@@ -23,6 +23,7 @@ function MenuLink({ path, text, IconComponent, setActiveTab, active }) {
   return (
     <li>
       <NavLink 
+        to={path}
         className={styles.menuLink} 
         onClick={
           () => {

@@ -2,6 +2,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
+import { BrowserRouter as Router } from "react-router-dom";
 
 // components
 import App from "./components/app";
@@ -17,13 +18,15 @@ import { store } from "./services/store"
 
 ReactDOM.render(
   (
-    <React.StrictMode>
-      <ErrorBoundary>
+  <React.StrictMode>
+    <ErrorBoundary>
+      <Router>
         <Provider store={store}>
           <App />
         </Provider>,
-      </ErrorBoundary>      
-    </React.StrictMode>
+      </Router> 
+    </ErrorBoundary>      
+  </React.StrictMode>
   ),
   document.querySelector("#root")
 );
