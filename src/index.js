@@ -18,15 +18,15 @@ import { store } from "./services/store"
 
 ReactDOM.render(
   (
-  <React.StrictMode>
-    <ErrorBoundary>
-      <Router>
-        <Provider store={store}>
-          <App />
-        </Provider>,
-      </Router> 
-    </ErrorBoundary>      
-  </React.StrictMode>
+    <React.StrictMode>
+      <ErrorBoundary>
+        <Router>
+          <Provider store={store}>
+            <App />
+          </Provider>
+        </Router> 
+      </ErrorBoundary>      
+    </React.StrictMode>
   ),
   document.querySelector("#root")
 );

@@ -95,7 +95,7 @@ function BurgerConstructor() {
           className={styles.content} 
         >
           
-          {chosenBun && <BunRow type="top"/>}
+          {chosenBun && <BunRow type="top" />}
           {
             chosenToppings.length > 0 && 
             <li className={styles.scrollableContentContainer}>
@@ -119,7 +119,7 @@ function BurgerConstructor() {
               </ul>
             </li>
           }
-          {chosenBun && <BunRow type="bottom"/>}
+          {chosenBun && <BunRow type="bottom" />}
           
         </ul>
       </div>

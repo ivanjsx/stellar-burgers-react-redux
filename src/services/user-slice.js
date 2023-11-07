@@ -50,9 +50,9 @@ export const loginUser = createAsyncThunk(
 
 export const createUser = createAsyncThunk(
   "user/createUser",
-  ({ email, password, name }) => {
+  ({ name, email, password }) => {
     return postRequest(
-      "auth/register/", { email, password, name }
+      "auth/register/", { name, email, password }
     ).then(
       response => {
         localStorage.setItem("accessToken", response.accessToken);
@@ -179,4 +179,4 @@ export const userSlice = createSlice(
   }
 );
 
-export const { setAuthChecked, setUser } = userSlice.actions;
+export const { resetUser } = userSlice.actions;
