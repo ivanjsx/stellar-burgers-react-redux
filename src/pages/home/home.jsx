@@ -39,7 +39,7 @@ function HomePage() {
   );
   
   return (
-    <div className={styles.container}>
+    <>
       <h1 className={styles.heading}>
         Соберите бургер
       </h1>        
@@ -63,7 +63,7 @@ function HomePage() {
           }
         </Modal>
       }
-    </div>
+    </>
   );
 };
 

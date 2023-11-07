@@ -13,7 +13,7 @@ function RootLayout() {
   return (
     <div className={styles.page}>
       <AppHeader />
-      <main>
+      <main className={styles.main}>
         <Outlet />
       </main>              
     </div>
