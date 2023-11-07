@@ -5,11 +5,11 @@ import { useSelector, useDispatch } from "react-redux";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
 // components
-import Modal from "../../components/modal";
-import OrderDetails from "../../components/modal/order-details";
-import BurgerIngredients from "../../components/burger-ingredients";
-import BurgerConstructor from "../../components/burger-constructor";
-import IngredientDetails from "../../components/modal/ingredient-details";
+import Modal from "../../components/modal/modal";
+import OrderDetails from "../../components/modal/order-details/order-details";
+import BurgerIngredients from "../../components/burger-ingredients/burger-ingredients";
+import BurgerConstructor from "../../components/burger-constructor/burger-constructor";
+import IngredientDetails from "../../components/modal/ingredient-details/ingredient-details";
 
 // styles
 import styles from "./home.module.css";
@@ -34,6 +34,7 @@ function HomePage() {
     () => {
       dispatch(requestAvailableIngredientsStock());
     },
+    // eslint-disable-next-line
     []
   );
   

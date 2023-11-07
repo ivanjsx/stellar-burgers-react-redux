@@ -9,7 +9,7 @@ import styles from "./modal-overlay.module.css";
 
 function ModalOverlay({ closePopup, children }) {
   
-  const modalIsVisible = useSelector(state => state.modal.modalIsVisible);  
+  const { modalIsVisible } = useSelector(state => state.modal);  
   
   function handleOverlayClick(event) {
     if (event.target === event.currentTarget) {

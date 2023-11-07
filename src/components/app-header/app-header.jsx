@@ -2,7 +2,7 @@
 import React from "react";
 
 // components
-import MenuLink from "./menu-link";
+import MenuLink from "./menu-link/menu-link";
 import { Logo } from "@ya.praktikum/react-developer-burger-ui-components";
 import { ListIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { BurgerIcon } from "@ya.praktikum/react-developer-burger-ui-components";

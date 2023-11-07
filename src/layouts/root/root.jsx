@@ -2,7 +2,7 @@
 import { Outlet } from "react-router-dom";
 
 // components
-import AppHeader from "../../components/app-header";
+import AppHeader from "../../components/app-header/app-header";
 
 // styles
 import styles from "./root.module.css";
