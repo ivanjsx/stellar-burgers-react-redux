@@ -11,6 +11,13 @@ import { ProfileIcon } from "@ya.praktikum/react-developer-burger-ui-components"
 // styles
 import styles from "./app-header.module.css";
 
+// constants
+import { 
+  HOME_PAGE_PATH,
+  FEED_PAGE_PATH,
+  PROFILE_PAGE_PATH
+} from "../../utils/constants";
+
 // memoization
 const MemoizedLogo = React.memo(Logo);
 
@@ -18,7 +25,7 @@ const MemoizedLogo = React.memo(Logo);
 
 function AppHeader() {
   
-  const [activeTab, setActiveTab] = React.useState("/");
+  const [activeTab, setActiveTab] = React.useState(HOME_PAGE_PATH);
   
   return (
     <header className={styles.header}>
@@ -28,19 +35,19 @@ function AppHeader() {
           <ul className={styles.menu}>
             
             <MenuLink 
-              path="/"
+              path={HOME_PAGE_PATH}
               text="Конструктор"
               IconComponent={BurgerIcon}
               setActiveTab={setActiveTab}
-              active={activeTab === "/"}
+              active={activeTab === HOME_PAGE_PATH}
             />
             
             <MenuLink 
-              path="/feed"
+              path={FEED_PAGE_PATH}
               text="Лента&nbsp;заказов"
               IconComponent={ListIcon}
               setActiveTab={setActiveTab}
-              active={activeTab === "/feed"}
+              active={activeTab === FEED_PAGE_PATH}
             />
             
           </ul>
@@ -54,11 +61,11 @@ function AppHeader() {
           <ul className={styles.profile}>
             
             <MenuLink 
-              path="/profile"
+              path={PROFILE_PAGE_PATH}
               text="Личный&nbsp;кабинет"
               IconComponent={ProfileIcon}
               setActiveTab={setActiveTab}
-              active={activeTab === "/profile"}
+              active={activeTab === PROFILE_PAGE_PATH}
             />          
             
           </ul>

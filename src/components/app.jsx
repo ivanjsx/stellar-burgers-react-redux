@@ -22,6 +22,16 @@ import {
   ForgotPasswordPage,
 } from "../pages";
 
+// constants 
+import { 
+  HOME_PAGE_PATH,
+  LOGIN_PAGE_PATH,
+  PROFILE_PAGE_PATH,
+  REGISTER_PAGE_PATH,
+  RESET_PASSWORD_PAGE_PATH,
+  FORGOT_PASSWORD_PAGE_PATH
+} from "../utils/constants";
+
 
 
 function App() {
@@ -37,7 +47,7 @@ function App() {
   return (
     <Routes>
       <Route 
-        path="/" 
+        path={HOME_PAGE_PATH}
         element={<RootLayout />} 
       >
         <Route 
@@ -49,35 +59,35 @@ function App() {
           element={<IngredientPage />} 
         />        
         <Route 
-          path="profile" 
+          path={PROFILE_PAGE_PATH}
           element={
             <ProfilePage />
             // <AuthorizedAccessOnly element={<ProfilePage />} />
           } 
         />
         <Route
-          path="login" 
+          path={LOGIN_PAGE_PATH}
           element={
             <LoginPage />
             // <UnauthorizedAccessOnly element={<LoginPage />} />
           }
         />
         <Route 
-          path="register" 
+          path={REGISTER_PAGE_PATH}
           element={
             <RegisterPage />
             // <UnauthorizedAccessOnly element={<RegisterPage />} />
           }             
         />
         <Route 
-          path="reset-password" 
+          path={RESET_PASSWORD_PAGE_PATH}
           element={
             <ResetPasswordPage />
             // <UnauthorizedAccessOnly element={<ResetPasswordPage />} />
           }             
         />
         <Route 
-          path="forgot-password" 
+          path={FORGOT_PASSWORD_PAGE_PATH}
           element={
             <ForgotPasswordPage />
             // <UnauthorizedAccessOnly element={<ForgotPasswordPage />} />
