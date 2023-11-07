@@ -95,6 +95,20 @@ export const updateAccessToken = createAsyncThunk(
   }
 );
 
+export const resetPassword = createAsyncThunk(
+  "user/resetPassword",
+  ({ email }) => {
+    return null;
+  }
+);
+
+export const setNewPassword = createAsyncThunk(
+  "user/setNewPassword",
+  ({ password, securityCode }) => {
+    return null;
+  }
+);
+
 
 
 export const userSlice = createSlice(
