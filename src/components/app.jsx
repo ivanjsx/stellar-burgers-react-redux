@@ -13,10 +13,10 @@ import RootLayout from "../layouts/root/root";
 // pages
 import { 
   HomePage,
+  ErrorPage,
   LoginPage,
   ProfilePage,
   RegisterPage,
-  NotFoundPage,
   IngredientPage,
   ResetPasswordPage,
   ForgotPasswordPage,
@@ -96,7 +96,7 @@ function App() {
       </Route>
       <Route 
         path="*" 
-        element={<NotFoundPage />}
+          element={<ErrorPage title={"Упс! Такой страницы нет"} showTips={true} />}
       />
     </Routes>
   );

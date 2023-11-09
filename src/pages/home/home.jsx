@@ -11,6 +11,9 @@ import BurgerIngredients from "../../components/burger-ingredients/burger-ingred
 import BurgerConstructor from "../../components/burger-constructor/burger-constructor";
 import IngredientDetails from "../../components/modal/ingredient-details/ingredient-details";
 
+// pages
+import { LoadingPage, ErrorPage } from "../../pages";
+
 // styles
 import styles from "./home.module.css";
 
@@ -38,21 +41,31 @@ function HomePage() {
     []
   );
   
+  const content = pendingRequestingIngredients 
+                  ? (
+                    <LoadingPage />
+                  ) : (
+                    errorRequestingIngredients
+                    ? (
+                      <ErrorPage title={"Что-то пошло не так!"} showTips={true} />
+                    ) : (
+                      <>
+                        <h1 className={styles.heading}>
+                          Соберите бургер
+                        </h1>            
+                        <div className={styles.content}>
+                          <DndProvider backend={HTML5Backend}>
+                            <BurgerIngredients />
+                            <BurgerConstructor />
+                          </DndProvider>
+                        </div>           
+                      </>
+                    )
+                  );
+  
   return (
     <>
-      <h1 className={styles.heading}>
-        Соберите бургер
-      </h1>        
-      {
-        !errorRequestingIngredients &&
-        !pendingRequestingIngredients &&
-        <div className={styles.content}>
-          <DndProvider backend={HTML5Backend}>
-            <BurgerIngredients />
-            <BurgerConstructor />
-          </DndProvider>
-        </div>         
-      }
+      {content}
       {
         modalIsVisible && 
         <Modal>
@@ -62,7 +75,7 @@ function HomePage() {
             : <IngredientDetails />
           }
         </Modal>
-      }
+      }    
     </>
   );
 };
