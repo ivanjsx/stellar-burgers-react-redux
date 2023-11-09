@@ -3,8 +3,8 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Routes, Route } from "react-router-dom";
 
-
 // components
+import Logout from "./logout/logout";
 import AuthorizedAccessOnly from "./authorized-access-only/authorized-access-only";
 import UnauthorizedAccessOnly from "./unauthorized-access-only/unauthorized-access-only";
 
@@ -14,8 +14,11 @@ import { RootLayout, AccountLayout } from "../layouts";
 // pages
 import { 
   HomePage,
+  FeedPage,  
   ErrorPage,
   LoginPage,
+  OrderPage,
+  HistoryPage,
   ProfilePage,
   RegisterPage,
   IngredientPage,
@@ -67,7 +70,7 @@ function App() {
         <Route 
           path={INGREDIENT_PAGE_RELATIVE_PATH}
           element={<IngredientPage />} 
-        />
+        />        
         <Route
           path={LOGIN_PAGE_RELATIVE_PATH}
           element={
@@ -96,11 +99,48 @@ function App() {
             // <UnauthorizedAccessOnly element={<ForgotPasswordPage />} />
           }
         />
-      </Route>
-      <Route 
-        path="*" 
+        <Route
+          path={LOGOUT_PAGE_RELATIVE_PATH}
+          element={
+            <Logout />
+            // <AuthorizedAccessOnly element={<Logout />} />
+          }
+        />                
+        <Route 
+          path={PROFILE_PAGE_RELATIVE_PATH}
+          element={
+            <AccountLayout />
+            // <AuthorizedAccessOnly element={<AccountLayout />} />
+          } 
+        >
+          <Route 
+            index 
+            element={
+              <ProfilePage />
+              // AuthorizedAccessOnly ??
+            } 
+          />          
+          <Route 
+            path={HISTORY_PAGE_RELATIVE_PATH}
+            element={
+              <HistoryPage />
+              // AuthorizedAccessOnly ??
+            } 
+          >
+            <Route 
+              path={ORDER_PAGE_RELATIVE_PATH}
+              element={
+                <OrderPage />
+                // AuthorizedAccessOnly ??
+              }             
+            />
+          </Route>
+        </Route>        
+        <Route 
+          path="*" 
           element={<ErrorPage title={"Упс! Такой страницы нет"} showTips={true} />}
-      />
+        />        
+      </Route>
     </Routes>
   );
 };
