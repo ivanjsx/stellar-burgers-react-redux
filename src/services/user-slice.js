@@ -109,13 +109,30 @@ export const setNewPassword = createAsyncThunk(
   }
 );
 
+export const getUserInfo = createAsyncThunk(
+  "user/getUserInfo",
+  () => {
+    return null;
+  }
+);
 
+export const updateUserInfo = createAsyncThunk(
+  "user/updateUserInfo",
+  () => {
+    return null;
+  }
+);
 
 export const userSlice = createSlice(
   {
     name: "user",
     initialState: {
-      currentUser: null,
+      // currentUser: null,
+      currentUser: {
+        name: "kyle",
+        email: "kyle@smyle.com",
+        password: "42069"
+      },
       // isAuthorized: false,
       errorAuthorizingUser: false,
       pendingAuthorizingUser: false,
