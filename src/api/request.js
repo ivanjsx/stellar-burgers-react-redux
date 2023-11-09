@@ -56,7 +56,7 @@ function postRequest(endpointPath, requestBody, provideToken = false) {
     )
   };
   if (provideToken) {
-    options.headers.authorization = localStorage.getItem("accessToken");
+    options.headers.Authorization = localStorage.getItem("accessToken");
   };
   return refreshingRequest(endpointPath, options);
 };
@@ -72,7 +72,7 @@ function patchRequest(endpointPath, requestBody, provideToken = false) {
     )
   };
   if (provideToken) {
-    options.headers.authorization = localStorage.getItem("accessToken");
+    options.headers.Authorization = localStorage.getItem("accessToken");
   };
   return refreshingRequest(endpointPath, options);
 };

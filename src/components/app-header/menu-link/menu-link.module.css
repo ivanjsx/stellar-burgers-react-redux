@@ -1,4 +1,4 @@
-.menuText {
+.text {
   composes: text text_type_main-default from global;
 }
 
@@ -6,8 +6,9 @@
   composes: text_color_inactive from global;
 }
 
-.menuLink {
+.link {
   composes: pt-4 pb-4 pr-5 pl-5 anchor from global;
+  color: inherit;
   display: flex;
   gap: 8px;
   border-radius: 40px;

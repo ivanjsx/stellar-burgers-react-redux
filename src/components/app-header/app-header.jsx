@@ -1,5 +1,6 @@
 // libraries
 import React from "react";
+import { useLocation } from "react-router-dom";
 
 // components
 import MenuLink from "./menu-link/menu-link";
@@ -24,9 +25,7 @@ const MemoizedLogo = React.memo(Logo);
 
 
 function AppHeader() {
-  
-  const [activeTab, setActiveTab] = React.useState(HOME_PAGE_PATH);
-  
+  const location = useLocation();
   return (
     <header className={styles.header}>
       <div className={styles.container}>
@@ -38,16 +37,14 @@ function AppHeader() {
               path={HOME_PAGE_PATH}
               text="Конструктор"
               IconComponent={BurgerIcon}
-              setActiveTab={setActiveTab}
-              active={activeTab === HOME_PAGE_PATH}
+              active={location.pathname === HOME_PAGE_PATH}
             />
             
             <MenuLink 
               path={FEED_PAGE_PATH}
               text="Лента&nbsp;заказов"
               IconComponent={ListIcon}
-              setActiveTab={setActiveTab}
-              active={activeTab === FEED_PAGE_PATH}
+              active={location.pathname === FEED_PAGE_ABSOLUTE_PATH}
             />
             
           </ul>
@@ -64,8 +61,7 @@ function AppHeader() {
               path={PROFILE_PAGE_PATH}
               text="Личный&nbsp;кабинет"
               IconComponent={ProfileIcon}
-              setActiveTab={setActiveTab}
-              active={activeTab === PROFILE_PAGE_PATH}
+              active={location.pathname.startsWith(PROFILE_PAGE_ABSOLUTE_PATH)}
             />          
             
           </ul>
