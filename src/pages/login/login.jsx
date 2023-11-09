@@ -11,7 +11,7 @@ import { PasswordInput } from "@ya.praktikum/react-developer-burger-ui-component
 import styles from "./login.module.css";
 
 // constants 
-import { REGISTER_PAGE_PATH, FORGOT_PASSWORD_PAGE_PATH } from "../../utils/constants";
+import { REGISTER_PAGE_ABSOLUTE_PATH, FORGOT_PASSWORD_PAGE_ABSOLUTE_PATH } from "../../utils/constants";
 
 // actions
 import { loginUser } from "../../services/user-slice";
@@ -68,13 +68,13 @@ function LoginPage() {
       <div className={styles.tips}>
         <p className={styles.tip}>
           Вы — новый пользователь?&nbsp;
-          <Link to={REGISTER_PAGE_PATH} className={styles.link}>
+          <Link to={REGISTER_PAGE_ABSOLUTE_PATH} className={styles.link}>
             Зарегистрироваться
           </Link>
         </p>
         <p className={styles.tip}>
           Забыли пароль?&nbsp;
-          <Link to={FORGOT_PASSWORD_PAGE_PATH} className={styles.link}>
+          <Link to={FORGOT_PASSWORD_PAGE_ABSOLUTE_PATH} className={styles.link}>
             Восстановить пароль
           </Link>
         </p>

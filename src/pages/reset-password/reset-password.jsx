@@ -11,7 +11,7 @@ import { PasswordInput } from "@ya.praktikum/react-developer-burger-ui-component
 import styles from "./reset-password.module.css";
 
 // constants 
-import { LOGIN_PAGE_PATH } from "../../utils/constants";
+import { LOGIN_PAGE_ABSOLUTE_PATH } from "../../utils/constants";
 
 // actions
 import { setNewPassword } from "../../services/user-slice";
@@ -71,7 +71,7 @@ function ResetPasswordPage() {
       <div className={styles.tips}>
         <p className={styles.tip}>
           Вспомнили пароль?&nbsp;
-          <Link to={LOGIN_PAGE_PATH} className={styles.link}>
+          <Link to={LOGIN_PAGE_ABSOLUTE_PATH} className={styles.link}>
             Войти
           </Link>
         </p>

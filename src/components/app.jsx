@@ -26,11 +26,16 @@ import {
 // constants 
 import { 
   HOME_PAGE_PATH,
-  LOGIN_PAGE_PATH,
-  PROFILE_PAGE_PATH,
-  REGISTER_PAGE_PATH,
-  RESET_PASSWORD_PAGE_PATH,
-  FORGOT_PASSWORD_PAGE_PATH
+  FEED_PAGE_RELATIVE_PATH,
+  LOGIN_PAGE_RELATIVE_PATH,
+  ORDER_PAGE_RELATIVE_PATH,
+  LOGOUT_PAGE_RELATIVE_PATH,
+  PROFILE_PAGE_RELATIVE_PATH,
+  HISTORY_PAGE_RELATIVE_PATH,
+  REGISTER_PAGE_RELATIVE_PATH,
+  INGREDIENT_PAGE_RELATIVE_PATH,
+  RESET_PASSWORD_PAGE_RELATIVE_PATH,
+  FORGOT_PASSWORD_PAGE_RELATIVE_PATH,
 } from "../utils/constants";
 
 
@@ -56,39 +61,36 @@ function App() {
           element={<HomePage />} 
         />
         <Route 
-          path="ingredients/:ingredientId" 
-          element={<IngredientPage />} 
+          path={FEED_PAGE_RELATIVE_PATH} 
+          element={<FeedPage />} 
         />        
         <Route 
-          path={PROFILE_PAGE_PATH}
-          element={
-            <ProfilePage />
-            // <AuthorizedAccessOnly element={<ProfilePage />} />
-          } 
+          path={INGREDIENT_PAGE_RELATIVE_PATH}
+          element={<IngredientPage />} 
         />
         <Route
-          path={LOGIN_PAGE_PATH}
+          path={LOGIN_PAGE_RELATIVE_PATH}
           element={
             <LoginPage />
             // <UnauthorizedAccessOnly element={<LoginPage />} />
           }
         />
         <Route 
-          path={REGISTER_PAGE_PATH}
+          path={REGISTER_PAGE_RELATIVE_PATH}
           element={
             <RegisterPage />
             // <UnauthorizedAccessOnly element={<RegisterPage />} />
           }             
         />
         <Route 
-          path={RESET_PASSWORD_PAGE_PATH}
+          path={RESET_PASSWORD_PAGE_RELATIVE_PATH}
           element={
             <ResetPasswordPage />
             // <UnauthorizedAccessOnly element={<ResetPasswordPage />} />
           }             
         />
         <Route 
-          path={FORGOT_PASSWORD_PAGE_PATH}
+          path={FORGOT_PASSWORD_PAGE_RELATIVE_PATH}
           element={
             <ForgotPasswordPage />
             // <UnauthorizedAccessOnly element={<ForgotPasswordPage />} />

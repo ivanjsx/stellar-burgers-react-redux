@@ -15,8 +15,8 @@ import styles from "./app-header.module.css";
 // constants
 import { 
   HOME_PAGE_PATH,
-  FEED_PAGE_PATH,
-  PROFILE_PAGE_PATH
+  FEED_PAGE_ABSOLUTE_PATH,
+  PROFILE_PAGE_ABSOLUTE_PATH
 } from "../../utils/constants";
 
 // memoization
@@ -41,7 +41,7 @@ function AppHeader() {
             />
             
             <MenuLink 
-              path={FEED_PAGE_PATH}
+              path={FEED_PAGE_ABSOLUTE_PATH}
               text="Лента&nbsp;заказов"
               IconComponent={ListIcon}
               active={location.pathname === FEED_PAGE_ABSOLUTE_PATH}
@@ -58,7 +58,7 @@ function AppHeader() {
           <ul className={styles.profile}>
             
             <MenuLink 
-              path={PROFILE_PAGE_PATH}
+              path={PROFILE_PAGE_ABSOLUTE_PATH}
               text="Личный&nbsp;кабинет"
               IconComponent={ProfileIcon}
               active={location.pathname.startsWith(PROFILE_PAGE_ABSOLUTE_PATH)}

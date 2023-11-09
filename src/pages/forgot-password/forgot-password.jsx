@@ -10,7 +10,7 @@ import { EmailInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./forgot-password.module.css";
 
 // constants 
-import { LOGIN_PAGE_PATH } from "../../utils/constants";
+import { LOGIN_PAGE_ABSOLUTE_PATH } from "../../utils/constants";
 
 // actions
 import { resetPassword } from "../../services/user-slice";
@@ -56,7 +56,7 @@ function ForgotPasswordPage() {
       <div className={styles.tips}>
         <p className={styles.tip}>
           Вспомнили пароль?&nbsp;
-          <Link to={LOGIN_PAGE_PATH} className={styles.link}>
+          <Link to={LOGIN_PAGE_ABSOLUTE_PATH} className={styles.link}>
             Войти
           </Link>
         </p>

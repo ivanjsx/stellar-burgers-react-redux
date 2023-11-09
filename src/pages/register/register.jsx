@@ -12,7 +12,7 @@ import { PasswordInput } from "@ya.praktikum/react-developer-burger-ui-component
 import styles from "./register.module.css";
 
 // constants 
-import { LOGIN_PAGE_PATH } from "../../utils/constants";
+import { LOGIN_PAGE_ABSOLUTE_PATH } from "../../utils/constants";
 
 // actions
 import { createUser } from "../../services/user-slice";
@@ -83,7 +83,7 @@ function RegisterPage() {
       <div className={styles.tips}>
         <p className={styles.tip}>
           Уже зарегистрированы?&nbsp;
-          <Link to={LOGIN_PAGE_PATH} className={styles.link}>
+          <Link to={LOGIN_PAGE_ABSOLUTE_PATH} className={styles.link}>
             Войти
           </Link>
         </p>
