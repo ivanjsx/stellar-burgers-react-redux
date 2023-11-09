@@ -9,7 +9,7 @@ import AuthorizedAccessOnly from "./authorized-access-only/authorized-access-onl
 import UnauthorizedAccessOnly from "./unauthorized-access-only/unauthorized-access-only";
 
 // layouts
-import RootLayout from "../layouts/root/root";
+import { RootLayout, AccountLayout } from "../layouts";
 
 // pages
 import { 
