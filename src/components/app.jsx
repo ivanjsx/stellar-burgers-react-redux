@@ -5,7 +5,8 @@ import { Routes, Route } from "react-router-dom";
 
 
 // components
-import { AuthorizedAccessOnly, UnauthorizedAccessOnly } from "./protected-route/protected-route"
+import AuthorizedAccessOnly from "./authorized-access-only/authorized-access-only";
+import UnauthorizedAccessOnly from "./unauthorized-access-only/unauthorized-access-only";
 
 // layouts
 import RootLayout from "../layouts/root/root";
