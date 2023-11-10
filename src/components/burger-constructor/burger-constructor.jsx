@@ -4,8 +4,10 @@ import { useDrop } from "react-dnd";
 import { useDispatch, useSelector } from "react-redux";
 
 // components
-import BunRow from "./bun-row/bun-row";
-import ToppingRow from "./topping-row/topping-row";
+import Modal from "../modal/modal";
+import BunRow from "../bun-row/bun-row";
+import ToppingRow from "../topping-row/topping-row";
+import OrderDetails from "../order-details/order-details";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components"
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components"
 
@@ -16,7 +18,7 @@ import styles from "./burger-constructor.module.css";
 import { BUNS_IN_BURGER_COUNT } from "../../utils/constants";
 
 // actions
-import { openModalInOrderMode } from "../../services/modal-slice";
+import { openOrderModal } from "../../services/modal-slice";
 import { 
   emptyCart, 
   setChosenBun, 
@@ -30,6 +32,7 @@ import {
 function BurgerConstructor() {
   
   const dispatch = useDispatch();
+  const { modalIsVisible, modalMode } = useSelector(state => state.modal);
   const { chosenBun, chosenToppings, canPlaceOrder, placedOrder } = useSelector(state => state.burgerConstructor);
   
   const [{ canDrop }, dropTargetRef] = useDrop(
@@ -73,7 +76,7 @@ function BurgerConstructor() {
           )
         ).then(
           () => {
-            dispatch(openModalInOrderMode(placedOrder));
+            dispatch(openOrderModal());
           }
         ).then(
           () => {
@@ -86,57 +89,65 @@ function BurgerConstructor() {
   );
   
   return (
-    <section className={styles.constructor}>
-      <div 
-        className={`${styles.shadowWrapper} ${canDrop ? styles.welcomingShadow : ""}`}
-        ref={dropTargetRef}
-      >
+    <>
+      <section className={styles.constructor}>
+        <div 
+          className={`${styles.shadowWrapper} ${canDrop ? styles.welcomingShadow : ""}`}
+          ref={dropTargetRef}
+        >
           <ul className={styles.content}>
-          
-          {chosenBun && <BunRow type="top" />}
-          {
-            chosenToppings.length > 0 && 
-            <li className={styles.scrollableContentContainer}>
-              <ul className={styles.scrollableContent}>
-                {
-                  chosenToppings.map(
-                    (topping, index) => (
-                      <ToppingRow 
-                        key={topping._uuidv4}
-                        index={index}
-                        topping={topping} 
-                        deleteHandler={
-                          () => {
-                            dispatch(removeTopping(index));
+            
+            {chosenBun && <BunRow type="top" />}
+            {
+              chosenToppings.length > 0 && 
+              <li className={styles.scrollableContentContainer}>
+                <ul className={styles.scrollableContent}>
+                  {
+                    chosenToppings.map(
+                      (topping, index) => (
+                        <ToppingRow 
+                          key={topping._uuidv4}
+                          index={index}
+                          topping={topping} 
+                          deleteHandler={
+                            () => {
+                              dispatch(removeTopping(index));
+                            }
                           }
-                        }
-                      />
+                        />
+                      )
                     )
-                  )
-                }
-              </ul>
-            </li>
-          }
-          {chosenBun && <BunRow type="bottom" />}
-          
-        </ul>
-      </div>
-      
-      <div className={styles.summary}>
-        <p className={styles.price}>
-          {totalPrice} <CurrencyIcon type="primary" />
-        </p>        
-        <Button 
-          size="large" 
-          type="primary" 
-          htmlType="button" 
-          onClick={placeOrder}
-          disabled={!canPlaceOrder}
+                  }
+                </ul>
+              </li>
+            }
+            {chosenBun && <BunRow type="bottom" />}
+            
+          </ul>
+        </div>
+        
+        <div className={styles.summary}>
+          <p className={styles.price}>
+            {totalPrice} <CurrencyIcon type="primary" />
+          </p>        
+          <Button 
+            size="large" 
+            type="primary" 
+            htmlType="button" 
+            onClick={placeOrder}
+            disabled={!canPlaceOrder}
             children="Оформить заказ"
           />
-      </div>
+        </div>
+        
+      </section>
       
-    </section>
+      {
+        modalIsVisible &&
+        modalMode === "order" &&
+        <Modal children={<OrderDetails />} />
+      }    
+    </>    
   );
 };
 

@@ -6,9 +6,10 @@ import { useSelector } from "react-redux";
 import styles from "./order-details.module.css";
 
 // images
-import done from "../../../images/done.svg";
-import failed from "../../../images/failed.svg"
-import pending from "../../../images/pending.svg";
+import done from "../../images/done.svg";
+import failed from "../../images/failed.svg";
+import pending from "../../images/pending.svg";
+
 
 
 function OrderDetails() {

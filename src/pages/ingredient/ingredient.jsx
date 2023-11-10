@@ -11,9 +11,9 @@ import styles from "./ingredient.module.css";
 
 function IngredientPage() {
   
-  // const { previewableContent } = useSelector(state => state.modal);
+  // const { previewableIngredient } = useSelector(state => state.modal);
   
-  const previewableContent = {
+  const previewableIngredient = {
     "_id": "643d69a5c3f7b9001cfa093c",
     "name": "Краторная булка N-200i",
     "type": "bun",

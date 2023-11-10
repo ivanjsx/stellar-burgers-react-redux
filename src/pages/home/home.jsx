@@ -5,11 +5,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
 // components
-import Modal from "../../components/modal/modal";
-import OrderDetails from "../../components/modal/order-details/order-details";
 import BurgerIngredients from "../../components/burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../../components/burger-constructor/burger-constructor";
-import IngredientDetails from "../../components/modal/ingredient-details/ingredient-details";
 
 // pages
 import { LoadingPage, ErrorPage } from "../../pages";
@@ -26,9 +23,6 @@ function HomePage() {
   
   const dispatch = useDispatch();
   
-  const { modalMode, modalIsVisible } = useSelector(
-    state => state.modal
-  );
   const { errorRequestingIngredients, pendingRequestingIngredients } = useSelector(
     state => state.burgerIngredients
   );  
@@ -41,43 +35,28 @@ function HomePage() {
     []
   );
   
-  const content = pendingRequestingIngredients 
-                  ? (
-                    <LoadingPage />
-                  ) : (
-                    errorRequestingIngredients
-                    ? (
-                      <ErrorPage title={"Что-то пошло не так!"} showTips={true} />
-                    ) : (
-                      <>
-                        <h1 className={styles.heading}>
-                          Соберите бургер
-                        </h1>            
-                        <div className={styles.content}>
-                          <DndProvider backend={HTML5Backend}>
-                            <BurgerIngredients />
-                            <BurgerConstructor />
-                          </DndProvider>
-                        </div>           
-                      </>
-                    )
-                  );
+  if (errorRequestingIngredients) {
+    return <ErrorPage title={"Что-то пошло не так!"} showTips={true} />;
+  };
   
+  if (pendingRequestingIngredients) {
+    return <LoadingPage />;
+  };
+
   return (
     <>
-      {content}
-      {
-        modalIsVisible && 
-        <Modal>
-          {
-            modalMode === "order"
-            ? <OrderDetails />
-            : <IngredientDetails />
-          }
-        </Modal>
-      }    
+      <h1 className={styles.heading}>
+        Соберите бургер
+      </h1>            
+      <div className={styles.content}>
+        <DndProvider backend={HTML5Backend}>
+          <BurgerIngredients />
+          <BurgerConstructor />
+        </DndProvider>
+      </div>           
     </>
   );
+
 };
 
 export default HomePage;
