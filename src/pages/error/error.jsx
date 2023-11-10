@@ -34,15 +34,23 @@ function ErrorPage({ title, showTips }) {
           <p>
             Но вы всегда можете&nbsp;
           </p>
-          <Button onClick={goBack} htmlType="button" type="secondary" size="medium">
-            вернуться назад
-          </Button>       
+          <Button 
+            onClick={goBack} 
+            htmlType="button" 
+            type="secondary" 
+            size="medium"
+            children="вернуться назад"
+          />
           <p>
             &nbsp;или перейти на&nbsp;
           </p>  
-          <Button onClick={goHome} htmlType="button" type="secondary" size="medium">
-            главную страницу
-          </Button>       
+          <Button 
+            onClick={goHome} 
+            htmlType="button" 
+            type="secondary" 
+            size="medium"
+            children="главную страницу"
+          />
         </div>
       }
     </>

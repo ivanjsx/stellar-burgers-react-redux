@@ -42,10 +42,10 @@ function Modal({ children }) {
         document.removeEventListener("keydown", handleEscapePress);   
       };
     }, 
-    [modalIsVisible]
+    [modalIsVisible, closePopup]
   );
 
-  const modalRoot = document.querySelector("#react-modals");
+  const modalRoot = document.querySelector("#modals");
 
   return ReactDOM.createPortal(
     (

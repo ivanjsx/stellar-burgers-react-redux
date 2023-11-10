@@ -49,16 +49,17 @@ function ForgotPasswordPage() {
           type="primary" 
           htmlType="submit" 
           disabled={!isEmailValid}
-        >
-          Восстановить
-        </Button>           
+          children="Восстановить"
+        />           
       </form>
       <div className={styles.tips}>
         <p className={styles.tip}>
           Вспомнили пароль?&nbsp;
-          <Link to={LOGIN_PAGE_ABSOLUTE_PATH} className={styles.link}>
-            Войти
-          </Link>
+          <Link 
+            to={LOGIN_PAGE_ABSOLUTE_PATH} 
+            className={styles.link}
+            children="Войти"
+          />
         </p>
       </div>
     </>

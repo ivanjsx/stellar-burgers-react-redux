@@ -91,9 +91,7 @@ function BurgerConstructor() {
         className={`${styles.shadowWrapper} ${canDrop ? styles.welcomingShadow : ""}`}
         ref={dropTargetRef}
       >
-        <ul 
-          className={styles.content} 
-        >
+          <ul className={styles.content}>
           
           {chosenBun && <BunRow type="top" />}
           {
@@ -134,9 +132,8 @@ function BurgerConstructor() {
           htmlType="button" 
           onClick={placeOrder}
           disabled={!canPlaceOrder}
-        >
-          Оформить заказ
-        </Button>   
+            children="Оформить заказ"
+          />
       </div>
       
     </section>

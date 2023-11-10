@@ -18,11 +18,22 @@ function AuthorizedAccessOnly({ element, onlyUnauthorized = false }) {
   };
   
   if (onlyUnauthorized && currentUser) {
-    return <Navigate to={location.state?.from || { pathname: HOME_PAGE_PATH }} state={{ from: location }} replace={true} />;
+    return (
+      <Navigate
+        to={location.state?.from || { pathname: HOME_PAGE_PATH }} 
+        state={{ from: location }} 
+        replace={true} 
+      />
+    );
   };
   
   if (!onlyUnauthorized && !currentUser) {
-    return <Navigate to={LOGIN_PAGE_ABSOLUTE_PATH} state={{ from: location }} />;
+    return (
+      <Navigate 
+        to={LOGIN_PAGE_ABSOLUTE_PATH} 
+        state={{ from: location }} 
+      />
+    );
   };
   
   return element;

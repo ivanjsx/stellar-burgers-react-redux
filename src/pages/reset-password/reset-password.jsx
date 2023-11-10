@@ -64,16 +64,17 @@ function ResetPasswordPage() {
           type="primary" 
           htmlType="submit" 
           disabled={!isPasswordValid || !isSecurityCodeValid}
-        >
-          Сохранить
-        </Button>           
+          children="Сохранить"
+        />           
       </form>
       <div className={styles.tips}>
         <p className={styles.tip}>
           Вспомнили пароль?&nbsp;
-          <Link to={LOGIN_PAGE_ABSOLUTE_PATH} className={styles.link}>
-            Войти
-          </Link>
+          <Link 
+            to={LOGIN_PAGE_ABSOLUTE_PATH} 
+            className={styles.link}
+            children="Войти"
+          />
         </p>
       </div>
     </>

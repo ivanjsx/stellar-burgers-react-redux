@@ -61,22 +61,25 @@ function LoginPage() {
           type="primary" 
           htmlType="submit" 
           disabled={!isEmailValid || !isPasswordValid}
-        >
-          Войти
-        </Button>           
+          children="Войти"
+        />           
       </form>
       <div className={styles.tips}>
         <p className={styles.tip}>
           Вы — новый пользователь?&nbsp;
-          <Link to={REGISTER_PAGE_ABSOLUTE_PATH} className={styles.link}>
-            Зарегистрироваться
-          </Link>
+          <Link 
+            to={REGISTER_PAGE_ABSOLUTE_PATH} 
+            className={styles.link}
+            children="Зарегистрироваться"
+          />
         </p>
         <p className={styles.tip}>
           Забыли пароль?&nbsp;
-          <Link to={FORGOT_PASSWORD_PAGE_ABSOLUTE_PATH} className={styles.link}>
-            Восстановить пароль
-          </Link>
+          <Link 
+            to={FORGOT_PASSWORD_PAGE_ABSOLUTE_PATH} 
+            className={styles.link}
+            children="Восстановить"
+          />
         </p>
       </div>
     </>

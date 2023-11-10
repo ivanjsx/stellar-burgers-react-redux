@@ -16,6 +16,8 @@ import { store } from "./services/store"
 
 
 
+const root = document.querySelector("#root");
+
 ReactDOM.render(
   (
     <React.StrictMode>
@@ -28,5 +30,5 @@ ReactDOM.render(
       </ErrorBoundary>      
     </React.StrictMode>
   ),
-  document.querySelector("#root")
+  root
 );

@@ -81,9 +81,8 @@ function ProfilePage() {
             htmlType="submit" 
             disabled={!isNameValid || !isEmailValid || !isPasswordValid}
             extraClass={styles.submit}
-          >
-            Сохранить
-          </Button>           
+            children="Сохранить"
+          />           
         </form>      
       </div>
     </>

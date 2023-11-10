@@ -8,7 +8,8 @@ function HistoryPage() {
   return (
     <>
       <p className={styles.description}>
-        В этом разделе вы можете просмотреть свою историю заказов      </p>
+        В этом разделе вы можете просмотреть свою историю заказов      
+      </p>
       <div className={styles.content}>
         <ErrorPage title={"Эта страница пока в разработке"} showTips={false} />                
       </div>

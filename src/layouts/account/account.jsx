@@ -23,30 +23,33 @@ function AccountLayout() {
           className={({ isActive }) => 
             `${styles.link} ${isActive ? styles.active : ""}`
           }
-        >
-          <p className={styles.text}>
-            Профиль
-          </p>
-        </NavLink>
+          children={
+            <p className={styles.text}>
+              Профиль
+            </p>            
+          }
+        />
         <NavLink 
           end
           to={HISTORY_PAGE_ABSOLUTE_PATH} 
           className={({ isActive }) => 
             `${styles.link} ${isActive ? styles.active : ""}`
           }
-        >
-          <p className={styles.text}>
-            История заказов
-          </p>
-        </NavLink>        
+          children={
+            <p className={styles.text}>
+              История заказов
+            </p>            
+          }
+        />        
         <NavLink 
           to={LOGOUT_PAGE_ABSOLUTE_PATH} 
           className={styles.link}
-        >
-          <p className={styles.text}>
-            Выход
-          </p>
-        </NavLink>             
+          children={
+            <p className={styles.text}>
+              Выход
+            </p>            
+          }
+        />             
       </aside>
       
       <Outlet />

@@ -76,16 +76,17 @@ function RegisterPage() {
           type="primary" 
           htmlType="submit" 
           disabled={!isNameValid || !isEmailValid || !isPasswordValid}
-        >
-          Зарегистрироваться
-        </Button>           
+          children="Зарегистрироваться"
+        />           
       </form>
       <div className={styles.tips}>
         <p className={styles.tip}>
           Уже зарегистрированы?&nbsp;
-          <Link to={LOGIN_PAGE_ABSOLUTE_PATH} className={styles.link}>
-            Войти
-          </Link>
+          <Link 
+            to={LOGIN_PAGE_ABSOLUTE_PATH} 
+            className={styles.link}
+            children="Войти"
+          />
         </p>
       </div>
     </>
