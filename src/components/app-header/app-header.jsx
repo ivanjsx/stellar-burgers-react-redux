@@ -1,9 +1,8 @@
 // libraries
 import React from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 
 // components
-import MenuLink from "./menu-link/menu-link";
 import { Logo } from "@ya.praktikum/react-developer-burger-ui-components";
 import { ListIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { BurgerIcon } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -25,27 +24,64 @@ const MemoizedLogo = React.memo(Logo);
 
 
 function AppHeader() {
+  
   const location = useLocation();
+
+  const isActive = React.useCallback(
+    (absPath, exact) => {
+      if (exact) {
+        return location.pathname === absPath;
+      };
+      return location.pathname.startsWith(absPath);
+    },
+    [location]
+  );
+
+  const textClass = React.useCallback(
+    isActive => [
+      styles.text,
+      isActive ? "" : styles.inactive
+    ].join(" "),
+    []
+  );
+  
+  const iconType = React.useCallback(
+    isActive => isActive ? "primary" : "secondary",
+    []
+  );  
+  
   return (
     <header className={styles.header}>
       <div className={styles.container}>
         
         <nav className={styles.menuArea}>
-          <ul className={styles.menu}>
+          <ul className={styles.section}>
             
-            <MenuLink 
-              path={HOME_PAGE_PATH}
-              text="Конструктор"
-              IconComponent={BurgerIcon}
-              active={location.pathname === HOME_PAGE_PATH}
-            />
+            <li>
+              <Link 
+                to={HOME_PAGE_PATH}
+                className={styles.link} 
+                children={
+                  <p className={textClass(isActive(HOME_PAGE_PATH, true))}>
+                    <BurgerIcon type={iconType(isActive(HOME_PAGE_PATH, true))} />
+                    Конструктор
+                  </p>
+                }
+              />
+            </li>  
             
-            <MenuLink 
-              path={FEED_PAGE_ABSOLUTE_PATH}
-              text="Лента&nbsp;заказов"
-              IconComponent={ListIcon}
-              active={location.pathname === FEED_PAGE_ABSOLUTE_PATH}
-            />
+            <li>
+              <Link 
+                to={FEED_PAGE_ABSOLUTE_PATH}
+                className={styles.link} 
+                children={
+                  <p className={textClass(isActive(FEED_PAGE_ABSOLUTE_PATH, true))}>
+                    <ListIcon type={iconType(isActive(FEED_PAGE_ABSOLUTE_PATH, true))} />
+                    Лента&nbsp;заказов
+                  </p>
+                }
+              />
+            </li>              
             
           </ul>
         </nav>
@@ -55,14 +91,20 @@ function AppHeader() {
         </div>  
         
         <nav className={styles.profileArea}>
-          <ul className={styles.profile}>
+          <ul className={`${styles.section} ${styles.stickToRight}`}>
             
-            <MenuLink 
-              path={PROFILE_PAGE_ABSOLUTE_PATH}
-              text="Личный&nbsp;кабинет"
-              IconComponent={ProfileIcon}
-              active={location.pathname.startsWith(PROFILE_PAGE_ABSOLUTE_PATH)}
-            />          
+            <li>
+              <Link 
+                to={PROFILE_PAGE_ABSOLUTE_PATH}
+                className={styles.link} 
+                children={
+                  <p className={textClass(isActive(PROFILE_PAGE_ABSOLUTE_PATH, false))}>
+                    <ProfileIcon type={iconType(isActive(PROFILE_PAGE_ABSOLUTE_PATH, false))} />
+                    Личный&nbsp;кабинет
+                  </p>
+                }
+              />
+            </li>                            
             
           </ul>
         </nav>      
