@@ -7,8 +7,12 @@ import { postRequest } from "../api/request";
 
 
 
+const NAME = "burgerConstructor";
+
+
+
 export const requestOrderPlacement = createAsyncThunk(
-  "burgerConstructor/requestOrderPlacement",
+  `${NAME}/requestOrderPlacement`,
   arg => {
     return postRequest(
       "orders/", { ingredients: arg }
@@ -20,7 +24,7 @@ export const requestOrderPlacement = createAsyncThunk(
 
 export const burgerConstructorSlice = createSlice(
   {
-    name: "burgerConstructor",
+    name: NAME,
     initialState: {
       chosenBun: null,
       chosenToppings: [],

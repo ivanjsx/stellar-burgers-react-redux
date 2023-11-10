@@ -2,10 +2,10 @@
 import { combineReducers } from "redux";
 
 // slices
+import { userSlice } from "./user-slice";
 import { modalSlice } from "./modal-slice";
 import { burgerIngredientsSlice } from "./burger-ingredients-slice";
 import { burgerConstructorSlice } from "./burger-constructor-slice";
-import { userSlice } from "./user-slice";
 
 
 

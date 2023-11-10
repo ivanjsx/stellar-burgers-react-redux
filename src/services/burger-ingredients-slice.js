@@ -6,8 +6,12 @@ import { getRequest } from "../api/request";
 
 
 
+const NAME = "burgerIngredients";
+
+
+
 export const requestAvailableIngredientsStock = createAsyncThunk(
-  "burgerIngredients/requestAvailableIngredientsStock",
+  `${NAME}/requestAvailableIngredientsStock`,
   () => {
     return getRequest(
       "ingredients/"
@@ -21,7 +25,7 @@ export const requestAvailableIngredientsStock = createAsyncThunk(
 
 export const burgerIngredientsSlice = createSlice(
   {
-    name: "burgerIngredients",
+    name: NAME,
     initialState: {
       availableIngredientsStock: [],
       errorRequestingIngredients: false,

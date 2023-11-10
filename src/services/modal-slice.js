@@ -3,9 +3,13 @@ import { createSlice } from "@reduxjs/toolkit";
 
 
 
+const NAME = "modal";
+
+
+
 export const modalSlice = createSlice(
   {
-    name: "modal",
+    name: NAME,
     initialState: {
       modalMode: "",
       modalHeading: "",

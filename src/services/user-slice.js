@@ -2,8 +2,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { postRequest } from "../api/request";
 
-
-
 // import {setUser, setAuthChecked} from "./user";
 // import {api} from "../utils/api";
 
@@ -33,8 +31,12 @@ import { postRequest } from "../api/request";
 
 
 
+const NAME = "user";
+
+
+
 export const loginUser = createAsyncThunk(
-  "user/loginUser",
+  `${NAME}/loginUser`,
   ({ email, password }) => {
     return postRequest(
       "auth/login/", { email, password }
@@ -49,7 +51,7 @@ export const loginUser = createAsyncThunk(
 );
 
 export const createUser = createAsyncThunk(
-  "user/createUser",
+  `${NAME}/createUser`,
   ({ name, email, password }) => {
     return postRequest(
       "auth/register/", { name, email, password }
@@ -64,7 +66,7 @@ export const createUser = createAsyncThunk(
 );
 
 export const logoutUser = createAsyncThunk(
-  "user/logoutUser",
+  `${NAME}/logoutUser`,  
   () => {
     return postRequest(
       "auth/logout/", {
@@ -80,7 +82,7 @@ export const logoutUser = createAsyncThunk(
 );
 
 export const updateAccessToken = createAsyncThunk(
-  "user/updateAccessToken",
+  `${NAME}/updateAccessToken`,  
   () => {
     return postRequest(
       "auth/token/", {
@@ -96,28 +98,28 @@ export const updateAccessToken = createAsyncThunk(
 );
 
 export const resetPassword = createAsyncThunk(
-  "user/resetPassword",
+  `${NAME}/resetPassword`,  
   ({ email }) => {
     return null;
   }
 );
 
 export const setNewPassword = createAsyncThunk(
-  "user/setNewPassword",
+  `${NAME}/setNewPassword`,  
   ({ password, securityCode }) => {
     return null;
   }
 );
 
 export const getUserInfo = createAsyncThunk(
-  "user/getUserInfo",
+  `${NAME}/getUserInfo`,  
   () => {
     return null;
   }
 );
 
 export const updateUserInfo = createAsyncThunk(
-  "user/updateUserInfo",
+  `${NAME}/updateUserInfo`,  
   () => {
     return null;
   }
@@ -125,7 +127,7 @@ export const updateUserInfo = createAsyncThunk(
 
 export const userSlice = createSlice(
   {
-    name: "user",
+    name: NAME,
     initialState: {
       // currentUser: null,
       currentUser: {
