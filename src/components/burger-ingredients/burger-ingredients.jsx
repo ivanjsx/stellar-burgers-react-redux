@@ -16,7 +16,7 @@ import styles from "./burger-ingredients.module.css";
 function BurgerIngredients() {  
   
   const { modalIsVisible, modalMode } = useSelector(state => state.modal);
-  
+
   const [activeTab, setActiveTab] = React.useState("bun");
   const wholeSectionRef = React.useRef();
   const bunsRef = React.useRef();
@@ -38,17 +38,52 @@ function BurgerIngredients() {
     [wholeSectionRef, bunsRef, saucesRef]
   );
   
+  const scrollIntoGallery = React.useCallback(
+    (tabValue, galleryRef) => {
+      return () => {
+        setActiveTab(tabValue);
+        galleryRef.current.scrollIntoView({ behavior: "smooth" });
+      };
+    },
+    []
+  );
+  
   return (
     <>
-    <section className={styles.ingredients}>
-      
+      <section className={styles.ingredients}>
+        
+        <nav>
+          <ul className={styles.tabsBar}>
+            
+            <Tab 
+              value="bun"
+              active={activeTab === "bun"}
+              onClick={scrollIntoGallery("bun", bunsRef)}
+              children="Булки"
+            />
+            <Tab 
+              value="sauce" 
+              active={activeTab === "sauce"} 
+              onClick={scrollIntoGallery("sauce", saucesRef)}
+              children="Соусы" 
+            />
+            <Tab 
+              value="main" 
+              active={activeTab === "main"} 
+              onClick={scrollIntoGallery("main", mainsRef)}
+              children="Начинки" 
+            />
+            
+          </ul>
+        </nav>
+        
         <div className={styles.content} ref={wholeSectionRef} onScroll={handleScroll}>
-        <Gallery category="bun" title="Булки" ref={bunsRef} />
-        <Gallery category="sauce" title="Соусы" ref={saucesRef} />
+          <Gallery category="bun" title="Булки" ref={bunsRef} />
+          <Gallery category="sauce" title="Соусы" ref={saucesRef} />
           <Gallery category="main" title="Начинки" ref={mainsRef} />            
-      </div>
-      
-    </section>
+        </div>
+        
+      </section>
 
       {
         modalIsVisible && 

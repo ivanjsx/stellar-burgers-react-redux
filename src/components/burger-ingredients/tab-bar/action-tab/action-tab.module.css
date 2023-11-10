@@ -1,4 +1,0 @@
-.tabLink {
-  composes: anchor from global;
-  color: inherit;
-}
