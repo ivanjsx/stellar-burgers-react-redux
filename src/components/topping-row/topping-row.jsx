@@ -12,10 +12,10 @@ import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-comp
 import styles from "./topping-row.module.css";
 
 // utils
-import { ingredientPropType } from "../../../utils/prop-types";
+import { ingredientPropType } from "../../utils/prop-types";
 
 // actions
-import { dragTopping } from "../../../services/burger-constructor-slice";
+import { dragTopping } from "../../services/burger-constructor-slice";
 
 
 

@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import Card from "../card/card";
 
 // constants
-import { BUNS_IN_BURGER_COUNT } from "../../../utils/constants";
+import { BUNS_IN_BURGER_COUNT } from "../../utils/constants";
 
 // styles
 import styles from "./gallery.module.css";
@@ -31,26 +31,30 @@ const Gallery = React.forwardRef(
       },
       [chosenBun, chosenToppings]
     );
+
+    const items = React.useMemo(
+      () => availableIngredientsStock.filter(ingredient => ingredient.type === category),
+      [availableIngredientsStock, category]
+    );
+
+    const content = React.useMemo(
+      () => items.map(
+        ingredient => <Card 
+                        key={ingredient._id} 
+                        ingredient={ingredient} 
+                        count={countIngredient(ingredient)}
+                      />
+      ),
+      [items, countIngredient]
+    );
     
     return (
-      <div id={category} ref={ref}>
+      <div id={category} ref={ref} className={styles.container}>
         <h2 className={styles.heading}>
           {title}
         </h2>    
         <ul className={styles.gallery}>
-          {
-            availableIngredientsStock.filter(
-              ingredient => ingredient.type === category
-            ).map(
-              ingredient => (
-                <Card 
-                  key={ingredient._id} 
-                  ingredient={ingredient} 
-                  count={countIngredient(ingredient)}
-                />
-              )
-            )
-          }
+          {content}
         </ul>
       </div>
     );    
@@ -62,4 +66,4 @@ Gallery.propTypes = {
   title: PropTypes.string.isRequired
 };
 
-export default Gallery;
+export default React.memo(Gallery);

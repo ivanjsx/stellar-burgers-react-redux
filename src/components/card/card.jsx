@@ -12,10 +12,10 @@ import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components
 import styles from "./card.module.css";
 
 // utils
-import { ingredientPropType } from "../../../utils/prop-types";
+import { ingredientPropType } from "../../utils/prop-types";
 
 // actions
-import { openModalInIngredientMode } from "../../../services/modal-slice";
+import { openIngredientModal } from "../../services/modal-slice";
 
 
 
@@ -43,7 +43,7 @@ function Card({ ingredient, count }) {
         className={styles.card} 
         onClick={
           () => {
-            dispatch(openModalInIngredientMode(ingredient));
+            dispatch(openIngredientModal(ingredient));
           }
         }
       >
@@ -69,4 +69,4 @@ Card.propTypes = {
   count: PropTypes.number.isRequired,
 };
 
-export default Card;
+export default React.memo(Card);
