@@ -19,11 +19,11 @@ import { dragTopping } from "../../services/burger-constructor-slice";
 
 
 
-function ToppingRow({ index, topping, deleteHandler }) {
+function ToppingRow({ index, topping, deleteHandler, isThumbnail=false }) {
   
   const dispatch = useDispatch();
   const ref = React.useRef();
-
+  
   const dragRow = React.useCallback(
     (fromIndex, toIndex) => {
       dispatch(
@@ -80,26 +80,38 @@ function ToppingRow({ index, topping, deleteHandler }) {
   
   dragRef(dropTargetRef(ref));
   
+  const content = isThumbnail
+                  ? (
+                    <p className={styles.thumbnailText}>
+                      А сюда - ингредиенты
+                    </p>
+                  ) : (
+                    <>
+                      <DragIcon type="primary" />  
+                      <ConstructorElement
+                        text={topping.name}
+                        price={topping.price}
+                        thumbnail={topping.image_large}
+                        handleClose={deleteHandler}
+                      />
+                    </>
+                  );
+
   return (
     <li 
       className={`${styles.row} ${isDragging ? styles.isDragging : ""}`} 
       ref={ref}
     >
-      <DragIcon type="primary" />  
-      <ConstructorElement
-        text={topping.name}
-        price={topping.price}
-        thumbnail={topping.image_large}
-        handleClose={deleteHandler}
-      />
+      {content}
     </li>  
   );
 };
 
 ToppingRow.propTypes = {
-  index: PropTypes.number.isRequired,
-  topping: PropTypes.shape(ingredientPropType).isRequired,
-  deleteHandler: PropTypes.func.isRequired
+  index: PropTypes.number,
+  topping: PropTypes.shape(ingredientPropType),
+  deleteHandler: PropTypes.func,
+  isThumbnail: PropTypes.bool
 };
 
 export default ToppingRow;

@@ -12,17 +12,28 @@ import styles from "./bun-row.module.css";
 
 
 const BunRow = React.memo(
-  function ({ type }) {
+  ({ type }) => {
+    
     const { chosenBun } = useSelector(state => state.burgerConstructor);
+
+    const content = chosenBun
+                    ? (
+                      <ConstructorElement
+                        type={type}
+                        isLocked={true}
+                        text={`${chosenBun.name} ${type === "top" ? "(верх)" : "(низ)"}`}
+                        price={chosenBun.price}
+                        thumbnail={chosenBun.image_large}
+                      />        
+                    ) : (
+                      <p className={styles.thumbnailText}>
+                        {type === "top" ? "Перетащите сюда булку" : ""}
+                      </p>
+                    );
+
     return (
       <li className={`${styles.row} ${type === "bottom" ? styles.stickToBottom : ""}`}>
-        <ConstructorElement
-          type={type}
-          isLocked={true}
-          text={`${chosenBun.name} ${type === "top" ? "(верх)" : "(низ)"}`}
-          price={chosenBun.price}
-          thumbnail={chosenBun.image_large}
-        />
+        {content}
       </li>
     );
   }

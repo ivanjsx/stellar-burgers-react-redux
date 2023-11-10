@@ -25,6 +25,9 @@
 .scrollableContentContainer {
   composes: pr-2 custom-scroll from global;
   overflow: scroll;
+  display: flex;
+  flex-direction: column;  
+  justify-content: center;  
 }
 
 .scrollableContentContainer::-webkit-scrollbar {

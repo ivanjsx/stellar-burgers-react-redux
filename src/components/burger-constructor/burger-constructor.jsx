@@ -97,31 +97,31 @@ function BurgerConstructor() {
         >
           <ul className={styles.content}>
             
-            {chosenBun && <BunRow type="top" />}
-            {
-              chosenToppings.length > 0 && 
-              <li className={styles.scrollableContentContainer}>
-                <ul className={styles.scrollableContent}>
-                  {
-                    chosenToppings.map(
-                      (topping, index) => (
-                        <ToppingRow 
-                          key={topping._uuidv4}
-                          index={index}
-                          topping={topping} 
-                          deleteHandler={
-                            () => {
-                              dispatch(removeTopping(index));
-                            }
+            <BunRow type="top" />
+            <li className={styles.scrollableContentContainer}>
+              <ul className={styles.scrollableContent}>
+                {
+                  chosenToppings.length === 0
+                  ? (
+                    <ToppingRow isThumbnail={true} />
+                  ) : chosenToppings.map(
+                    (topping, index) => (
+                      <ToppingRow 
+                        key={topping._uuidv4}
+                        index={index}
+                        topping={topping} 
+                        deleteHandler={
+                          () => {
+                            dispatch(removeTopping(index));
                           }
-                        />
-                      )
+                        }
+                      />
                     )
-                  }
-                </ul>
-              </li>
-            }
-            {chosenBun && <BunRow type="bottom" />}
+                  )
+                }
+              </ul>
+            </li>
+            <BunRow type="bottom" />
             
           </ul>
         </div>
