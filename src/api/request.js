@@ -45,7 +45,7 @@ function getRequest(endpointPath) {
   return baseRequest(endpointPath, options);
 };
 
-function postRequest(endpointPath, requestBody, provideToken = false) {
+function postRequest(endpointPath, requestBody, provideToken, refreshAccessTokenCallback) {
   const options = {
     method: "POST",
     headers: {
@@ -58,10 +58,10 @@ function postRequest(endpointPath, requestBody, provideToken = false) {
   if (provideToken) {
     options.headers.Authorization = localStorage.getItem("accessToken");
   };
-  return refreshingRequest(endpointPath, options);
+  return refreshingRequest(endpointPath, options, refreshAccessTokenCallback);
 };
 
-function patchRequest(endpointPath, requestBody, provideToken = false) {
+function patchRequest(endpointPath, requestBody, provideToken, refreshAccessTokenCallback) {
   const options = {
     method: "PATCH",
     headers: {
@@ -74,7 +74,7 @@ function patchRequest(endpointPath, requestBody, provideToken = false) {
   if (provideToken) {
     options.headers.Authorization = localStorage.getItem("accessToken");
   };
-  return refreshingRequest(endpointPath, options);
+  return refreshingRequest(endpointPath, options, refreshAccessTokenCallback);
 };
 
 

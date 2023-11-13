@@ -1,7 +1,3 @@
-// libraries
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { postRequest } from "../api/request";
-
 // import {setUser, setAuthChecked} from "./user";
 // import {api} from "../utils/api";
 
@@ -28,6 +24,22 @@ import { postRequest } from "../api/request";
 //         }
 //     };
 // };
+
+
+
+
+
+
+
+
+
+
+
+
+
+// libraries
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { postRequest } from "../api/request";
 
 
 
