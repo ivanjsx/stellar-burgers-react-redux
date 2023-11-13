@@ -7,13 +7,13 @@ import styles from "./modal-overlay.module.css";
 
 
 
-function ModalOverlay({ closePopup, children }) {
+function ModalOverlay({ closeCallback, children }) {
   
   const { modalIsVisible } = useSelector(state => state.modal);  
   
   function handleOverlayClick(event) {
     if (event.target === event.currentTarget) {
-      closePopup();
+      closeCallback();
     };
   };      
   
@@ -28,7 +28,7 @@ function ModalOverlay({ closePopup, children }) {
 };
 
 ModalOverlay.propTypes = {
-  closePopup: PropTypes.func.isRequired,
+  closeCallback: PropTypes.func.isRequired,
   children: PropTypes.element.isRequired
 };
 

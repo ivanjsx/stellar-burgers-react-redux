@@ -1,11 +1,8 @@
 // libraries
 import React from "react";
-import { useSelector } from "react-redux";
 
 // components
-import Modal from "../modal/modal";
 import Gallery from "../gallery/gallery";
-import IngredientDetails from "../ingredient-details/ingredient-details";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components"
 
 // styles
@@ -15,8 +12,6 @@ import styles from "./burger-ingredients.module.css";
 
 function BurgerIngredients() {  
   
-  const { modalIsVisible, modalMode } = useSelector(state => state.modal);
-
   const [activeTab, setActiveTab] = React.useState("bun");
   const wholeSectionRef = React.useRef();
   const bunsRef = React.useRef();
@@ -84,12 +79,6 @@ function BurgerIngredients() {
         </div>
         
       </section>
-
-      {
-        modalIsVisible && 
-        modalMode === "ingredient" &&
-        <Modal children={<IngredientDetails />} />
-      }    
     </>
   );
 };

@@ -16,23 +16,26 @@ import { closeModal } from "../../services/modal-slice";
 
 
 
-function Modal({ children }) {
+function Modal({ children, onClose }) {
 
   const dispatch = useDispatch();
   const { modalIsVisible, modalHeading } = useSelector(state => state.modal);  
 
-  const closePopup = React.useCallback(
+  const closeCallback = React.useCallback(
     () => {
       dispatch(closeModal());
+      if (onClose) {
+        onClose();
+      };
     },
-    []
+    [onClose]
   );
 
   React.useEffect(
     () => {
       function handleEscapePress(event) {
         if (event.key === "Escape") {
-          closePopup();
+          closeCallback();
         };
       };      
       if (modalIsVisible) {
@@ -42,14 +45,14 @@ function Modal({ children }) {
         document.removeEventListener("keydown", handleEscapePress);   
       };
     }, 
-    [modalIsVisible, closePopup]
+    [modalIsVisible, closeCallback]
   );
 
   const modalRoot = document.querySelector("#modals");
 
   return ReactDOM.createPortal(
     (
-      <ModalOverlay closePopup={closePopup}>
+      <ModalOverlay closeCallback={closeCallback}>
         <div className={styles.container}>
           
           <div className={styles.header}>
@@ -57,7 +60,7 @@ function Modal({ children }) {
             <button 
               className={styles.close} 
               type="button"
-              onClick={closePopup} 
+              onClick={closeCallback} 
             >
               <CloseIcon type="primary" />
             </button>
@@ -73,7 +76,8 @@ function Modal({ children }) {
 };
 
 Modal.propTypes = {
-  children: PropTypes.element.isRequired
+  children: PropTypes.element.isRequired,
+  onClose: PropTypes.func
 };
 
 export default Modal;

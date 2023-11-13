@@ -1,3 +1,8 @@
+.link {
+  composes: anchor from global;
+  color: inherit;
+}
+
 .container {
   position: relative;
 }

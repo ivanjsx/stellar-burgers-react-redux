@@ -1,10 +1,12 @@
 // libraries
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { Routes, Route } from "react-router-dom";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 
 // components
+import Modal from "./modal/modal";
 import Logout from "./logout/logout";
+import IngredientDetails from "./ingredient-details/ingredient-details";
 import AuthorizedAccessOnly from "./authorized-access-only/authorized-access-only";
 import UnauthorizedAccessOnly from "./unauthorized-access-only/unauthorized-access-only";
 
@@ -37,111 +39,147 @@ import {
   HISTORY_PAGE_RELATIVE_PATH,
   REGISTER_PAGE_RELATIVE_PATH,
   INGREDIENT_PAGE_RELATIVE_PATH,
+  INGREDIENT_PAGE_ABSOLUTE_PATH,
   RESET_PASSWORD_PAGE_RELATIVE_PATH,
   FORGOT_PASSWORD_PAGE_RELATIVE_PATH,
 } from "../utils/constants";
 
+// actions
+import { requestAvailableIngredientsStock } from "../services/burger-ingredients-slice";
+
+
 
 
 function App() {
+  
   const dispatch = useDispatch();
-
-  // useEffect(
+  
+  React.useEffect(
+    () => {
+      dispatch(requestAvailableIngredientsStock());
+    },
+    []
+  );    
+  
+  // React.useEffect(
   //   () => {
   //     dispatch(checkUserAuth());
   //   }, 
   //   []
-  // );  
-
+  // );    
+  
+  const navigate = useNavigate();
+  const location = useLocation();
+  const background = location.state && location.state.background;
+  
+  const handleModalClose = () => {
+    navigate(-1);
+  };
+    
   return (
-    <Routes>
-      <Route 
-        path={HOME_PAGE_PATH}
-        element={<RootLayout />} 
-      >
+    <>
+      <Routes location={background || location}>
         <Route 
-          index 
-          element={<HomePage />} 
-        />
-        <Route 
-          path={FEED_PAGE_RELATIVE_PATH} 
-          element={<FeedPage />} 
-        />        
-        <Route 
-          path={INGREDIENT_PAGE_RELATIVE_PATH}
-          element={<IngredientPage />} 
-        />        
-        <Route
-          path={LOGIN_PAGE_RELATIVE_PATH}
-          element={
-            <LoginPage />
-            // <UnauthorizedAccessOnly element={<LoginPage />} />
-          }
-        />
-        <Route 
-          path={REGISTER_PAGE_RELATIVE_PATH}
-          element={
-            <RegisterPage />
-            // <UnauthorizedAccessOnly element={<RegisterPage />} />
-          }             
-        />
-        <Route 
-          path={RESET_PASSWORD_PAGE_RELATIVE_PATH}
-          element={
-            <ResetPasswordPage />
-            // <UnauthorizedAccessOnly element={<ResetPasswordPage />} />
-          }             
-        />
-        <Route 
-          path={FORGOT_PASSWORD_PAGE_RELATIVE_PATH}
-          element={
-            <ForgotPasswordPage />
-            // <UnauthorizedAccessOnly element={<ForgotPasswordPage />} />
-          }
-        />
-        <Route
-          path={LOGOUT_PAGE_RELATIVE_PATH}
-          element={
-            <Logout />
-            // <AuthorizedAccessOnly element={<Logout />} />
-          }
-        />                
-        <Route 
-          path={PROFILE_PAGE_RELATIVE_PATH}
-          element={
-            <AccountLayout />
-            // <AuthorizedAccessOnly element={<AccountLayout />} />
-          } 
+          path={HOME_PAGE_PATH.concat("*")}
+          element={<RootLayout />} 
         >
           <Route 
-            index 
-            element={
-              <ProfilePage />
-              // AuthorizedAccessOnly ??
-            } 
-          />          
+            path="/*"
+            element={<HomePage />} 
+          />
           <Route 
-            path={HISTORY_PAGE_RELATIVE_PATH}
+            path={FEED_PAGE_RELATIVE_PATH} 
+            element={<FeedPage />} 
+          />        
+          <Route 
+            path={INGREDIENT_PAGE_RELATIVE_PATH}
+            element={<IngredientPage />} 
+          />        
+          <Route
+            path={LOGIN_PAGE_RELATIVE_PATH}
             element={
-              <HistoryPage />
-              // AuthorizedAccessOnly ??
+              <LoginPage />
+              // <UnauthorizedAccessOnly element={<LoginPage />} />
+            }
+          />
+          <Route
+            path={LOGOUT_PAGE_RELATIVE_PATH}
+            element={
+              <Logout />
+              // <AuthorizedAccessOnly element={<Logout />} />
+            }
+          />               
+          <Route 
+            path={REGISTER_PAGE_RELATIVE_PATH}
+            element={
+              <RegisterPage />
+              // <UnauthorizedAccessOnly element={<RegisterPage />} />
+            }             
+          />
+          <Route 
+            path={FORGOT_PASSWORD_PAGE_RELATIVE_PATH}
+            element={
+              <ForgotPasswordPage />
+              // <UnauthorizedAccessOnly element={<ForgotPasswordPage />} />
+            }
+          />            
+          <Route 
+            path={RESET_PASSWORD_PAGE_RELATIVE_PATH}
+            element={
+              <ResetPasswordPage />
+              // <UnauthorizedAccessOnly element={<ResetPasswordPage />} />
+            }             
+          />     
+          <Route 
+            path={PROFILE_PAGE_RELATIVE_PATH}
+            element={
+              <AccountLayout />
+              // <AuthorizedAccessOnly element={<AccountLayout />} />
             } 
           >
             <Route 
-              path={ORDER_PAGE_RELATIVE_PATH}
+              index 
               element={
-                <OrderPage />
+                <ProfilePage />
                 // AuthorizedAccessOnly ??
-              }             
+              } 
+            />          
+            <Route 
+              path={HISTORY_PAGE_RELATIVE_PATH}
+              element={
+                <HistoryPage />
+                // AuthorizedAccessOnly ??
+              } 
+            >
+              <Route 
+                path={ORDER_PAGE_RELATIVE_PATH}
+                element={
+                  <OrderPage />
+                  // AuthorizedAccessOnly ??
+                }             
+              />
+            </Route>
+          </Route>        
+          <Route 
+            path="*" 
+            element={<ErrorPage title={"Упс! Такой страницы нет"} showTips={true} />}
+          />        
+        </Route>
+      </Routes>
+
+      {
+        background && (
+          <Routes>
+            <Route
+              path={INGREDIENT_PAGE_ABSOLUTE_PATH}
+              element={
+                <Modal children={<IngredientDetails />} onClose={handleModalClose} />
+              }
             />
-          </Route>
-        </Route>        
-        <Route 
-          path="*" 
-          element={<ErrorPage title={"Упс! Такой страницы нет"} showTips={true} />}
-        />        
-      </Route>
-    </Routes>
+          </Routes>
+        )
+      }        
+    </>
   );
 };
 

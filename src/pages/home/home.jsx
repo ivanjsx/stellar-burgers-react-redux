@@ -1,7 +1,6 @@
 // libraries
-import React from "react";
 import { DndProvider } from "react-dnd";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
 // components
@@ -14,26 +13,14 @@ import { LoadingPage, ErrorPage } from "../../pages";
 // styles
 import styles from "./home.module.css";
 
-// actions
-import { requestAvailableIngredientsStock } from "../../services/burger-ingredients-slice";
 
 
 
 function HomePage() {
   
-  const dispatch = useDispatch();
-  
   const { errorRequestingIngredients, pendingRequestingIngredients } = useSelector(
     state => state.burgerIngredients
   );  
-  
-  React.useEffect(
-    () => {
-      dispatch(requestAvailableIngredientsStock());
-    },
-    // eslint-disable-next-line
-    []
-  );
   
   if (errorRequestingIngredients) {
     return <ErrorPage title={"Что-то пошло не так!"} showTips={true} />;
