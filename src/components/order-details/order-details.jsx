@@ -14,7 +14,7 @@ import pending from "../../images/pending.svg";
 
 function OrderDetails() {
 
-  const { errorRequestingOrder, pendingRequestingOrder, placedOrder } = useSelector(state => state.burgerConstructor);
+  const { errorRequestingOrder, pendingRequestingOrder, previewableOrder } = useSelector(state => state.burgerConstructor);
 
   const [status, setStatus] = React.useState("");
   const [action, setAction] = React.useState("");
@@ -46,7 +46,7 @@ function OrderDetails() {
   return (
     <div className={styles.container}>
       <h3 className={styles.id}>
-        {placedOrder && placedOrder.order.number}
+        {previewableOrder.order.number}
       </h3>
       <p className={styles.description}>
         {status}

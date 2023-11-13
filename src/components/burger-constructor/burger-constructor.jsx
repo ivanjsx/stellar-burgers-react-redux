@@ -18,13 +18,13 @@ import styles from "./burger-constructor.module.css";
 import { BUNS_IN_BURGER_COUNT } from "../../utils/constants";
 
 // actions
-import { openOrderModal } from "../../services/modal-slice";
 import { 
-  emptyCart, 
-  setChosenBun, 
+  requestOrderPlacement, 
+  resetPreviewableOrder,
   removeTopping, 
+  setChosenBun, 
   addTopping, 
-  requestOrderPlacement 
+  emptyCart, 
 } from "../../services/burger-constructor-slice";
 
 
@@ -32,8 +32,7 @@ import {
 function BurgerConstructor() {
   
   const dispatch = useDispatch();
-  const { modalIsVisible, modalMode } = useSelector(state => state.modal);
-  const { chosenBun, chosenToppings, canPlaceOrder, placedOrder } = useSelector(state => state.burgerConstructor);
+  const { chosenBun, chosenToppings, canPlaceOrder, previewableOrder } = useSelector(state => state.burgerConstructor);
   
   const [{ canDrop }, dropTargetRef] = useDrop(
     {
@@ -76,16 +75,12 @@ function BurgerConstructor() {
           )
         ).then(
           () => {
-            dispatch(openOrderModal());
-          }
-        ).then(
-          () => {
             dispatch(emptyCart());
           }
         );
       };
     },
-    [canPlaceOrder, chosenBun, chosenToppings, placedOrder]
+    [canPlaceOrder, chosenBun, chosenToppings]
   );
   
   return (
@@ -143,9 +138,17 @@ function BurgerConstructor() {
       </section>
       
       {
-        modalIsVisible &&
-        modalMode === "order" &&
-        <Modal children={<OrderDetails />} />
+        previewableOrder && (
+          <Modal 
+            heading=""
+            children={<OrderDetails />} 
+            closeHandler={
+              () => { 
+                dispatch(resetPreviewableOrder());
+              }
+            }
+          />
+        )
       }    
     </>    
   );

@@ -31,7 +31,7 @@ export const burgerConstructorSlice = createSlice(
       canPlaceOrder: false,
       errorRequestingOrder: false,
       pendingRequestingOrder: false,
-      placedOrder: null
+      previewableOrder: null
     },
     reducers: {
       emptyCart: state => {
@@ -45,6 +45,9 @@ export const burgerConstructorSlice = createSlice(
       },
       removeTopping: (state, action) => {
         state.chosenToppings.splice(action.payload, 1)
+      },
+      resetPreviewableOrder: state => {
+        state.previewableOrder = null;        
       },
       addTopping: {
         prepare: topping => {
@@ -93,7 +96,7 @@ export const burgerConstructorSlice = createSlice(
         (state, action) => {
           state.errorRequestingOrder = false;
           state.pendingRequestingOrder = false;
-          state.placedOrder = action.payload;
+          state.previewableOrder = action.payload;
         }
       ).addDefaultCase(
         state => state
@@ -106,6 +109,7 @@ export const {
   emptyCart, 
   setChosenBun, 
   removeTopping, 
+  resetPreviewableOrder,
   addTopping, 
   dragTopping 
 } = burgerConstructorSlice.actions;

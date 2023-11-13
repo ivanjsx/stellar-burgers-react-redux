@@ -2,7 +2,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
-import { useDispatch, useSelector } from "react-redux";
 
 // components
 import ModalOverlay from "../modal-overlay/modal-overlay";
@@ -11,56 +10,38 @@ import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 // styles
 import styles from "./modal.module.css";
 
-// actions 
-import { closeModal } from "../../services/modal-slice";
 
 
-
-function Modal({ children, onClose }) {
-
-  const dispatch = useDispatch();
-  const { modalIsVisible, modalHeading } = useSelector(state => state.modal);  
-
-  const closeCallback = React.useCallback(
-    () => {
-      dispatch(closeModal());
-      if (onClose) {
-        onClose();
-      };
-    },
-    [onClose]
-  );
-
+function Modal({ heading, closeHandler, children }) {
+  
   React.useEffect(
     () => {
       function handleEscapePress(event) {
         if (event.key === "Escape") {
-          closeCallback();
+          closeHandler();
         };
       };      
-      if (modalIsVisible) {
-        document.addEventListener("keydown", handleEscapePress);
-      };
+      document.addEventListener("keydown", handleEscapePress);
       return () => {
         document.removeEventListener("keydown", handleEscapePress);   
       };
     }, 
-    [modalIsVisible, closeCallback]
+    [closeHandler]
   );
 
   const modalRoot = document.querySelector("#modals");
 
   return ReactDOM.createPortal(
     (
-      <ModalOverlay closeCallback={closeCallback}>
+      <ModalOverlay closeHandler={closeHandler}>
         <div className={styles.container}>
           
           <div className={styles.header}>
-            <h2 className={styles.heading}>{modalHeading}</h2>
+            <h2 className={styles.heading}>{heading}</h2>
             <button 
               className={styles.close} 
               type="button"
-              onClick={closeCallback} 
+              onClick={closeHandler} 
             >
               <CloseIcon type="primary" />
             </button>
@@ -76,8 +57,9 @@ function Modal({ children, onClose }) {
 };
 
 Modal.propTypes = {
-  children: PropTypes.element.isRequired,
-  onClose: PropTypes.func
+  heading: PropTypes.string.isRequired,
+  onClose: PropTypes.func,
+  children: PropTypes.element.isRequired
 };
 
 export default Modal;

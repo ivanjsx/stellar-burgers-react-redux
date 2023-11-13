@@ -2,7 +2,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { useDrag } from "react-dnd";
-import { useDispatch } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 
 // components
@@ -18,9 +17,6 @@ import { ingredientPropType } from "../../utils/prop-types";
 // constants 
 import { INGREDIENT_PAGE_ABSOLUTE_PATH } from "../../utils/constants";
 
-// actions
-import { openIngredientModal } from "../../services/modal-slice";
-
 
 
 function Card({ ingredient, count }) {
@@ -28,7 +24,6 @@ function Card({ ingredient, count }) {
   const location = useLocation();
   const targetPath = INGREDIENT_PAGE_ABSOLUTE_PATH.split(":")[0].concat(ingredient._id);
   
-  const dispatch = useDispatch();
   const ref = React.useRef();
   
   const [{ isDragging }, dragRef] = useDrag(
@@ -50,15 +45,7 @@ function Card({ ingredient, count }) {
       className={styles.link}
     >
       <div className={`${styles.container} ${isDragging ? styles.isDragging : ""}`}>
-        <figure 
-          ref={ref}
-          className={styles.card} 
-          onClick={
-            () => {
-              dispatch(openIngredientModal());
-            }
-          }
-        >
+        <figure ref={ref} className={styles.card}>
           <img 
             src={ingredient.image_large} 
             alt={`фото ингредиента ${ingredient.name} стоимостью ${ingredient.price}`}

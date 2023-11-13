@@ -1,6 +1,6 @@
 // libraries
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 
 // components
@@ -46,7 +46,6 @@ import {
 
 // actions
 import { requestAvailableIngredientsStock } from "../services/burger-ingredients-slice";
-
 
 
 
@@ -173,7 +172,11 @@ function App() {
             <Route
               path={INGREDIENT_PAGE_ABSOLUTE_PATH}
               element={
-                <Modal children={<IngredientDetails />} onClose={handleModalClose} />
+                <Modal 
+                  heading="Детали ингредиента"
+                  closeHandler={handleModalClose}
+                  children={<IngredientDetails />} 
+                />
               }
             />
           </Routes>

@@ -29,29 +29,30 @@ function ErrorPage({ title, showTips }) {
         {title}
       </h1>
       {
-        showTips && 
-        <div className={styles.tip}>
-          <p>
-            Но вы всегда можете&nbsp;
-          </p>
-          <Button 
-            onClick={goBack} 
-            htmlType="button" 
-            type="secondary" 
-            size="medium"
-            children="вернуться назад"
-          />
-          <p>
-            &nbsp;или перейти на&nbsp;
-          </p>  
-          <Button 
-            onClick={goHome} 
-            htmlType="button" 
-            type="secondary" 
-            size="medium"
-            children="главную страницу"
-          />
-        </div>
+        showTips && (
+          <div className={styles.tip}>
+            <p>
+              Но вы всегда можете&nbsp;
+            </p>
+            <Button 
+              onClick={goBack} 
+              htmlType="button" 
+              type="secondary" 
+              size="medium"
+              children="вернуться назад"
+            />
+            <p>
+              &nbsp;или перейти на&nbsp;
+            </p>  
+            <Button 
+              onClick={goHome} 
+              htmlType="button" 
+              type="secondary" 
+              size="medium"
+              children="главную страницу"
+            />
+          </div>
+        )
       }
     </>
   );
