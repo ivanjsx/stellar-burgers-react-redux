@@ -10,16 +10,13 @@ function UnauthorizedAccessOnly({ element }) {
   return (
     <AuthorizedAccessOnly
       element={element} 
-      onlyUnauthorized={true} 
+      reversed={true} 
     />
   );
 };
 
-
 UnauthorizedAccessOnly.propTypes = {
   element: PropTypes.element.isRequired
 };
-
-
 
 export default UnauthorizedAccessOnly;

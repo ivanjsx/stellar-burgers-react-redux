@@ -13,13 +13,15 @@ import { LoadingPage, ErrorPage } from "../../pages";
 // styles
 import styles from "./home.module.css";
 
+// selectors
+import { defaultBurgerIngredientsSelector } from "../../services/selectors";
 
 
 
 function HomePage() {
   
   const { errorRequestingIngredients, pendingRequestingIngredients } = useSelector(
-    state => state.burgerIngredients
+    defaultBurgerIngredientsSelector
   );  
   
   if (errorRequestingIngredients) {
@@ -29,7 +31,7 @@ function HomePage() {
   if (pendingRequestingIngredients) {
     return <LoadingPage />;
   };
-
+  
   return (
     <>
       <h1 className={styles.heading}>
@@ -43,7 +45,7 @@ function HomePage() {
       </div>           
     </>
   );
-
+  
 };
 
 export default HomePage;

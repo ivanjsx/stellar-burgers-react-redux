@@ -18,11 +18,11 @@ function ErrorPage({ title, showTips }) {
   function goBack() {
     navigate(-1);
   };
-
+  
   function goHome() {
     navigate(HOME_PAGE_PATH);
   };
-
+  
   return (
     <>
       <h1 className={styles.title}>
@@ -32,7 +32,7 @@ function ErrorPage({ title, showTips }) {
         showTips && (
           <div className={styles.tip}>
             <p>
-              Но вы всегда можете&nbsp;
+              Вы всегда можете&nbsp;
             </p>
             <Button 
               onClick={goBack} 

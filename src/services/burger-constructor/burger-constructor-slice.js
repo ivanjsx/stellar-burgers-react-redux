@@ -1,30 +1,19 @@
 // libraries
 import { v4 as uuidv4 } from "uuid";
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
-// utils
-import { postRequest } from "../api/request";
+// constants 
+import { BURGER_CONSTRUCTOR_STATE_NAME } from "../../utils/constants";
 
-
-
-const NAME = "burgerConstructor";
-
-
-
-export const requestOrderPlacement = createAsyncThunk(
-  `${NAME}/requestOrderPlacement`,
-  arg => {
-    return postRequest(
-      "orders/", { ingredients: arg }
-    );
-  }
-);
+// thunks
+import { requestOrderPlacement } from "./burger-constructor-thunks";
 
 
 
-export const burgerConstructorSlice = createSlice(
+const burgerConstructorSlice = createSlice(
   {
-    name: NAME,
+    name: BURGER_CONSTRUCTOR_STATE_NAME,
+    
     initialState: {
       chosenBun: null,
       chosenToppings: [],
@@ -33,6 +22,7 @@ export const burgerConstructorSlice = createSlice(
       pendingRequestingOrder: false,
       previewableOrder: null
     },
+    
     reducers: {
       emptyCart: state => {
         state.chosenBun = null;
@@ -49,6 +39,7 @@ export const burgerConstructorSlice = createSlice(
       resetPreviewableOrder: state => {
         state.previewableOrder = null;        
       },
+      
       addTopping: {
         prepare: topping => {
           const _uuidv4 = uuidv4();
@@ -60,6 +51,7 @@ export const burgerConstructorSlice = createSlice(
           state.chosenToppings.push(action.payload);
         }
       },
+      
       dragTopping: {
         prepare: (fromIndex, toIndex) => {
           return {
@@ -78,30 +70,28 @@ export const burgerConstructorSlice = createSlice(
         }
       }            
     },
+    
     extraReducers: builder => {
       builder.addCase(
-        requestOrderPlacement.pending, 
-        state => {
+        requestOrderPlacement.pending, state => {
           state.pendingRequestingOrder = true;
         }
       ).addCase(
-        requestOrderPlacement.rejected, 
-        (state, action) => {
+        requestOrderPlacement.rejected, (state, action) => {
           state.errorRequestingOrder = true;
           state.pendingRequestingOrder = false;
           console.error(action.payload);
         }
       ).addCase(
-        requestOrderPlacement.fulfilled, 
-        (state, action) => {
+        requestOrderPlacement.fulfilled, (state, action) => {
           state.errorRequestingOrder = false;
           state.pendingRequestingOrder = false;
           state.previewableOrder = action.payload;
         }
       ).addDefaultCase(
         state => state
-      )
-    }
+      );
+    },
   }
 );
 
@@ -113,3 +103,5 @@ export const {
   addTopping, 
   dragTopping 
 } = burgerConstructorSlice.actions;
+
+export const burgerConstructorReducer = burgerConstructorSlice.reducer;

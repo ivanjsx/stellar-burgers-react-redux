@@ -6,44 +6,45 @@ import { Navigate, useLocation } from "react-router-dom";
 // constants 
 import { HOME_PAGE_PATH, LOGIN_PAGE_ABSOLUTE_PATH } from "../../utils/constants";
 
+// selectors
+import { defaultUserSelector } from "../../services/selectors";
 
 
-function AuthorizedAccessOnly({ element, onlyUnauthorized = false }) {
-  const location = useLocation();
 
-  const { currentUser, isAuthChecked } = useSelector(store => store.user);
+function AuthorizedAccessOnly({ element, reversed=false }) {
   
-  if (!isAuthChecked) {
+  const location = useLocation();
+  const { currentUser, authChecked } = useSelector(defaultUserSelector);
+  
+  if (!authChecked) {
     return null;
   };
   
-  if (onlyUnauthorized && currentUser) {
+  if (!reversed && !currentUser) {
     return (
       <Navigate
-        to={location.state?.from || { pathname: HOME_PAGE_PATH }} 
-        state={{ from: location }} 
-        replace={true} 
+        to={{ pathname: LOGIN_PAGE_ABSOLUTE_PATH }} 
+        state={{ from: location }}
       />
     );
   };
   
-  if (!onlyUnauthorized && !currentUser) {
+  if (reversed && currentUser) {
     return (
-      <Navigate 
-        to={LOGIN_PAGE_ABSOLUTE_PATH} 
-        state={{ from: location }} 
+      <Navigate
+        to={location.state?.from || { pathname: HOME_PAGE_PATH }}
+        state={{ from: location }}
+        replace={true}
       />
     );
-  };
+  };  
   
   return element;
 };
 
-
-
 AuthorizedAccessOnly.propTypes = {
   element: PropTypes.element.isRequired,
+  reversed: PropTypes.bool
 };
-
 
 export default AuthorizedAccessOnly;

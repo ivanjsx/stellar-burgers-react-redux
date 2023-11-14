@@ -22,11 +22,11 @@ function baseRequest(endpointPath, options) {
   return fetch(url, options).then(checkResponseOk).then(checkResponseSuccess)
 };
 
-function refreshingRequest(endpointPath, options, refreshAccessTokenCallback) {
+function refreshingRequest(endpointPath, options, refreshCallback) {
   return baseRequest(endpointPath, options).catch(
     error => {
-      if (error.message === "jwt expired") {
-        return refreshAccessTokenCallback().then(
+      if (error.message === "jwt expired" && refreshCallback) {
+        return refreshCallback().then(
           () => {
             baseRequest(endpointPath, options);
           }
@@ -38,45 +38,23 @@ function refreshingRequest(endpointPath, options, refreshAccessTokenCallback) {
 
 
 
-function getRequest(endpointPath) {
+function request(params) {
+  
+  const { path, method, body, withToken, refreshCallback } = params;
+  
   const options = {
-    method: "GET",
+    method: method,
+    body: JSON.stringify(body),
+    headers: { "Content-Type": "application/json;charset=utf-8" }
   };
-  return baseRequest(endpointPath, options);
-};
-
-function postRequest(endpointPath, requestBody, provideToken, refreshAccessTokenCallback) {
-  const options = {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json;charset=utf-8",
-    },   
-    body: JSON.stringify(
-      requestBody
-    )
-  };
-  if (provideToken) {
+  
+  if (withToken) {
     options.headers.Authorization = localStorage.getItem("accessToken");
-  };
-  return refreshingRequest(endpointPath, options, refreshAccessTokenCallback);
-};
-
-function patchRequest(endpointPath, requestBody, provideToken, refreshAccessTokenCallback) {
-  const options = {
-    method: "PATCH",
-    headers: {
-      "Content-Type": "application/json;charset=utf-8",
-    },   
-    body: JSON.stringify(
-      requestBody
-    )
-  };
-  if (provideToken) {
-    options.headers.Authorization = localStorage.getItem("accessToken");
-  };
-  return refreshingRequest(endpointPath, options, refreshAccessTokenCallback);
+  };  
+  
+  return refreshingRequest(path, options, refreshCallback);
 };
 
 
 
-export { getRequest, postRequest, patchRequest };
+export default request;

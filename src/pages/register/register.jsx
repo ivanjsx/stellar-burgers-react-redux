@@ -15,7 +15,10 @@ import styles from "./register.module.css";
 import { LOGIN_PAGE_ABSOLUTE_PATH } from "../../utils/constants";
 
 // actions
-import { createUser } from "../../services/user-slice";
+import { registerUser } from "../../services/user/user-thunks";
+
+// hooks
+import useForm from "../../hooks/use-form";
 
 
 
@@ -23,31 +26,18 @@ function RegisterPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  
   const [isNameValid, setIsNameValid] = useState(false);
   const [isEmailValid, setIsEmailValid] = useState(false);
   const [isPasswordValid, setIsPasswordValid] = useState(false);
-
-  function onNameChange(event) {
-    setName(event.target.value);
-    setIsNameValid(event.target.validity.valid);
-  };
-
-  function onEmailChange(event) {
-    setEmail(event.target.value);
-    setIsEmailValid(event.target.validity.valid);
-  };
-
-  function onPasswordChange(event) {
-    setPassword(event.target.value);
-    setIsPasswordValid(event.target.validity.valid);
-  };  
-
+  
+  const { onChange } = useForm();
+  
   function onSubmit(event) {
     event.preventDefault();
-    createUser({ name, email, password });
+    registerUser({ name, email, password });
   };
-
+  
   return (
     <>
       <h1 className={styles.heading}>
@@ -59,17 +49,17 @@ function RegisterPage() {
           placeholder="Имя"
           name="name"
           value={name}
-          onChange={onNameChange}
+          onChange={onChange(setName, setIsNameValid)}
         />        
         <EmailInput
           name="email"
           value={email}
-          onChange={onEmailChange}
+          onChange={onChange(setEmail, setIsEmailValid)}
         />        
         <PasswordInput
           name="password"
           value={password}
-          onChange={onPasswordChange}
+          onChange={onChange(setPassword, setIsPasswordValid)}
         />
         <Button 
           size="medium" 

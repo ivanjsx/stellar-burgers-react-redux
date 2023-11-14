@@ -12,13 +12,19 @@ import { PasswordInput } from "@ya.praktikum/react-developer-burger-ui-component
 import styles from "./profile.module.css";
 
 // actions 
-import { updateUserInfo } from "../../services/user-slice";
+import { updateUser } from "../../services/user/user-thunks";
+
+// hooks
+import useForm from "../../hooks/use-form";
+
+// selectors
+import { defaultUserSelector } from "../../services/selectors";
 
 
 
 function ProfilePage() {
   
-  const { currentUser } = useSelector(state => state.user);
+  const { currentUser } = useSelector(defaultUserSelector);
   
   const [name, setName] = useState(currentUser.name);
   const [email, setEmail] = useState(currentUser.email);
@@ -28,24 +34,18 @@ function ProfilePage() {
   const [isEmailValid, setIsEmailValid] = useState(false);
   const [isPasswordValid, setIsPasswordValid] = useState(false);
   
-  function onNameChange(event) {
-    setName(event.target.value);
-    setIsNameValid(event.target.validity.valid);
-  };
-  
-  function onEmailChange(event) {
-    setEmail(event.target.value);
-    setIsEmailValid(event.target.validity.valid);
-  };
-  
-  function onPasswordChange(event) {
-    setPassword(event.target.value);
-    setIsPasswordValid(event.target.validity.valid);
-  };  
+  const { onChange } = useForm();
   
   function onSubmit(event) {
     event.preventDefault();
-    updateUserInfo({ name, email, password });
+    updateUser({ name, email, password });
+  };
+  
+  function onReset(event) {
+    event.preventDefault();
+    setName(currentUser.name);
+    setEmail(currentUser.email);
+    setPassword(currentUser.password);
   };
   
   return (
@@ -54,25 +54,25 @@ function ProfilePage() {
         В этом разделе вы можете изменить свои персональные данные
       </p>
       <div className={styles.content}>
-        <form className={styles.form} onSubmit={onSubmit}>
+        <form className={styles.form} onSubmit={onSubmit} onReset={onReset}>
           <Input
             type="text"
             placeholder="Имя"
             name="name"
             value={name}
-            onChange={onNameChange}
+            onChange={onChange(setName, setIsNameValid)}
             icon="EditIcon"
           />        
           <EmailInput
             name="email"
             value={email}
-            onChange={onEmailChange}
+            onChange={onChange(setEmail, setIsEmailValid)}
             isIcon={true}
           />        
           <PasswordInput
             name="password"
             value={password}
-            onChange={onPasswordChange}
+            onChange={onChange(setPassword, setIsPasswordValid)}
             icon="EditIcon"
           />
           <Button
@@ -80,9 +80,16 @@ function ProfilePage() {
             type="primary" 
             htmlType="submit" 
             disabled={!isNameValid || !isEmailValid || !isPasswordValid}
-            extraClass={styles.submit}
+            extraClass={styles.button}
             children="Сохранить"
           />           
+          <Button
+            size="medium" 
+            type="secondary" 
+            htmlType="reset" 
+            extraClass={styles.button}
+            children="Отменить"
+          />                
         </form>      
       </div>
     </>

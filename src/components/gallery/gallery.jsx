@@ -12,13 +12,19 @@ import { BUNS_IN_BURGER_COUNT } from "../../utils/constants";
 // styles
 import styles from "./gallery.module.css";
 
+// selectors
+import { 
+  defaultBurgerIngredientsSelector,
+  defaultBurgerConstructorSelector,
+} from "../../services/selectors";
+
 
 
 const Gallery = forwardRef(
   ({ category, title }, ref) => {
     
-    const { availableIngredientsStock } = useSelector(state => state.burgerIngredients);
-    const { chosenBun, chosenToppings } = useSelector(state => state.burgerConstructor);
+    const { availableIngredientsStock } = useSelector(defaultBurgerIngredientsSelector);
+    const { chosenBun, chosenToppings } = useSelector(defaultBurgerConstructorSelector);
     
     const countIngredient = useCallback(
       ingredient => {

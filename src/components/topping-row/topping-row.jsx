@@ -15,7 +15,7 @@ import styles from "./topping-row.module.css";
 import { ingredientPropType } from "../../utils/prop-types";
 
 // actions
-import { dragTopping } from "../../services/burger-constructor-slice";
+import { dragTopping } from "../../services/burger-constructor/burger-constructor-slice";
 
 
 

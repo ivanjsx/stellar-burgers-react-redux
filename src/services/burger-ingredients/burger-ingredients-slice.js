@@ -1,60 +1,48 @@
 // libraries
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
-// utils
-import { getRequest } from "../api/request";
+// constants 
+import { BURGER_INGREDIENTS_STATE_NAME } from "../../utils/constants";
 
-
-
-const NAME = "burgerIngredients";
-
-
-
-export const requestAvailableIngredientsStock = createAsyncThunk(
-  `${NAME}/requestAvailableIngredientsStock`,
-  () => {
-    return getRequest(
-      "ingredients/"
-    ).then(
-      response => response.data
-    );
-  }
-);
+// thunks
+import { requestAvailableIngredientsStock } from "./burger-ingredients-thunks";
 
 
 
-export const burgerIngredientsSlice = createSlice(
+const burgerIngredientsSlice = createSlice(
   {
-    name: NAME,
+    name: BURGER_INGREDIENTS_STATE_NAME,
+    
     initialState: {
       availableIngredientsStock: [],
       errorRequestingIngredients: false,
       pendingRequestingIngredients: false,
     },
+    
     reducers: {},
+    
     extraReducers: builder => {
       builder.addCase(
-        requestAvailableIngredientsStock.pending, 
-        state => {
+        requestAvailableIngredientsStock.pending, state => {
           state.pendingRequestingIngredients = true;
         }
       ).addCase(
-        requestAvailableIngredientsStock.rejected, 
-        (state, action) => {
+        requestAvailableIngredientsStock.rejected, (state, action) => {
           state.errorRequestingIngredients = true;
           state.pendingRequestingIngredients = false;
           console.error(action.payload);
         }
       ).addCase(
-        requestAvailableIngredientsStock.fulfilled, 
-        (state, action) => {
+        requestAvailableIngredientsStock.fulfilled, (state, action) => {
           state.errorRequestingIngredients = false;
           state.pendingRequestingIngredients = false;
           state.availableIngredientsStock = action.payload;
         }
       ).addDefaultCase(
         state => state
-      )
-    }
+      );
+    },
   }
 );
+
+export const burgerIngredientsReducer = burgerIngredientsSlice.reducer;

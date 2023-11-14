@@ -13,25 +13,24 @@ import styles from "./forgot-password.module.css";
 import { LOGIN_PAGE_ABSOLUTE_PATH } from "../../utils/constants";
 
 // actions
-import { resetPassword } from "../../services/user-slice";
+import { resetPassword } from "../../services/user/user-thunks";
+
+// hooks
+import useForm from "../../hooks/use-form";
 
 
 
 function ForgotPasswordPage() {
-  const [email, setEmail] = useState("");
-
+  
+  const [email, setEmail] = useState("");  
   const [isEmailValid, setIsEmailValid] = useState(false);
-
-  function onEmailChange(event) {
-    setEmail(event.target.value);
-    setIsEmailValid(event.target.validity.valid);
-  };
-
+  const { onChange } = useForm();
+  
   function onSubmit(event) {
     event.preventDefault();
     resetPassword({ email });
   };
-
+  
   return (
     <>
       <h1 className={styles.heading}>
@@ -41,7 +40,7 @@ function ForgotPasswordPage() {
         <EmailInput
           name="email"
           value={email}
-          onChange={onEmailChange}
+          onChange={onChange(setEmail, setIsEmailValid)}
           placeholder="Укажите e-mail"
         />        
         <Button 

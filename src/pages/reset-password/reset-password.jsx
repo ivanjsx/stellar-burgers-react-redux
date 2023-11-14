@@ -14,7 +14,10 @@ import styles from "./reset-password.module.css";
 import { LOGIN_PAGE_ABSOLUTE_PATH } from "../../utils/constants";
 
 // actions
-import { setNewPassword } from "../../services/user-slice";
+import { setNewPassword } from "../../services/user/user-thunks";
+
+// hooks
+import useForm from "../../hooks/use-form";
 
 
 
@@ -25,21 +28,13 @@ function ResetPasswordPage() {
   const [isPasswordValid, setIsPasswordValid] = useState(false);
   const [isSecurityCodeValid, setIsSecurityCodeValid] = useState(false);
 
-  function onPasswordChange(event) {
-    setPassword(event.target.value);
-    setIsPasswordValid(event.target.validity.valid);
-  };
-
-  function onSecurityCodeChange(event) {
-    setSecurityCode(event.target.value);
-    setIsSecurityCodeValid(event.target.validity.valid);
-  };  
-
+  const { onChange } = useForm();
+  
   function onSubmit(event) {
     event.preventDefault();
     setNewPassword({ password, securityCode });
   };
-
+  
   return (
     <>
       <h1 className={styles.heading}>
@@ -50,14 +45,14 @@ function ResetPasswordPage() {
           placeholder="Введите новый пароль"
           name="password"
           value={password}
-          onChange={onPasswordChange}
+          onChange={onChange(setPassword, setIsPasswordValid)}
         />
         <Input
           type="text"
           placeholder="Введите код из письма"
           name="securityCode"
           value={securityCode}
-          onChange={onSecurityCodeChange}
+          onChange={onChange(setSecurityCode, setIsSecurityCodeValid)}
         />          
         <Button 
           size="medium" 

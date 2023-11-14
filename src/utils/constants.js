@@ -3,8 +3,15 @@ export const BASE_URL = "https://norma.nomoreparties.space/api/";
 
 
 
-// CONSTRUCTOR
+// FEATURES
 export const BUNS_IN_BURGER_COUNT = 2;
+
+
+
+// STATE MANAGEMENT
+export const USER_STATE_NAME = "user";
+export const BURGER_INGREDIENTS_STATE_NAME = "burgerIngredients";
+export const BURGER_CONSTRUCTOR_STATE_NAME = "burgerConstructor";
 
 
 

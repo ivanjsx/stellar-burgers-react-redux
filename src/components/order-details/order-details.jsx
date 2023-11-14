@@ -10,11 +10,14 @@ import done from "../../images/done.svg";
 import failed from "../../images/failed.svg";
 import pending from "../../images/pending.svg";
 
+// selectors 
+import { defaultBurgerConstructorSelector } from "../../services/selectors";
+
 
 
 function OrderDetails() {
 
-  const { errorRequestingOrder, pendingRequestingOrder, previewableOrder } = useSelector(state => state.burgerConstructor);
+  const { errorRequestingOrder, pendingRequestingOrder, previewableOrder } = useSelector(defaultBurgerConstructorSelector);
 
   const [status, setStatus] = useState("");
   const [action, setAction] = useState("");

@@ -5,7 +5,7 @@ import { Provider } from "react-redux";
 import { BrowserRouter as Router } from "react-router-dom";
 
 // components
-import App from "./components/app";
+import App from "./components/app/app";
 import ErrorBoundary from "./components/error-boundary/error-boundary";
 
 // styles

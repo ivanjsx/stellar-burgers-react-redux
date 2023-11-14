@@ -1,17 +1,17 @@
 // libraries
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 
 // components
-import Modal from "./modal/modal";
-import Logout from "./logout/logout";
-import IngredientDetails from "./ingredient-details/ingredient-details";
-import AuthorizedAccessOnly from "./authorized-access-only/authorized-access-only";
-import UnauthorizedAccessOnly from "./unauthorized-access-only/unauthorized-access-only";
+import Modal from "../modal/modal";
+import Logout from "../logout/logout";
+import IngredientDetails from "../ingredient-details/ingredient-details";
+import AuthorizedAccessOnly from "../authorized-access-only/authorized-access-only";
+import UnauthorizedAccessOnly from "../unauthorized-access-only/unauthorized-access-only";
 
 // layouts
-import { RootLayout, AccountLayout } from "../layouts";
+import { RootLayout, AccountLayout } from "../../layouts";
 
 // pages
 import { 
@@ -26,7 +26,7 @@ import {
   IngredientPage,
   ResetPasswordPage,
   ForgotPasswordPage,
-} from "../pages";
+} from "../../pages";
 
 // constants 
 import { 
@@ -42,10 +42,12 @@ import {
   INGREDIENT_PAGE_ABSOLUTE_PATH,
   RESET_PASSWORD_PAGE_RELATIVE_PATH,
   FORGOT_PASSWORD_PAGE_RELATIVE_PATH,
-} from "../utils/constants";
+} from "../../utils/constants";
 
 // actions
-import { requestAvailableIngredientsStock } from "../services/burger-ingredients-slice";
+import { getUser } from "../../services/user/user-thunks";
+import { setUser, setAuthChecked } from "../../services/user/user-slice";
+import { requestAvailableIngredientsStock } from "../../services/burger-ingredients/burger-ingredients-thunks";
 
 
 
@@ -53,19 +55,37 @@ function App() {
   
   const dispatch = useDispatch();
   
-  useEffect(
+  const checkUserAuth = useCallback(
     () => {
-      dispatch(requestAvailableIngredientsStock());
+      dispatch(setAuthChecked(false));
+      if (localStorage.getItem("accessToken")) {
+        dispatch(
+          getUser()
+        ).catch(
+          error => {
+            localStorage.removeItem("accessToken");
+            localStorage.removeItem("refreshToken");
+            dispatch(setUser(null));
+            console.error(error);
+          }
+        ).finally(
+          () => {
+            dispatch(setAuthChecked(true));
+          }
+        );
+      };
+      dispatch(setAuthChecked(true));
     },
     []
-  );    
+  );
   
-  // useEffect(
-  //   () => {
-  //     dispatch(checkUserAuth());
-  //   }, 
-  //   []
-  // );    
+  useEffect(
+    () => {
+      checkUserAuth();
+      dispatch(requestAvailableIngredientsStock());
+    },
+    [checkUserAuth]
+  );    
   
   const navigate = useNavigate();
   const location = useLocation();
@@ -97,64 +117,55 @@ function App() {
           <Route
             path={LOGIN_PAGE_RELATIVE_PATH}
             element={
-              <LoginPage />
-              // <UnauthorizedAccessOnly element={<LoginPage />} />
+              <UnauthorizedAccessOnly element={<LoginPage />} />
             }
           />
           <Route
             path={LOGOUT_PAGE_RELATIVE_PATH}
             element={
-              <Logout />
-              // <AuthorizedAccessOnly element={<Logout />} />
+              <AuthorizedAccessOnly element={<Logout />} />
             }
           />               
           <Route 
             path={REGISTER_PAGE_RELATIVE_PATH}
             element={
-              <RegisterPage />
-              // <UnauthorizedAccessOnly element={<RegisterPage />} />
+              <UnauthorizedAccessOnly element={<RegisterPage />} />
             }             
           />
           <Route 
             path={FORGOT_PASSWORD_PAGE_RELATIVE_PATH}
             element={
-              <ForgotPasswordPage />
-              // <UnauthorizedAccessOnly element={<ForgotPasswordPage />} />
+              <UnauthorizedAccessOnly element={<ForgotPasswordPage />} />
             }
           />            
           <Route 
             path={RESET_PASSWORD_PAGE_RELATIVE_PATH}
             element={
-              <ResetPasswordPage />
-              // <UnauthorizedAccessOnly element={<ResetPasswordPage />} />
+              <UnauthorizedAccessOnly element={<ResetPasswordPage />} />
             }             
           />     
           <Route 
             path={PROFILE_PAGE_RELATIVE_PATH}
             element={
-              <AccountLayout />
-              // <AuthorizedAccessOnly element={<AccountLayout />} />
+              <AuthorizedAccessOnly element={<AccountLayout />} />
             } 
           >
             <Route 
               index 
               element={
-                <ProfilePage />
-                // AuthorizedAccessOnly ??
+                <AuthorizedAccessOnly element={<ProfilePage />} />
               } 
             />          
             <Route 
               path={HISTORY_PAGE_RELATIVE_PATH}
               element={
-                <HistoryPage />
-                // AuthorizedAccessOnly ??
+                <AuthorizedAccessOnly element={<HistoryPage />} />
               } 
             >
               <Route 
                 path={ORDER_PAGE_RELATIVE_PATH}
                 element={
-                  <OrderPage />
-                  // AuthorizedAccessOnly ??
+                  <AuthorizedAccessOnly element={<OrderPage />} />
                 }             
               />
             </Route>
@@ -165,7 +176,7 @@ function App() {
           />        
         </Route>
       </Routes>
-
+      
       {
         background && (
           <Routes>

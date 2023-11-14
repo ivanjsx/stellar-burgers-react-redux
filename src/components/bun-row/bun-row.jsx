@@ -9,12 +9,15 @@ import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-comp
 // styles
 import styles from "./bun-row.module.css";
 
+// selectors
+import { defaultBurgerConstructorSelector } from "../../services/selectors";
+
 
 
 const BunRow = memo(
   ({ type }) => {
     
-    const { chosenBun } = useSelector(state => state.burgerConstructor);
+    const { chosenBun } = useSelector(defaultBurgerConstructorSelector);
 
     const content = chosenBun
                     ? (

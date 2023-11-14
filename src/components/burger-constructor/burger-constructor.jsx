@@ -18,21 +18,26 @@ import styles from "./burger-constructor.module.css";
 import { BUNS_IN_BURGER_COUNT } from "../../utils/constants";
 
 // actions
+import { requestOrderPlacement } from "../../services/burger-constructor/burger-constructor-thunks";
 import { 
-  requestOrderPlacement, 
   resetPreviewableOrder,
   removeTopping, 
   setChosenBun, 
   addTopping, 
   emptyCart, 
-} from "../../services/burger-constructor-slice";
+} from "../../services/burger-constructor/burger-constructor-slice";
+
+// selectors
+import { defaultBurgerConstructorSelector } from "../../services/selectors";
 
 
 
 function BurgerConstructor() {
   
   const dispatch = useDispatch();
-  const { chosenBun, chosenToppings, canPlaceOrder, previewableOrder } = useSelector(state => state.burgerConstructor);
+  const { chosenBun, chosenToppings, canPlaceOrder, previewableOrder } = useSelector(
+    defaultBurgerConstructorSelector
+  );
   
   const [{ canDrop }, dropTargetRef] = useDrop(
     {
