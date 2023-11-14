@@ -1,5 +1,5 @@
 // libraries
-import React from "react";
+import { useRef, useCallback } from "react";
 import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
 import { useDrag, useDrop } from "react-dnd";
@@ -22,9 +22,9 @@ import { dragTopping } from "../../services/burger-constructor-slice";
 function ToppingRow({ index, topping, deleteHandler, isThumbnail=false }) {
   
   const dispatch = useDispatch();
-  const ref = React.useRef();
+  const ref = useRef();
   
-  const dragRow = React.useCallback(
+  const dragRow = useCallback(
     (fromIndex, toIndex) => {
       dispatch(
         dragTopping(fromIndex, toIndex)

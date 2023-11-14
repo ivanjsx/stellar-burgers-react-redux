@@ -1,5 +1,5 @@
 // libraries
-import React from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 // components
@@ -19,11 +19,11 @@ import { loginUser } from "../../services/user-slice";
 
 
 function LoginPage() {
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  const [isEmailValid, setIsEmailValid] = React.useState(false);
-  const [isPasswordValid, setIsPasswordValid] = React.useState(false);
+  const [isEmailValid, setIsEmailValid] = useState(false);
+  const [isPasswordValid, setIsPasswordValid] = useState(false);
 
   function onEmailChange(event) {
     setEmail(event.target.value);

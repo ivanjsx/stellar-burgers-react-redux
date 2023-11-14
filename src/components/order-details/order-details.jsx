@@ -1,5 +1,5 @@
 // libraries
-import React from "react";
+import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 
 // styles
@@ -16,12 +16,12 @@ function OrderDetails() {
 
   const { errorRequestingOrder, pendingRequestingOrder, previewableOrder } = useSelector(state => state.burgerConstructor);
 
-  const [status, setStatus] = React.useState("");
-  const [action, setAction] = React.useState("");
-  const [suggestion, setSuggestion] = React.useState("");
-  const [iconSrc, setIconSrc] = React.useState("");
+  const [status, setStatus] = useState("");
+  const [action, setAction] = useState("");
+  const [suggestion, setSuggestion] = useState("");
+  const [iconSrc, setIconSrc] = useState("");
 
-  React.useEffect(
+  useEffect(
     () => {
       if (errorRequestingOrder) {
         setStatus("не удалось создать заказ");

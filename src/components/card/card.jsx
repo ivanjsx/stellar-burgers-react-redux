@@ -1,5 +1,5 @@
 // libraries
-import React from "react";
+import { memo, useRef } from "react";
 import PropTypes from "prop-types";
 import { useDrag } from "react-dnd";
 import { Link, useLocation } from "react-router-dom";
@@ -24,7 +24,7 @@ function Card({ ingredient, count }) {
   const location = useLocation();
   const targetPath = INGREDIENT_PAGE_ABSOLUTE_PATH.split(":")[0].concat(ingredient._id);
   
-  const ref = React.useRef();
+  const ref = useRef();
   
   const [{ isDragging }, dragRef] = useDrag(
     {
@@ -69,4 +69,4 @@ Card.propTypes = {
   count: PropTypes.number.isRequired,
 };
 
-export default React.memo(Card);
+export default memo(Card);

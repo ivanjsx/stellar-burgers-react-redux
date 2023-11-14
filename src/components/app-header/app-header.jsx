@@ -1,5 +1,5 @@
 // libraries
-import React from "react";
+import { memo, useCallback } from "react";
 import { useLocation, Link } from "react-router-dom";
 
 // components
@@ -19,7 +19,7 @@ import {
 } from "../../utils/constants";
 
 // memoization
-const MemoizedLogo = React.memo(Logo);
+const MemoizedLogo = memo(Logo);
 
 
 
@@ -27,7 +27,7 @@ function AppHeader() {
   
   const location = useLocation();
 
-  const isActive = React.useCallback(
+  const isActive = useCallback(
     (absPath, exact) => {
       if (exact) {
         return location.pathname === absPath;
@@ -37,7 +37,7 @@ function AppHeader() {
     [location]
   );
 
-  const textClass = React.useCallback(
+  const textClass = useCallback(
     isActive => [
       styles.text,
       isActive ? "" : styles.inactive
@@ -45,7 +45,7 @@ function AppHeader() {
     []
   );
   
-  const iconType = React.useCallback(
+  const iconType = useCallback(
     isActive => isActive ? "primary" : "secondary",
     []
   );  
@@ -114,4 +114,4 @@ function AppHeader() {
   );
 };
 
-export default React.memo(AppHeader);
+export default memo(AppHeader);

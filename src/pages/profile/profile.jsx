@@ -1,5 +1,5 @@
 // libraries
-import React from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 
 // components
@@ -20,13 +20,13 @@ function ProfilePage() {
   
   const { currentUser } = useSelector(state => state.user);
   
-  const [name, setName] = React.useState(currentUser.name);
-  const [email, setEmail] = React.useState(currentUser.email);
-  const [password, setPassword] = React.useState(currentUser.password);
+  const [name, setName] = useState(currentUser.name);
+  const [email, setEmail] = useState(currentUser.email);
+  const [password, setPassword] = useState(currentUser.password);
   
-  const [isNameValid, setIsNameValid] = React.useState(false);
-  const [isEmailValid, setIsEmailValid] = React.useState(false);
-  const [isPasswordValid, setIsPasswordValid] = React.useState(false);
+  const [isNameValid, setIsNameValid] = useState(false);
+  const [isEmailValid, setIsEmailValid] = useState(false);
+  const [isPasswordValid, setIsPasswordValid] = useState(false);
   
   function onNameChange(event) {
     setName(event.target.value);

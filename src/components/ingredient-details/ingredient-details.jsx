@@ -1,5 +1,5 @@
 // libraries
-import React from "react";
+import { useCallback } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
@@ -18,7 +18,7 @@ function IngredientDetails() {
   
   const { ingredientId } = useParams();
 
-  const previewableIngredientSelector = React.useCallback(
+  const previewableIngredientSelector = useCallback(
     state => state.burgerIngredients.availableIngredientsStock.filter(
       ingredient => ingredient._id === ingredientId
     )[0],

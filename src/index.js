@@ -1,6 +1,6 @@
 // libraries
-import React from "react";
-import ReactDOM from "react-dom";
+import { StrictMode } from "react";
+import { render } from "react-dom";
 import { Provider } from "react-redux";
 import { BrowserRouter as Router } from "react-router-dom";
 
@@ -18,9 +18,9 @@ import { store } from "./services/store"
 
 const root = document.querySelector("#root");
 
-ReactDOM.render(
+render(
   (
-    <React.StrictMode>
+    <StrictMode>
       <ErrorBoundary>
         <Router>
           <Provider store={store}>
@@ -28,7 +28,7 @@ ReactDOM.render(
           </Provider>
         </Router> 
       </ErrorBoundary>      
-    </React.StrictMode>
+    </StrictMode>
   ),
   root
 );

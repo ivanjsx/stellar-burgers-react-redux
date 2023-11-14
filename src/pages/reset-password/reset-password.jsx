@@ -1,5 +1,5 @@
 // libraries
-import React from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 // components
@@ -19,11 +19,11 @@ import { setNewPassword } from "../../services/user-slice";
 
 
 function ResetPasswordPage() {
-  const [password, setPassword] = React.useState("");
-  const [securityCode, setSecurityCode] = React.useState("");
+  const [password, setPassword] = useState("");
+  const [securityCode, setSecurityCode] = useState("");
 
-  const [isPasswordValid, setIsPasswordValid] = React.useState(false);
-  const [isSecurityCodeValid, setIsSecurityCodeValid] = React.useState(false);
+  const [isPasswordValid, setIsPasswordValid] = useState(false);
+  const [isSecurityCodeValid, setIsSecurityCodeValid] = useState(false);
 
   function onPasswordChange(event) {
     setPassword(event.target.value);

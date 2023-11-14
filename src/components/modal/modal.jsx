@@ -1,6 +1,6 @@
 // libraries
-import React from "react";
-import ReactDOM from "react-dom";
+import { useEffect } from "react";
+import { createPortal } from "react-dom";
 import PropTypes from "prop-types";
 
 // components
@@ -14,7 +14,7 @@ import styles from "./modal.module.css";
 
 function Modal({ heading, closeHandler, children }) {
   
-  React.useEffect(
+  useEffect(
     () => {
       function handleEscapePress(event) {
         if (event.key === "Escape") {
@@ -31,7 +31,7 @@ function Modal({ heading, closeHandler, children }) {
 
   const modalRoot = document.querySelector("#modals");
 
-  return ReactDOM.createPortal(
+  return createPortal(
     (
       <ModalOverlay closeHandler={closeHandler}>
         <div className={styles.container}>

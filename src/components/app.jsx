@@ -1,5 +1,5 @@
 // libraries
-import React from "react";
+import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 
@@ -53,14 +53,14 @@ function App() {
   
   const dispatch = useDispatch();
   
-  React.useEffect(
+  useEffect(
     () => {
       dispatch(requestAvailableIngredientsStock());
     },
     []
   );    
   
-  // React.useEffect(
+  // useEffect(
   //   () => {
   //     dispatch(checkUserAuth());
   //   }, 

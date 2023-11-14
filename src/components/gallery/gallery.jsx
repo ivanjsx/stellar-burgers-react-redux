@@ -1,5 +1,5 @@
 // libraries
-import React from "react";
+import { memo, useMemo, useCallback, forwardRef } from "react";
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 
@@ -14,13 +14,13 @@ import styles from "./gallery.module.css";
 
 
 
-const Gallery = React.forwardRef(
+const Gallery = forwardRef(
   ({ category, title }, ref) => {
     
     const { availableIngredientsStock } = useSelector(state => state.burgerIngredients);
     const { chosenBun, chosenToppings } = useSelector(state => state.burgerConstructor);
     
-    const countIngredient = React.useCallback(
+    const countIngredient = useCallback(
       ingredient => {
         let outcome = chosenBun 
                       ? Number(chosenBun._id === ingredient._id) * BUNS_IN_BURGER_COUNT 
@@ -32,12 +32,12 @@ const Gallery = React.forwardRef(
       [chosenBun, chosenToppings]
     );
 
-    const items = React.useMemo(
+    const items = useMemo(
       () => availableIngredientsStock.filter(ingredient => ingredient.type === category),
       [availableIngredientsStock, category]
     );
 
-    const content = React.useMemo(
+    const content = useMemo(
       () => items.map(
         ingredient => <Card 
                         key={ingredient._id} 
@@ -66,4 +66,4 @@ Gallery.propTypes = {
   title: PropTypes.string.isRequired
 };
 
-export default React.memo(Gallery);
+export default memo(Gallery);

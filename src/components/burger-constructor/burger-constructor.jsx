@@ -1,5 +1,5 @@
 // libraries
-import React from "react";
+import { memo, useMemo, useCallback } from "react";
 import { useDrop } from "react-dnd";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -52,7 +52,7 @@ function BurgerConstructor() {
     }
   );
   
-  const totalPrice = React.useMemo(
+  const totalPrice = useMemo(
     () => {
       const outcome = chosenBun 
                       ? chosenBun.price * BUNS_IN_BURGER_COUNT 
@@ -64,7 +64,7 @@ function BurgerConstructor() {
     [chosenBun, chosenToppings]
   );
   
-  const placeOrder = React.useCallback(
+  const placeOrder = useCallback(
     () => {
       if (canPlaceOrder) {
         dispatch(
@@ -154,4 +154,4 @@ function BurgerConstructor() {
   );
 };
 
-export default React.memo(BurgerConstructor);
+export default memo(BurgerConstructor);

@@ -1,5 +1,5 @@
 // libraries
-import React from "react";
+import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Navigate, useLocation } from "react-router-dom";
 
@@ -15,7 +15,7 @@ function Logout() {
   const dispatch = useDispatch();
   const location = useLocation();
   
-  React.useEffect(
+  useEffect(
     () => {
       dispatch(logoutUser());
     },

@@ -1,5 +1,5 @@
 // libraries
-import React from "react";
+import { memo } from "react";
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 
@@ -11,7 +11,7 @@ import styles from "./bun-row.module.css";
 
 
 
-const BunRow = React.memo(
+const BunRow = memo(
   ({ type }) => {
     
     const { chosenBun } = useSelector(state => state.burgerConstructor);

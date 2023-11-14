@@ -1,5 +1,5 @@
 // libraries
-import React from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 // components
@@ -18,9 +18,9 @@ import { resetPassword } from "../../services/user-slice";
 
 
 function ForgotPasswordPage() {
-  const [email, setEmail] = React.useState("");
+  const [email, setEmail] = useState("");
 
-  const [isEmailValid, setIsEmailValid] = React.useState(false);
+  const [isEmailValid, setIsEmailValid] = useState(false);
 
   function onEmailChange(event) {
     setEmail(event.target.value);

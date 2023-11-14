@@ -1,5 +1,5 @@
 // libraries
-import React from "react";
+import { memo, useRef, useState, useCallback } from "react";
 
 // components
 import Gallery from "../gallery/gallery";
@@ -12,13 +12,13 @@ import styles from "./burger-ingredients.module.css";
 
 function BurgerIngredients() {  
   
-  const [activeTab, setActiveTab] = React.useState("bun");
-  const wholeSectionRef = React.useRef();
-  const bunsRef = React.useRef();
-  const saucesRef = React.useRef();
-  const mainsRef = React.useRef();
+  const [activeTab, setActiveTab] = useState("bun");
+  const wholeSectionRef = useRef();
+  const bunsRef = useRef();
+  const saucesRef = useRef();
+  const mainsRef = useRef();
   
-  const handleScroll = React.useCallback(
+  const handleScroll = useCallback(
     () => {
       const bunsHeight = bunsRef.current.clientHeight;
       const saucesHeight = saucesRef.current.clientHeight;
@@ -33,7 +33,7 @@ function BurgerIngredients() {
     [wholeSectionRef, bunsRef, saucesRef]
   );
   
-  const scrollIntoGallery = React.useCallback(
+  const scrollIntoGallery = useCallback(
     (tabValue, galleryRef) => {
       return () => {
         setActiveTab(tabValue);
@@ -83,4 +83,4 @@ function BurgerIngredients() {
   );
 };
 
-export default React.memo(BurgerIngredients);
+export default memo(BurgerIngredients);

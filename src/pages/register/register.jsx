@@ -1,5 +1,5 @@
 // libraries
-import React from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 // components
@@ -20,13 +20,13 @@ import { createUser } from "../../services/user-slice";
 
 
 function RegisterPage() {
-  const [name, setName] = React.useState("");
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  const [isNameValid, setIsNameValid] = React.useState(false);
-  const [isEmailValid, setIsEmailValid] = React.useState(false);
-  const [isPasswordValid, setIsPasswordValid] = React.useState(false);
+  const [isNameValid, setIsNameValid] = useState(false);
+  const [isEmailValid, setIsEmailValid] = useState(false);
+  const [isPasswordValid, setIsPasswordValid] = useState(false);
 
   function onNameChange(event) {
     setName(event.target.value);
