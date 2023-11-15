@@ -25,7 +25,7 @@ function HomePage() {
   );  
   
   if (errorRequestingIngredients) {
-    return <ErrorPage title={"Что-то пошло не так!"} showTips={true} />;
+    return <ErrorPage title="Что-то пошло не так!" showTips={true} />;
   };
   
   if (pendingRequestingIngredients) {

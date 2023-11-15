@@ -1,4 +1,5 @@
 // libraries
+import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 
 // components  
@@ -56,6 +57,11 @@ function ErrorPage({ title, showTips }) {
       }
     </>
   );
+};
+
+ErrorPage.propTypes = {
+  title: PropTypes.string.isRequired,
+  showTips: PropTypes.bool.isRequired,
 };
 
 export default ErrorPage;

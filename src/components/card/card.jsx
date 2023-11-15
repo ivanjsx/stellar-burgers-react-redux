@@ -1,7 +1,7 @@
 // libraries
-import { memo, useRef } from "react";
 import PropTypes from "prop-types";
 import { useDrag } from "react-dnd";
+import { memo, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 // components

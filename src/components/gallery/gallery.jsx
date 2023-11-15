@@ -1,7 +1,7 @@
 // libraries
-import { memo, useMemo, useCallback, forwardRef } from "react";
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
+import { memo, useMemo, useCallback, forwardRef } from "react";
 
 // components
 import Card from "../card/card";

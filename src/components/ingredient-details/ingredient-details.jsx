@@ -28,7 +28,7 @@ function IngredientDetails() {
   const previewableIngredient = useSelector(previewableIngredientSelector);
   
   if (!previewableIngredient) {
-    return <ErrorPage title={"Что-то пошло не так!"} showTips={true} />;
+    return <ErrorPage title="Что-то пошло не так!" showTips={true} />;
   };
 
   return (

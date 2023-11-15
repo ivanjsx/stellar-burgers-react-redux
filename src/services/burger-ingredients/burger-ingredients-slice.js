@@ -4,7 +4,7 @@ import { createSlice } from "@reduxjs/toolkit";
 // constants 
 import { BURGER_INGREDIENTS_STATE_NAME } from "../../utils/constants";
 
-// thunks
+// actions
 import { requestAvailableIngredientsStock } from "./burger-ingredients-thunks";
 
 

@@ -12,7 +12,10 @@ import { PasswordInput } from "@ya.praktikum/react-developer-burger-ui-component
 import styles from "./login.module.css";
 
 // constants 
-import { REGISTER_PAGE_ABSOLUTE_PATH, FORGOT_PASSWORD_PAGE_ABSOLUTE_PATH } from "../../utils/constants";
+import { 
+  REGISTER_PAGE_ABSOLUTE_PATH, 
+  FORGOT_PASSWORD_PAGE_ABSOLUTE_PATH,
+} from "../../utils/constants";
 
 // actions
 import { loginUser } from "../../services/user/user-thunks";

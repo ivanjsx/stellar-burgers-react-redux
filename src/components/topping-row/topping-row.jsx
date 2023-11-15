@@ -1,7 +1,7 @@
 // libraries
-import { useRef, useCallback } from "react";
 import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
+import { useRef, useCallback } from "react";
 import { useDrag, useDrop } from "react-dnd";
 
 // components

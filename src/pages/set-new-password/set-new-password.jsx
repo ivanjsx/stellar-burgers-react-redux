@@ -1,7 +1,7 @@
 // libraries
-import { useDispatch } from "react-redux";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 
 // components
 import { Input } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -32,10 +32,17 @@ function SetNewPasswordPage() {
   
   const { onChange } = useForm();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   
   function onSubmit(event) {
     event.preventDefault();
-    dispatch(setNewPassword({ password, securityCode }));
+    dispatch(
+      setNewPassword({ password, securityCode })
+    ).then(
+      () => {
+        navigate(LOGIN_PAGE_ABSOLUTE_PATH);
+      }
+    );
   };
   
   return (

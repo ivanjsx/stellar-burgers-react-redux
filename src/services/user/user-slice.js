@@ -4,7 +4,7 @@ import { createSlice } from "@reduxjs/toolkit";
 // constants 
 import { USER_STATE_NAME } from "../../utils/constants";
 
-// thunks
+// actions
 import { 
   getUser,
   loginUser,

@@ -1,7 +1,7 @@
 // libraries
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-// utils
+// api
 import { request } from "../../utils/api";
 
 // constants 

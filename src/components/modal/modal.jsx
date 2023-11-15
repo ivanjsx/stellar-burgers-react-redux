@@ -1,7 +1,7 @@
 // libraries
 import { useEffect } from "react";
-import { createPortal } from "react-dom";
 import PropTypes from "prop-types";
+import { createPortal } from "react-dom";
 
 // components
 import ModalOverlay from "../modal-overlay/modal-overlay";
@@ -58,7 +58,7 @@ function Modal({ heading, closeHandler, children }) {
 
 Modal.propTypes = {
   heading: PropTypes.string.isRequired,
-  onClose: PropTypes.func,
+  closeHandler: PropTypes.func,
   children: PropTypes.element.isRequired
 };
 

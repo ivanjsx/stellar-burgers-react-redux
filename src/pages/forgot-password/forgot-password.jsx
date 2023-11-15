@@ -1,7 +1,7 @@
 // libraries
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 
 // components
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
