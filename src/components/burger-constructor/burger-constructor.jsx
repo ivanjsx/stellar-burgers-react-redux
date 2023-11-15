@@ -1,5 +1,6 @@
 // libraries
 import { useDrop } from "react-dnd";
+import { useNavigate } from "react-router-dom";
 import { memo, useMemo, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -15,7 +16,7 @@ import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components
 import styles from "./burger-constructor.module.css";
 
 // constants
-import { BUNS_IN_BURGER_COUNT } from "../../utils/constants";
+import { BUNS_IN_BURGER_COUNT, LOGIN_PAGE_ABSOLUTE_PATH } from "../../utils/constants";
 
 // actions
 import { 
@@ -29,8 +30,9 @@ import { requestOrderPlacement } from "../../services/create-order/create-order-
 
 // selectors
 import { 
+  defaultUserSelector, 
   defaultCreateOrderSelector,
-  defaultBurgerConstructorSelector, 
+  defaultBurgerConstructorSelector,
 } from "../../services/selectors";
 
 
@@ -38,6 +40,8 @@ import {
 function BurgerConstructor() {
   
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { currentUser } = useSelector(defaultUserSelector);
   const { previewableOrder } = useSelector(defaultCreateOrderSelector);
   const { chosenBun, chosenToppings, canPlaceOrder } = useSelector(defaultBurgerConstructorSelector);
   
@@ -73,6 +77,10 @@ function BurgerConstructor() {
   
   const placeOrder = useCallback(
     () => {
+      if (!currentUser) {
+        navigate(LOGIN_PAGE_ABSOLUTE_PATH);
+        return;
+      };
       if (canPlaceOrder) {
         dispatch(
           requestOrderPlacement(
@@ -87,7 +95,7 @@ function BurgerConstructor() {
         );
       };
     },
-    [canPlaceOrder, chosenBun, chosenToppings]
+    [currentUser, canPlaceOrder, chosenBun, chosenToppings]
   );
   
   return (

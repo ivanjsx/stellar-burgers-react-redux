@@ -1,6 +1,6 @@
 // libraries
 import { useDispatch } from "react-redux";
-import { useCallback, useEffect } from "react";
+import { useEffect } from "react";
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 
 // components
@@ -32,8 +32,6 @@ import {
 // constants 
 import { 
   HOME_PAGE_PATH,
-  ACCESS_TOKEN_KEY,
-  REFRESH_TOKEN_KEY,
   FEED_PAGE_RELATIVE_PATH,
   LOGIN_PAGE_RELATIVE_PATH,
   ORDER_PAGE_RELATIVE_PATH,
@@ -48,39 +46,18 @@ import {
 } from "../../utils/constants";
 
 // actions
-import { getUser } from "../../services/user/user-thunks";
-import { setUser, setAuthChecked } from "../../services/user/user-slice";
 import { requestAvailableIngredientsStock } from "../../services/burger-ingredients/burger-ingredients-thunks";
+
+// hooks 
+import useAuth from "../../hooks/use-auth";
 
 
 
 function App() {
   
   const dispatch = useDispatch();
-  
-  const checkUserAuth = useCallback(
-    () => {
-      dispatch(setAuthChecked(false));
-      if (localStorage.getItem(ACCESS_TOKEN_KEY)) {
-        dispatch(
-          getUser()
-        ).catch(
-          () => {
-            localStorage.removeItem(ACCESS_TOKEN_KEY);
-            localStorage.removeItem(REFRESH_TOKEN_KEY);
-            dispatch(setUser(null));
-          }
-        ).finally(
-          () => {
-            dispatch(setAuthChecked(true));
-          }
-        );
-      } else {
-        dispatch(setAuthChecked(true));
-      };
-    },
-    []
-  );
+
+  const { checkUserAuth } = useAuth();
   
   useEffect(
     () => {
