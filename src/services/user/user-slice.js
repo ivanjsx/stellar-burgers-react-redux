@@ -11,7 +11,6 @@ import {
   logoutUser,
   updateUser,
   registerUser,
-  updateAccessToken,
 } from "./user-thunks";
 
 
@@ -23,8 +22,6 @@ const userSlice = createSlice(
     initialState: {
       currentUser: null,
       authChecked: false,
-      errorUpdatingToken: false,
-      pendingUpdatingToken: false,
       errorAuthorizingUser: false,
       pendingAuthorizingUser: false,
       errorDeauthorizingUser: false,
@@ -82,21 +79,6 @@ const userSlice = createSlice(
           state.errorDeauthorizingUser = false;
           state.pendingDeauthorizingUser = false;
           state.currentUser = null;
-        }
-      ).addCase(
-        updateAccessToken.pending, state => {
-          state.pendingUpdatingToken = true;
-        }
-      ).addCase(
-        updateAccessToken.rejected, (state, action) => {
-          state.errorUpdatingToken = true;
-          state.pendingUpdatingToken = false;
-          console.error(action.payload);
-        }
-      ).addCase(
-        updateAccessToken.fulfilled, state => {
-          state.errorUpdatingToken = false;
-          state.pendingUpdatingToken = false;
         }
       ).addDefaultCase(
         state => state

@@ -13,7 +13,7 @@ import styles from "./forgot-password.module.css";
 // constants 
 import { 
   LOGIN_PAGE_ABSOLUTE_PATH,
-  RESET_PASSWORD_PAGE_ABSOLUTE_PATH
+  SET_NEW_PASSWORD_PAGE_ABSOLUTE_PATH
 } from "../../utils/constants";
 
 // actions
@@ -38,7 +38,7 @@ function ForgotPasswordPage() {
       resetPassword({ email })
     ).then(
       () => {
-        navigate(RESET_PASSWORD_PAGE_ABSOLUTE_PATH);
+        navigate(SET_NEW_PASSWORD_PAGE_ABSOLUTE_PATH);
       }
     );
   };

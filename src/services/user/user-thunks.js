@@ -2,7 +2,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 // utils
-import request from "../../api/request";
+import { request, refreshingRequest } from "../../utils/api";
 
 // constants 
 import { 
@@ -17,12 +17,11 @@ import {
 export const getUser = createAsyncThunk(
   `${USER_STATE_NAME}/getUser`,  
   () => {
-    return request(
+    return refreshingRequest(
       {
         method: "GET",
         withToken: true,
-        path: "auth/user/",
-        refreshCallback: updateAccessToken
+        path: "auth/user/"
       }
     ).then(
       response => response.user
@@ -33,12 +32,11 @@ export const getUser = createAsyncThunk(
 export const updateUser = createAsyncThunk(
   `${USER_STATE_NAME}/updateUser`,  
   ({ email, password, name }) => {
-    return request(
+    return refreshingRequest(
       {
         method: "PATCH",
         withToken: true,
         path: "auth/user/",
-        refreshCallback: updateAccessToken,
         body: { email, password, name }
       }
     ).then(
@@ -100,24 +98,6 @@ export const logoutUser = createAsyncThunk(
         localStorage.removeItem(REFRESH_TOKEN_KEY);
       }
     );
-  }
-);
-
-export const updateAccessToken = createAsyncThunk(
-  `${USER_STATE_NAME}/updateAccessToken`,  
-  () => {
-    return request(
-      {
-        method: "POST",
-        path: "auth/token/", 
-        body: { token: localStorage.getItem(REFRESH_TOKEN_KEY) }      
-      }
-    ).then(
-      response => {
-        localStorage.setItem(ACCESS_TOKEN_KEY, response[ACCESS_TOKEN_KEY]);
-        localStorage.setItem(REFRESH_TOKEN_KEY, response[REFRESH_TOKEN_KEY]);
-      }      
-    )
   }
 );
 

@@ -2,7 +2,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 // utils
-import request from "../../api/request";
+import { request } from "../../utils/api";
 
 // constants 
 import { BURGER_INGREDIENTS_STATE_NAME } from "../../utils/constants";

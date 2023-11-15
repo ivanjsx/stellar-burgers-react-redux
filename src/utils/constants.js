@@ -43,8 +43,8 @@ export const REGISTER_PAGE_ABSOLUTE_PATH = "/register";
 export const FORGOT_PASSWORD_PAGE_RELATIVE_PATH = "forgot-password";
 export const FORGOT_PASSWORD_PAGE_ABSOLUTE_PATH = "/forgot-password";
 
-export const RESET_PASSWORD_PAGE_RELATIVE_PATH = "reset-password";
-export const RESET_PASSWORD_PAGE_ABSOLUTE_PATH = "/reset-password";
+export const SET_NEW_PASSWORD_PAGE_RELATIVE_PATH = "reset-password";
+export const SET_NEW_PASSWORD_PAGE_ABSOLUTE_PATH = "/reset-password";
 
 
 

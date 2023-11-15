@@ -43,7 +43,7 @@ import {
   REGISTER_PAGE_RELATIVE_PATH,
   INGREDIENT_PAGE_RELATIVE_PATH,
   INGREDIENT_PAGE_ABSOLUTE_PATH,
-  RESET_PASSWORD_PAGE_RELATIVE_PATH,
+  SET_NEW_PASSWORD_PAGE_RELATIVE_PATH,
   FORGOT_PASSWORD_PAGE_RELATIVE_PATH,
 } from "../../utils/constants";
 
@@ -65,11 +65,10 @@ function App() {
         dispatch(
           getUser()
         ).catch(
-          error => {
+          () => {
             localStorage.removeItem(ACCESS_TOKEN_KEY);
             localStorage.removeItem(REFRESH_TOKEN_KEY);
             dispatch(setUser(null));
-            console.error(error);
           }
         );
       };
@@ -83,7 +82,7 @@ function App() {
       dispatch(
         requestAvailableIngredientsStock()
       ).then(
-        () => {   
+        () => {
           checkUserAuth();
         }
       );
@@ -143,7 +142,7 @@ function App() {
             }
           />            
           <Route 
-            path={RESET_PASSWORD_PAGE_RELATIVE_PATH}
+            path={SET_NEW_PASSWORD_PAGE_RELATIVE_PATH}
             element={
               <UnauthorizedAccessOnly 
                 element={
