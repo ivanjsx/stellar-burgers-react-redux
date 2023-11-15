@@ -13,7 +13,10 @@ export const requestAvailableIngredientsStock = createAsyncThunk(
   `${BURGER_INGREDIENTS_STATE_NAME}/requestAvailableIngredientsStock`,
   () => {
     return request(
-      { path: "ingredients/" }
+      { 
+        method: "GET",
+        path: "ingredients/" 
+      }
     ).then(
       response => response.data
     );

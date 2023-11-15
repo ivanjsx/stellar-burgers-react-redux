@@ -1,4 +1,5 @@
 // libraries
+import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -8,7 +9,7 @@ import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
 
 // styles
-import styles from "./reset-password.module.css";
+import styles from "./set-new-password.module.css";
 
 // constants 
 import { LOGIN_PAGE_ABSOLUTE_PATH } from "../../utils/constants";
@@ -21,18 +22,20 @@ import useForm from "../../hooks/use-form";
 
 
 
-function ResetPasswordPage() {
+function SetNewPasswordPage() {
+  
   const [password, setPassword] = useState("");
   const [securityCode, setSecurityCode] = useState("");
-
+  
   const [isPasswordValid, setIsPasswordValid] = useState(false);
   const [isSecurityCodeValid, setIsSecurityCodeValid] = useState(false);
-
+  
   const { onChange } = useForm();
+  const dispatch = useDispatch();
   
   function onSubmit(event) {
     event.preventDefault();
-    setNewPassword({ password, securityCode });
+    dispatch(setNewPassword({ password, securityCode }));
   };
   
   return (
@@ -76,4 +79,4 @@ function ResetPasswordPage() {
   );
 };
 
-export default ResetPasswordPage;
+export default SetNewPasswordPage;

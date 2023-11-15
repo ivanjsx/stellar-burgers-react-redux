@@ -15,7 +15,7 @@ function Logout() {
     },
     []
   );
-  return;
+  return null;
 };
 
 export default Logout;

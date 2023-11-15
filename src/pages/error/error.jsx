@@ -13,7 +13,7 @@ import { HOME_PAGE_PATH } from "../../utils/constants";
 
 
 function ErrorPage({ title, showTips }) {
-  let navigate = useNavigate();
+  const navigate = useNavigate();
   
   function goBack() {
     navigate(-1);

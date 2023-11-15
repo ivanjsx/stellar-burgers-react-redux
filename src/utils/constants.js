@@ -1,23 +1,26 @@
-// API
-export const BASE_URL = "https://norma.nomoreparties.space/api/";
+// APP FEATURES
 
-
-
-// FEATURES
 export const BUNS_IN_BURGER_COUNT = 2;
 
 
 
-// STATE MANAGEMENT
+// INTERNAL STATE MANAGEMENT
+
 export const USER_STATE_NAME = "user";
 export const BURGER_INGREDIENTS_STATE_NAME = "burgerIngredients";
 export const BURGER_CONSTRUCTOR_STATE_NAME = "burgerConstructor";
 
 
 
-// ROUTING 
+// LOCAL STORAGE KEYS
 
-// TOP-LEVEL
+export const ACCESS_TOKEN_KEY = "accessToken";
+export const REFRESH_TOKEN_KEY = "refreshToken";
+export const PASSWORD_RESET_EMAIL_SENT_KEY = "passwordResetEmailSent";
+
+
+
+// CLIENT-SIDE ROUTING: TOP-LEVEL
 
 export const HOME_PAGE_PATH = "/";
 
@@ -43,7 +46,9 @@ export const FORGOT_PASSWORD_PAGE_ABSOLUTE_PATH = "/forgot-password";
 export const RESET_PASSWORD_PAGE_RELATIVE_PATH = "reset-password";
 export const RESET_PASSWORD_PAGE_ABSOLUTE_PATH = "/reset-password";
 
-// PROFILE-LEVEL
+
+
+// CLIENT-SIDE ROUTING: PROFILE-LEVEL
 
 export const PROFILE_PAGE_RELATIVE_PATH = "profile";
 export const PROFILE_PAGE_ABSOLUTE_PATH = "/profile";

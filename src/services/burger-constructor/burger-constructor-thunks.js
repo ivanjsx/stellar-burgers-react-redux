@@ -14,6 +14,7 @@ export const requestOrderPlacement = createAsyncThunk(
   arg => {
     return request(
       {
+        method: "POST",
         path: "orders/",
         body: { ingredients: arg }
       }

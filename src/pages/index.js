@@ -8,8 +8,8 @@ import LoadingPage from "./loading/loading";
 import ProfilePage from "./profile/profile";
 import RegisterPage from "./register/register";
 import IngredientPage from "./ingredient/ingredient";
-import ResetPasswordPage from "./reset-password/reset-password";
 import ForgotPasswordPage from "./forgot-password/forgot-password";
+import SetNewPasswordPage from "./set-new-password/set-new-password";
 
 export {
   HomePage,
@@ -22,6 +22,6 @@ export {
   ProfilePage,
   RegisterPage,
   IngredientPage,
-  ResetPasswordPage,
   ForgotPasswordPage,
+  SetNewPasswordPage,
 };

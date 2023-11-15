@@ -1,5 +1,8 @@
 // constants
-import { BASE_URL } from "../utils/constants";
+import { ACCESS_TOKEN_KEY } from "../utils/constants";
+
+const BASE_URL = "https://norma.nomoreparties.space/api/";
+
 
 
 
@@ -49,7 +52,7 @@ function request(params) {
   };
   
   if (withToken) {
-    options.headers.Authorization = localStorage.getItem("accessToken");
+    options.headers.Authorization = localStorage.getItem(ACCESS_TOKEN_KEY);
   };  
   
   return refreshingRequest(path, options, refreshCallback);

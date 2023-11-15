@@ -1,6 +1,7 @@
 // libraries
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 // components
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -10,7 +11,10 @@ import { EmailInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./forgot-password.module.css";
 
 // constants 
-import { LOGIN_PAGE_ABSOLUTE_PATH } from "../../utils/constants";
+import { 
+  LOGIN_PAGE_ABSOLUTE_PATH,
+  RESET_PASSWORD_PAGE_ABSOLUTE_PATH
+} from "../../utils/constants";
 
 // actions
 import { resetPassword } from "../../services/user/user-thunks";
@@ -25,10 +29,18 @@ function ForgotPasswordPage() {
   const [email, setEmail] = useState("");  
   const [isEmailValid, setIsEmailValid] = useState(false);
   const { onChange } = useForm();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   
   function onSubmit(event) {
     event.preventDefault();
-    resetPassword({ email });
+    dispatch(
+      resetPassword({ email })
+    ).then(
+      () => {
+        navigate(RESET_PASSWORD_PAGE_ABSOLUTE_PATH);
+      }
+    );
   };
   
   return (

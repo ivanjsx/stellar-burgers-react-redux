@@ -1,6 +1,7 @@
 // libraries
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 // components
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -29,10 +30,11 @@ function LoginPage() {
   const [isPasswordValid, setIsPasswordValid] = useState(false);
   
   const { onChange } = useForm();
+  const dispatch = useDispatch();
   
   function onSubmit(event) {
     event.preventDefault();
-    loginUser({ email, password });
+    dispatch(loginUser({ email, password }));
   };
   
   return (

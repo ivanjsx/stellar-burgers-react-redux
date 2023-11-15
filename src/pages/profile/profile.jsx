@@ -1,6 +1,6 @@
 // libraries
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 // components
 import { Input } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -28,24 +28,25 @@ function ProfilePage() {
   
   const [name, setName] = useState(currentUser.name);
   const [email, setEmail] = useState(currentUser.email);
-  const [password, setPassword] = useState(currentUser.password);
+  const [password, setPassword] = useState("");
   
   const [isNameValid, setIsNameValid] = useState(false);
   const [isEmailValid, setIsEmailValid] = useState(false);
   const [isPasswordValid, setIsPasswordValid] = useState(false);
   
   const { onChange } = useForm();
-  
+  const dispatch = useDispatch();
+
   function onSubmit(event) {
     event.preventDefault();
-    updateUser({ name, email, password });
+    dispatch(updateUser({ name, email, password }));
   };
   
   function onReset(event) {
     event.preventDefault();
     setName(currentUser.name);
     setEmail(currentUser.email);
-    setPassword(currentUser.password);
+    setPassword("");
   };
   
   return (

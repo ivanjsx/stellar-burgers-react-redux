@@ -1,6 +1,7 @@
 // libraries
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 // components
 import { Input } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -32,10 +33,11 @@ function RegisterPage() {
   const [isPasswordValid, setIsPasswordValid] = useState(false);
   
   const { onChange } = useForm();
+  const dispatch = useDispatch();
   
   function onSubmit(event) {
     event.preventDefault();
-    registerUser({ name, email, password });
+    dispatch(registerUser({ name, email, password }));
   };
   
   return (

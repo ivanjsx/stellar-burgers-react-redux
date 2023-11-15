@@ -7,6 +7,7 @@ import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import Modal from "../modal/modal";
 import Logout from "../logout/logout";
 import IngredientDetails from "../ingredient-details/ingredient-details";
+import UponEmailSentOnly from "../upon-email-sent-only/upon-email-sent-only";
 import AuthorizedAccessOnly from "../authorized-access-only/authorized-access-only";
 import UnauthorizedAccessOnly from "../unauthorized-access-only/unauthorized-access-only";
 
@@ -24,13 +25,15 @@ import {
   ProfilePage,
   RegisterPage,
   IngredientPage,
-  ResetPasswordPage,
   ForgotPasswordPage,
+  SetNewPasswordPage,
 } from "../../pages";
 
 // constants 
 import { 
   HOME_PAGE_PATH,
+  ACCESS_TOKEN_KEY,
+  REFRESH_TOKEN_KEY,
   FEED_PAGE_RELATIVE_PATH,
   LOGIN_PAGE_RELATIVE_PATH,
   ORDER_PAGE_RELATIVE_PATH,
@@ -58,19 +61,15 @@ function App() {
   const checkUserAuth = useCallback(
     () => {
       dispatch(setAuthChecked(false));
-      if (localStorage.getItem("accessToken")) {
+      if (localStorage.getItem(ACCESS_TOKEN_KEY)) {
         dispatch(
           getUser()
         ).catch(
           error => {
-            localStorage.removeItem("accessToken");
-            localStorage.removeItem("refreshToken");
+            localStorage.removeItem(ACCESS_TOKEN_KEY);
+            localStorage.removeItem(REFRESH_TOKEN_KEY);
             dispatch(setUser(null));
             console.error(error);
-          }
-        ).finally(
-          () => {
-            dispatch(setAuthChecked(true));
           }
         );
       };
@@ -81,10 +80,15 @@ function App() {
   
   useEffect(
     () => {
-      checkUserAuth();
-      dispatch(requestAvailableIngredientsStock());
+      dispatch(
+        requestAvailableIngredientsStock()
+      ).then(
+        () => {   
+          checkUserAuth();
+        }
+      );
     },
-    [checkUserAuth]
+    []
   );    
   
   const navigate = useNavigate();
@@ -94,16 +98,16 @@ function App() {
   const handleModalClose = () => {
     navigate(-1);
   };
-    
+  
   return (
     <>
       <Routes location={background || location}>
         <Route 
-          path={HOME_PAGE_PATH.concat("*")}
+          path={HOME_PAGE_PATH}
           element={<RootLayout />} 
         >
           <Route 
-            path="/*"
+            index
             element={<HomePage />} 
           />
           <Route 
@@ -141,7 +145,11 @@ function App() {
           <Route 
             path={RESET_PASSWORD_PAGE_RELATIVE_PATH}
             element={
-              <UnauthorizedAccessOnly element={<ResetPasswordPage />} />
+              <UnauthorizedAccessOnly 
+                element={
+                  <UponEmailSentOnly element={<SetNewPasswordPage />}/>
+                } 
+              />
             }             
           />     
           <Route 

@@ -5,7 +5,12 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import request from "../../api/request";
 
 // constants 
-import { USER_STATE_NAME } from "../../utils/constants";
+import { 
+  USER_STATE_NAME,
+  ACCESS_TOKEN_KEY, 
+  REFRESH_TOKEN_KEY, 
+  PASSWORD_RESET_EMAIL_SENT_KEY, 
+} from "../../utils/constants";
 
 
 
@@ -53,8 +58,8 @@ export const loginUser = createAsyncThunk(
       }
     ).then(
       response => {
-        localStorage.setItem("accessToken", response.accessToken);
-        localStorage.setItem("refreshToken", response.refreshToken);
+        localStorage.setItem(ACCESS_TOKEN_KEY, response[ACCESS_TOKEN_KEY]);
+        localStorage.setItem(REFRESH_TOKEN_KEY, response[REFRESH_TOKEN_KEY]);
         return response.user;
       }
     );
@@ -72,8 +77,8 @@ export const registerUser = createAsyncThunk(
       }
     ).then(
       response => {
-        localStorage.setItem("accessToken", response.accessToken);
-        localStorage.setItem("refreshToken", response.refreshToken);
+        localStorage.setItem(ACCESS_TOKEN_KEY, response[ACCESS_TOKEN_KEY]);
+        localStorage.setItem(REFRESH_TOKEN_KEY, response[REFRESH_TOKEN_KEY]);
         return response.user;
       }
     );
@@ -87,12 +92,12 @@ export const logoutUser = createAsyncThunk(
       {
         method: "POST",
         path: "auth/logout/", 
-        body: { token: localStorage.getItem("refreshToken") }
+        body: { token: localStorage.getItem(REFRESH_TOKEN_KEY)}
       }
     ).then(
-      response => {
-        localStorage.removeItem("accessToken");
-        localStorage.removeItem("refreshToken");
+      () => {
+        localStorage.removeItem(ACCESS_TOKEN_KEY);
+        localStorage.removeItem(REFRESH_TOKEN_KEY);
       }
     );
   }
@@ -105,12 +110,12 @@ export const updateAccessToken = createAsyncThunk(
       {
         method: "POST",
         path: "auth/token/", 
-        body: { token: localStorage.getItem("refreshToken") }      
+        body: { token: localStorage.getItem(REFRESH_TOKEN_KEY) }      
       }
     ).then(
       response => {
-        localStorage.setItem("accessToken", response.accessToken);
-        localStorage.setItem("refreshToken", response.refreshToken);
+        localStorage.setItem(ACCESS_TOKEN_KEY, response[ACCESS_TOKEN_KEY]);
+        localStorage.setItem(REFRESH_TOKEN_KEY, response[REFRESH_TOKEN_KEY]);
       }      
     )
   }
@@ -119,13 +124,33 @@ export const updateAccessToken = createAsyncThunk(
 export const resetPassword = createAsyncThunk(
   `${USER_STATE_NAME}/resetPassword`,  
   ({ email }) => {
-    return null;
+    return request(
+      {
+        method: "POST",
+        path: "password-reset/", 
+        body: { email }
+      }      
+    ).then(
+      () => {
+        localStorage.setItem(PASSWORD_RESET_EMAIL_SENT_KEY, "true");
+      }      
+    );
   }
 );
 
 export const setNewPassword = createAsyncThunk(
   `${USER_STATE_NAME}/setNewPassword`,  
   ({ password, securityCode }) => {
-    return null;
+    return request(
+      {
+        method: "POST",
+        path: "password-reset/reset/", 
+        body: { password, token: securityCode }
+      }
+    ).then(
+      () => {
+        localStorage.removeItem(PASSWORD_RESET_EMAIL_SENT_KEY);
+      }            
+    );
   }
 );
