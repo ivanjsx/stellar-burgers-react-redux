@@ -1,6 +1,6 @@
 // libraries
-import { useCallback, useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { useCallback, useEffect } from "react";
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 
 // components
@@ -43,8 +43,8 @@ import {
   REGISTER_PAGE_RELATIVE_PATH,
   INGREDIENT_PAGE_RELATIVE_PATH,
   INGREDIENT_PAGE_ABSOLUTE_PATH,
-  SET_NEW_PASSWORD_PAGE_RELATIVE_PATH,
   FORGOT_PASSWORD_PAGE_RELATIVE_PATH,
+  SET_NEW_PASSWORD_PAGE_RELATIVE_PATH,
 } from "../../utils/constants";
 
 // actions
@@ -70,9 +70,14 @@ function App() {
             localStorage.removeItem(REFRESH_TOKEN_KEY);
             dispatch(setUser(null));
           }
+        ).finally(
+          () => {
+            dispatch(setAuthChecked(true));
+          }
         );
+      } else {
+        dispatch(setAuthChecked(true));
       };
-      dispatch(setAuthChecked(true));
     },
     []
   );
@@ -87,7 +92,7 @@ function App() {
         }
       );
     },
-    []
+    [checkUserAuth]
   );    
   
   const navigate = useNavigate();
@@ -179,7 +184,7 @@ function App() {
           </Route>        
           <Route 
             path="*" 
-            element={<ErrorPage title={"Упс! Такой страницы нет"} showTips={true} />}
+            element={<ErrorPage title="Упс! Такой страницы нет" showTips={true} />}
           />        
         </Route>
       </Routes>

@@ -3,6 +3,7 @@
   display: grid;
   gap: 80px 60px;
   grid-template-columns: 320px 860px;
+  grid-template-rows: min-content 200px;
   grid-template-areas:
     "aside content"
     "description content";

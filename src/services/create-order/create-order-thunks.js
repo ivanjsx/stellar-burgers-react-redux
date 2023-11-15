@@ -1,16 +1,16 @@
 // libraries
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-// utils
+// api
 import { refreshingRequest } from "../../utils/api";
 
 // constants 
-import { BURGER_CONSTRUCTOR_STATE_NAME } from "../../utils/constants";
+import { CREATE_ORDER_STATE_NAME } from "../../utils/constants";
 
 
 
 export const requestOrderPlacement = createAsyncThunk(
-  `${BURGER_CONSTRUCTOR_STATE_NAME}/requestOrderPlacement`,
+  `${CREATE_ORDER_STATE_NAME}/requestOrderPlacement`,
   arg => {
     return refreshingRequest(
       {

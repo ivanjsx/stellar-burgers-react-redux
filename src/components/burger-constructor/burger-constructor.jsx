@@ -1,6 +1,6 @@
 // libraries
-import { memo, useMemo, useCallback } from "react";
 import { useDrop } from "react-dnd";
+import { memo, useMemo, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 // components
@@ -8,8 +8,8 @@ import Modal from "../modal/modal";
 import BunRow from "../bun-row/bun-row";
 import ToppingRow from "../topping-row/topping-row";
 import OrderDetails from "../order-details/order-details";
-import { Button } from "@ya.praktikum/react-developer-burger-ui-components"
-import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components"
+import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
+import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
 // styles
 import styles from "./burger-constructor.module.css";
@@ -18,26 +18,28 @@ import styles from "./burger-constructor.module.css";
 import { BUNS_IN_BURGER_COUNT } from "../../utils/constants";
 
 // actions
-import { requestOrderPlacement } from "../../services/burger-constructor/burger-constructor-thunks";
 import { 
-  resetPreviewableOrder,
-  removeTopping, 
-  setChosenBun, 
-  addTopping, 
   emptyCart, 
+  addTopping, 
+  setChosenBun, 
+  removeTopping, 
 } from "../../services/burger-constructor/burger-constructor-slice";
+import { resetPreviewableOrder } from "../../services/create-order/create-order-slice";
+import { requestOrderPlacement } from "../../services/create-order/create-order-thunks";
 
 // selectors
-import { defaultBurgerConstructorSelector } from "../../services/selectors";
+import { 
+  defaultCreateOrderSelector,
+  defaultBurgerConstructorSelector, 
+} from "../../services/selectors";
 
 
 
 function BurgerConstructor() {
   
   const dispatch = useDispatch();
-  const { chosenBun, chosenToppings, canPlaceOrder, previewableOrder } = useSelector(
-    defaultBurgerConstructorSelector
-  );
+  const { previewableOrder } = useSelector(defaultCreateOrderSelector);
+  const { chosenBun, chosenToppings, canPlaceOrder } = useSelector(defaultBurgerConstructorSelector);
   
   const [{ canDrop }, dropTargetRef] = useDrop(
     {

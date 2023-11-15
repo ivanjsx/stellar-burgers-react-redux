@@ -1,62 +1,64 @@
 // libraries
-import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import { useState, useEffect, useCallback } from "react";
 
 // styles
 import styles from "./order-details.module.css";
 
-// images
-import done from "../../images/done.svg";
-import failed from "../../images/failed.svg";
-import pending from "../../images/pending.svg";
-
 // selectors 
-import { defaultBurgerConstructorSelector } from "../../services/selectors";
+import { defaultCreateOrderSelector } from "../../services/selectors";
 
 
 
 function OrderDetails() {
-
-  const { errorRequestingOrder, pendingRequestingOrder, previewableOrder } = useSelector(defaultBurgerConstructorSelector);
-
-  const [status, setStatus] = useState("");
-  const [action, setAction] = useState("");
-  const [suggestion, setSuggestion] = useState("");
-  const [iconSrc, setIconSrc] = useState("");
-
+  
+  const { 
+    pendingRequestingOrder,
+    previewableOrder,
+    status,
+    action,
+    iconSrc,
+    suggestion
+  } = useSelector(defaultCreateOrderSelector);
+  
+  const getRandomDigits = useCallback(
+    () => Math.floor(Math.random()*90000) + 10000,
+    []
+  );
+  
+  const [rotatingRandomDigits, setRotatingRandomDigits] = useState(getRandomDigits());
+  
   useEffect(
     () => {
-      if (errorRequestingOrder) {
-        setStatus("не удалось создать заказ");
-        setAction("Что-то пошло не так");
-        setSuggestion("Лучше всего будет, если вы напишете в поддержку");
-        setIconSrc(failed);
-      } else if (pendingRequestingOrder) {
-        setStatus("создаём заказ");
-        setAction("Скоро начнём готовить заказ");
-        setSuggestion("Обычно это занимает совсем немного времени");
-        setIconSrc(pending);
-      } else {
-        setStatus("идентификатор заказа");
-        setAction("Ваш заказ начали готовить");
-        setSuggestion("Дождитесь готовности на орбитальной станции");
-        setIconSrc(done);
-      };
-    },
-    [errorRequestingOrder, pendingRequestingOrder]
+      const interval = setInterval(
+        () => {
+          if (pendingRequestingOrder) {
+            setRotatingRandomDigits(getRandomDigits());
+          };
+        }, 
+        100
+      );
+      return () => clearInterval(interval);
+    }, 
+    [pendingRequestingOrder, getRandomDigits]
   );
   
   return (
     <div className={styles.container}>
       <h3 className={styles.id}>
-        {previewableOrder.order.number}
+        {previewableOrder.order?.number || rotatingRandomDigits}
       </h3>
       <p className={styles.description}>
         {status}
       </p>
       <img 
-        alt="иконка статуса заказа: заказ успешно принят"
-        className={styles.done}
+        alt="иконка статуса заказа"
+        className={
+          [
+            styles.icon,
+            pendingRequestingOrder ? styles.rotating : ""
+          ].join(" ")
+        }
         src={iconSrc}
       />
       <div className={styles.textArea}>

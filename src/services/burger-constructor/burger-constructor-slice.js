@@ -5,9 +5,6 @@ import { createSlice } from "@reduxjs/toolkit";
 // constants 
 import { BURGER_CONSTRUCTOR_STATE_NAME } from "../../utils/constants";
 
-// thunks
-import { requestOrderPlacement } from "./burger-constructor-thunks";
-
 
 
 const burgerConstructorSlice = createSlice(
@@ -18,9 +15,6 @@ const burgerConstructorSlice = createSlice(
       chosenBun: null,
       chosenToppings: [],
       canPlaceOrder: false,
-      errorRequestingOrder: false,
-      pendingRequestingOrder: false,
-      previewableOrder: null
     },
     
     reducers: {
@@ -35,9 +29,6 @@ const burgerConstructorSlice = createSlice(
       },
       removeTopping: (state, action) => {
         state.chosenToppings.splice(action.payload, 1)
-      },
-      resetPreviewableOrder: state => {
-        state.previewableOrder = null;        
       },
       
       addTopping: {
@@ -70,28 +61,6 @@ const burgerConstructorSlice = createSlice(
         }
       }            
     },
-    
-    extraReducers: builder => {
-      builder.addCase(
-        requestOrderPlacement.pending, state => {
-          state.pendingRequestingOrder = true;
-        }
-      ).addCase(
-        requestOrderPlacement.rejected, (state, action) => {
-          state.errorRequestingOrder = true;
-          state.pendingRequestingOrder = false;
-          console.error(action.payload);
-        }
-      ).addCase(
-        requestOrderPlacement.fulfilled, (state, action) => {
-          state.errorRequestingOrder = false;
-          state.pendingRequestingOrder = false;
-          state.previewableOrder = action.payload;
-        }
-      ).addDefaultCase(
-        state => state
-      );
-    },
   }
 );
 
@@ -99,7 +68,6 @@ export const {
   emptyCart, 
   setChosenBun, 
   removeTopping, 
-  resetPreviewableOrder,
   addTopping, 
   dragTopping 
 } = burgerConstructorSlice.actions;
