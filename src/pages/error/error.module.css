@@ -1,0 +1,10 @@
+.title {
+  composes: mb-20 text text_type_main-medium from global;
+  text-align: center;
+  margin-top: 140px;
+}
+
+.tip {
+  composes: text text_type_main-default text_color_inactive from global;
+  text-align: center;
+}

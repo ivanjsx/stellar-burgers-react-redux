@@ -1,63 +1,47 @@
 // libraries
-import React from "react";
-import ReactDOM from "react-dom";
+import { useEffect } from "react";
 import PropTypes from "prop-types";
-import { useDispatch, useSelector } from "react-redux";
+import { createPortal } from "react-dom";
 
 // components
-import ModalOverlay from "./modal-overlay/modal-overlay";
+import ModalOverlay from "../modal-overlay/modal-overlay";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
 // styles
 import styles from "./modal.module.css";
 
-// actions 
-import { closeModal } from "../../services/modal-slice";
 
 
-
-function Modal({ children }) {
-
-  const dispatch = useDispatch();
-  const { modalIsVisible, modalHeading } = useSelector(state => state.modal);  
-
-  const closePopup = React.useCallback(
-    () => {
-      dispatch(closeModal());
-    },
-    []
-  );
-
-  React.useEffect(
+function Modal({ heading, closeHandler, children }) {
+  
+  useEffect(
     () => {
       function handleEscapePress(event) {
         if (event.key === "Escape") {
-          closePopup();
+          closeHandler();
         };
       };      
-      if (modalIsVisible) {
-        document.addEventListener("keydown", handleEscapePress);
-      };
+      document.addEventListener("keydown", handleEscapePress);
       return () => {
         document.removeEventListener("keydown", handleEscapePress);   
       };
     }, 
-    [modalIsVisible]
+    [closeHandler]
   );
 
-  const modalRoot = document.querySelector("#react-modals");
+  const modalRoot = document.querySelector("#modals");
 
-  return ReactDOM.createPortal(
+  return createPortal(
     (
-      <ModalOverlay closePopup={closePopup}>
+      <ModalOverlay closeHandler={closeHandler}>
         <div className={styles.container}>
           
           <div className={styles.header}>
-            <h2 className={styles.heading}>{modalHeading}</h2>
+            <h2 className={styles.heading}>{heading}</h2>
             <button 
               className={styles.close} 
               type="button"
-              onClick={closePopup} 
+              onClick={closeHandler} 
             >
               <CloseIcon type="primary" />
             </button>
@@ -73,6 +57,8 @@ function Modal({ children }) {
 };
 
 Modal.propTypes = {
+  heading: PropTypes.string.isRequired,
+  closeHandler: PropTypes.func,
   children: PropTypes.element.isRequired
 };
 

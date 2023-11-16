@@ -1,0 +1,32 @@
+.container {
+  composes: pb-15 from global;
+  display: flex;
+  flex-direction: column;
+  align-items: center;  
+  gap: 32px;
+}
+
+.figure {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;  
+  gap: 16px;  
+}
+
+.image {
+  composes: pr-20 pl-20 from global;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.caption {
+  composes: text text_type_main-medium from global;
+  text-align: center;
+}
+
+.details {
+  composes: ul from global;
+  display: flex;
+  gap: 20px;
+}

@@ -1,0 +1,33 @@
+.container {
+  max-height: 100%;
+  display: grid;
+  gap: 80px 60px;
+  grid-template-columns: 320px 860px;
+  grid-template-rows: min-content 200px;
+  grid-template-areas:
+    "aside content"
+    "description content";
+}
+
+.aside {
+  grid-area: aside;
+  display: flex;
+  flex-direction: column;
+}
+
+.link {
+  min-height: 64px;
+  color: #8585AD;  
+  composes: anchor text text_type_main-medium from global;
+  display: flex;
+  align-items: center;
+}
+
+.active {
+  color: white;
+}
+
+.text {
+  margin: 0;
+  padding: 0;
+}

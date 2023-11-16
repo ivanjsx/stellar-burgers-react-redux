@@ -1,9 +1,9 @@
 // libraries
-import React from "react";
+import { Component } from "react";
 
 
 
-class ErrorBoundary extends React.Component {
+class ErrorBoundary extends Component {
   constructor(props) {
     super(props);
     this.state = {hasError: false};
@@ -14,7 +14,7 @@ class ErrorBoundary extends React.Component {
   };
 
   componentDidCatch(error, info) {
-    console.log("error:", error, info);
+    console.error("error:", error, info);
   };
 
   render() {

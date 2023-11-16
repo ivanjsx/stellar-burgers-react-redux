@@ -1,7 +1,8 @@
 // libraries
-import React from "react";
-import ReactDOM from "react-dom";
+import { StrictMode } from "react";
+import { render } from "react-dom";
 import { Provider } from "react-redux";
+import { BrowserRouter as Router } from "react-router-dom";
 
 // components
 import App from "./components/app/app";
@@ -15,15 +16,19 @@ import { store } from "./services/store"
 
 
 
-ReactDOM.render(
+const root = document.querySelector("#root");
+
+render(
   (
-    <React.StrictMode>
+    <StrictMode>
       <ErrorBoundary>
-        <Provider store={store}>
-          <App />
-        </Provider>,
+        <Router>
+          <Provider store={store}>
+            <App />
+          </Provider>
+        </Router> 
       </ErrorBoundary>      
-    </React.StrictMode>
+    </StrictMode>
   ),
-  document.querySelector("#root")
+  root
 );
