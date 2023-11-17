@@ -3,23 +3,23 @@ import { useSelector } from "react-redux";
 import { useState, useEffect, useCallback } from "react";
 
 // styles
-import styles from "./order-details.module.css";
+import styles from "./order-creation.module.css";
 
 // selectors 
-import { defaultCreateOrderSelector } from "../../services/selectors";
+import { defaultOrderCreationSelector } from "../../services/selectors";
 
 
 
-function OrderDetails() {
+function OrderCreation() {
   
   const { 
-    pendingRequestingOrder,
+    pendingCreatingOrder,
     previewableOrder,
     status,
     action,
     iconSrc,
     suggestion
-  } = useSelector(defaultCreateOrderSelector);
+  } = useSelector(defaultOrderCreationSelector);
   
   const getRandomDigits = useCallback(
     () => Math.floor(Math.random()*90000) + 10000,
@@ -32,7 +32,7 @@ function OrderDetails() {
     () => {
       const interval = setInterval(
         () => {
-          if (pendingRequestingOrder) {
+          if (pendingCreatingOrder) {
             setRotatingRandomDigits(getRandomDigits());
           };
         }, 
@@ -40,7 +40,7 @@ function OrderDetails() {
       );
       return () => clearInterval(interval);
     }, 
-    [pendingRequestingOrder, getRandomDigits]
+    [pendingCreatingOrder, getRandomDigits]
   );
   
   return (
@@ -56,7 +56,7 @@ function OrderDetails() {
         className={
           [
             styles.icon,
-            pendingRequestingOrder ? styles.rotating : ""
+            pendingCreatingOrder ? styles.rotating : ""
           ].join(" ")
         }
         src={iconSrc}
@@ -73,4 +73,4 @@ function OrderDetails() {
   );
 };
 
-export default OrderDetails;
+export default OrderCreation;

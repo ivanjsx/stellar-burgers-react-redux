@@ -46,7 +46,7 @@ import {
 } from "../../utils/constants";
 
 // actions
-import { requestAvailableIngredientsStock } from "../../services/burger-ingredients/burger-ingredients-thunks";
+import { requestAvailableStock } from "../../services/burger-ingredients/burger-ingredients-thunks";
 
 // hooks 
 import useAuth from "../../hooks/use-auth";
@@ -62,7 +62,7 @@ function App() {
   useEffect(
     () => {
       dispatch(
-        requestAvailableIngredientsStock()
+        requestAvailableStock()
       ).then(
         () => {
           checkUserAuth();

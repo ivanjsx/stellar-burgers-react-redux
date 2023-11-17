@@ -5,7 +5,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { BURGER_INGREDIENTS_STATE_NAME } from "../../utils/constants";
 
 // actions
-import { requestAvailableIngredientsStock } from "./burger-ingredients-thunks";
+import { requestAvailableStock } from "./burger-ingredients-thunks";
 
 
 
@@ -14,7 +14,7 @@ const burgerIngredientsSlice = createSlice(
     name: BURGER_INGREDIENTS_STATE_NAME,
     
     initialState: {
-      availableIngredientsStock: [],
+      availableStock: [],
       errorRequestingIngredients: false,
       pendingRequestingIngredients: false,
     },
@@ -23,20 +23,20 @@ const burgerIngredientsSlice = createSlice(
     
     extraReducers: builder => {
       builder.addCase(
-        requestAvailableIngredientsStock.pending, state => {
+        requestAvailableStock.pending, state => {
           state.pendingRequestingIngredients = true;
         }
       ).addCase(
-        requestAvailableIngredientsStock.rejected, (state, action) => {
+        requestAvailableStock.rejected, (state, action) => {
           state.errorRequestingIngredients = true;
           state.pendingRequestingIngredients = false;
           console.error(action.payload);
         }
       ).addCase(
-        requestAvailableIngredientsStock.fulfilled, (state, action) => {
+        requestAvailableStock.fulfilled, (state, action) => {
           state.errorRequestingIngredients = false;
           state.pendingRequestingIngredients = false;
-          state.availableIngredientsStock = action.payload;
+          state.availableStock = action.payload;
         }
       ).addDefaultCase(
         state => state

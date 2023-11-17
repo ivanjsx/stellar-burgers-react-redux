@@ -7,7 +7,7 @@ export const BUNS_IN_BURGER_COUNT = 2;
 // INTERNAL STATE MANAGEMENT
 
 export const USER_STATE_NAME = "user";
-export const CREATE_ORDER_STATE_NAME = "createOrder";
+export const ORDER_CREATION_STATE_NAME = "orderCreation";
 export const BURGER_INGREDIENTS_STATE_NAME = "burgerIngredients";
 export const BURGER_CONSTRUCTOR_STATE_NAME = "burgerConstructor";
 

@@ -23,7 +23,7 @@ import {
 const Gallery = forwardRef(
   ({ category, title }, ref) => {
     
-    const { availableIngredientsStock } = useSelector(defaultBurgerIngredientsSelector);
+    const { availableStock } = useSelector(defaultBurgerIngredientsSelector);
     const { chosenBun, chosenToppings } = useSelector(defaultBurgerConstructorSelector);
     
     const countIngredient = useCallback(
@@ -39,8 +39,8 @@ const Gallery = forwardRef(
     );
 
     const items = useMemo(
-      () => availableIngredientsStock.filter(ingredient => ingredient.type === category),
-      [availableIngredientsStock, category]
+      () => availableStock.filter(ingredient => ingredient.type === category),
+      [availableStock, category]
     );
 
     const content = useMemo(

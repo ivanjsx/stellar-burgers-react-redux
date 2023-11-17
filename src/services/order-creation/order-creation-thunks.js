@@ -5,12 +5,12 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { refreshingRequest } from "../../utils/api";
 
 // constants 
-import { CREATE_ORDER_STATE_NAME } from "../../utils/constants";
+import { ORDER_CREATION_STATE_NAME } from "../../utils/constants";
 
 
 
-export const requestOrderPlacement = createAsyncThunk(
-  `${CREATE_ORDER_STATE_NAME}/requestOrderPlacement`,
+export const createOrder = createAsyncThunk(
+  `${ORDER_CREATION_STATE_NAME}/createOrder`,
   arg => {
     return refreshingRequest(
       {

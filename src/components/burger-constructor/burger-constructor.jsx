@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Modal from "../modal/modal";
 import BunRow from "../bun-row/bun-row";
 import ToppingRow from "../topping-row/topping-row";
-import OrderDetails from "../order-details/order-details";
+import OrderCreation from "../order-creation/order-creation";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
@@ -25,13 +25,13 @@ import {
   setChosenBun, 
   removeTopping, 
 } from "../../services/burger-constructor/burger-constructor-slice";
-import { resetPreviewableOrder } from "../../services/create-order/create-order-slice";
-import { requestOrderPlacement } from "../../services/create-order/create-order-thunks";
+import { createOrder } from "../../services/order-creation/order-creation-thunks";
+import { resetPreviewableOrder } from "../../services/order-creation/order-creation-slice";
 
 // selectors
 import { 
   defaultUserSelector, 
-  defaultCreateOrderSelector,
+  defaultOrderCreationSelector,
   defaultBurgerConstructorSelector,
 } from "../../services/selectors";
 
@@ -42,7 +42,7 @@ function BurgerConstructor() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { currentUser } = useSelector(defaultUserSelector);
-  const { previewableOrder } = useSelector(defaultCreateOrderSelector);
+  const { previewableOrder } = useSelector(defaultOrderCreationSelector);
   const { chosenBun, chosenToppings, canPlaceOrder } = useSelector(defaultBurgerConstructorSelector);
   
   const [{ canDrop }, dropTargetRef] = useDrop(
@@ -83,7 +83,7 @@ function BurgerConstructor() {
       };
       if (canPlaceOrder) {
         dispatch(
-          requestOrderPlacement(
+          createOrder(
             [chosenBun, ...chosenToppings].map(
               ingredient => ingredient._id
             )
@@ -156,7 +156,7 @@ function BurgerConstructor() {
         previewableOrder && (
           <Modal 
             heading=""
-            children={<OrderDetails />} 
+            children={<OrderCreation />} 
             closeHandler={
               () => { 
                 dispatch(resetPreviewableOrder());

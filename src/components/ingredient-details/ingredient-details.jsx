@@ -19,7 +19,7 @@ function IngredientDetails() {
   const { ingredientId } = useParams();
 
   const previewableIngredientSelector = useCallback(
-    state => state.burgerIngredients.availableIngredientsStock.filter(
+    state => state.burgerIngredients.availableStock.filter(
       ingredient => ingredient._id === ingredientId
     )[0],
     [ingredientId]
