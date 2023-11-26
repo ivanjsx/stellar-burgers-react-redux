@@ -35,6 +35,10 @@
   composes: mt-2 text text_type_main-default from global;
 }
 
+.statusDone {
+  composes: text_color_success from global;
+}
+
 .contains {
   composes: ul from global;
   display: flex;

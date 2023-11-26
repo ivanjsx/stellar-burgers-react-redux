@@ -1,5 +1,6 @@
 // libraries
-import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 // components
 import OrderFeed from "../../components/order-feed/order-feed";
@@ -9,24 +10,43 @@ import OrderList from "../../components/order-list/order-list";
 import styles from "./feed.module.css";
 
 // selectors 
-import { defaultBurgerIngredientsSelector } from "../../services/selectors";
+import { 
+  defaultOrderFeedSelector,
+  defaultBurgerIngredientsSelector, 
+} from "../../services/selectors";
+
+// actions 
+import { connect, disconnect } from "../../services/order-feed/order-feed-slice";
 
 // pages 
 import { LoadingPage, ErrorPage } from "../../pages";
 
-// data 
-import { all } from "../../data/all";
+// utils 
+import { ORDER_STATUSES } from "../../utils/order-statuses";
 
 
 
 function FeedPage() {
+
+  const dispatch = useDispatch();
+  
+  useEffect(
+    () => {
+      dispatch(connect("orders/all"));
+      return () => {
+        dispatch(disconnect());
+      };
+    }, 
+    []
+  );  
   
   const { errorRequestingIngredients, pendingRequestingIngredients } = useSelector(
     defaultBurgerIngredientsSelector
   );  
-
-  const allTimeTotal = all.total;
-  const todayTotal = all.totalToday;
+  
+  const { allTimeTotal, todaysTotal } = useSelector(
+    defaultOrderFeedSelector
+  );
   
   if (errorRequestingIngredients) {
     return <ErrorPage title="Что-то пошло не так!" showTips={true} />;
@@ -51,15 +71,15 @@ function FeedPage() {
           
           <div className={styles.lists}>
             <h2 className={styles.listHeading}>Готовы:</h2>
-            <OrderList status="done" />
+            <OrderList targetStatus={ORDER_STATUSES.done.original} />
             <h2 className={styles.listHeading}>В работе:</h2>
-            <OrderList status="inprogress" />
+            <OrderList targetStatus={ORDER_STATUSES.pending.original} />
           </div>
           
           <h2 className={styles.totalHeading}>Выполнено за все время:</h2>
           <p className={styles.digits}>{allTimeTotal}</p>
           <h2 className={styles.totalHeading}>Выполнено за сегодня:</h2>
-          <p className={styles.digits}>{todayTotal}</p>
+          <p className={styles.digits}>{todaysTotal}</p>
           
         </section>
         

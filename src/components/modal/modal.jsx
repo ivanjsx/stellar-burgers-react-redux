@@ -8,12 +8,12 @@ import { useMatch } from "react-router-dom";
 import ModalOverlay from "../modal-overlay/modal-overlay";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
-// constants 
+// urls 
 import { 
   OWN_ORDER_PAGE_ABSOLUTE_PATH,
   INGREDIENT_PAGE_ABSOLUTE_PATH, 
   COMMON_ORDER_PAGE_ABSOLUTE_PATH, 
-} from "../../utils/constants";
+} from "../../utils/urls";
 
 // styles
 import styles from "./modal.module.css";

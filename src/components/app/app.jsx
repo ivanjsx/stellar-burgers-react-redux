@@ -30,7 +30,7 @@ import {
   SetNewPasswordPage,
 } from "../../pages";
 
-// constants 
+// urls 
 import { 
   HOME_PAGE_PATH,
   FEED_PAGE_RELATIVE_PATH,
@@ -47,7 +47,7 @@ import {
   COMMON_ORDER_PAGE_ABSOLUTE_PATH,
   FORGOT_PASSWORD_PAGE_RELATIVE_PATH,
   SET_NEW_PASSWORD_PAGE_RELATIVE_PATH,
-} from "../../utils/constants";
+} from "../../utils/urls";
 
 // actions
 import { requestAvailableStock } from "../../services/burger-ingredients/burger-ingredients-thunks";

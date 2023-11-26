@@ -6,6 +6,9 @@ import { configureStore } from "@reduxjs/toolkit";
 // reducers
 import { rootReducer } from "./reducer"
 
+// middleware
+import orderFeedMiddleware from "./order-feed/order-feed-middleware";
+
 
 
 export const store = configureStore(
@@ -14,7 +17,7 @@ export const store = configureStore(
     devTools: process.env.NODE_ENV !== "production",
     middleware: (getDefaultMiddleware) => {
       let middleware = getDefaultMiddleware({ serializableCheck: false });
-      middleware = middleware.concat(thunk);
+      middleware = middleware.concat(thunk, orderFeedMiddleware);
       if (process.env.NODE_ENV !== "production") {
         middleware = middleware.concat(logger);
       }

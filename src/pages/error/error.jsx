@@ -8,8 +8,8 @@ import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 // styles
 import styles from "./error.module.css";
 
-// constants 
-import { HOME_PAGE_PATH } from "../../utils/constants";
+// urls 
+import { HOME_PAGE_PATH } from "../../utils/urls";
 
 
 

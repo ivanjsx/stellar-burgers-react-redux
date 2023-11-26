@@ -1,5 +1,9 @@
 // constants
-import { ACCESS_TOKEN_KEY, REFRESH_TOKEN_KEY } from "./constants";
+import { 
+  BASE_API_URL, 
+  ACCESS_TOKEN_KEY, 
+  REFRESH_TOKEN_KEY,
+} from "./constants";
 
 
 
@@ -22,11 +26,9 @@ function checkResponseSuccess(response) {
 
 
 
-const BASE_URL = "https://norma.nomoreparties.space/api/";
-
 function request({ path, method, body, withToken }) {
   
-  const url = BASE_URL.concat(path);
+  const url = BASE_API_URL.concat(path);
   const options = {
     method,
     body: JSON.stringify(body),
@@ -75,7 +77,6 @@ function refreshingRequest(params) {
 
 
 
-
 function getOrder(orderNumber) {
   return request(
     {
@@ -89,4 +90,4 @@ function getOrder(orderNumber) {
 
 
 
-export { request, refreshingRequest, getOrder };
+export { request, refreshingRequest, getOrder, updateAccessToken };

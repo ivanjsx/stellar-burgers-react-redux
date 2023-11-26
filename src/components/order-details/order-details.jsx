@@ -1,5 +1,5 @@
 // libraries
-import { useEffect, useMemo } from "react";
+import { useMemo } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
@@ -14,28 +14,39 @@ import styles from "./order-details.module.css";
 // pages 
 import { ErrorPage } from "../../pages";
 
-// data 
-import { all } from "../../data/all";
-
 // selectors 
-import { defaultBurgerIngredientsSelector } from "../../services/selectors";
+import { 
+  defaultOrderFeedSelector,
+  defaultBurgerIngredientsSelector, 
+} from "../../services/selectors";
+
+// api 
+import { getOrder } from "../../utils/api";
+
+// utils 
+import { ORDER_STATUSES } from "../../utils/order-statuses";
 
 
 
 function OrderDetails() {
   
   const { orderNumber } = useParams();
-
-  useEffect(
-    () => {
-      console.log(orderNumber);
-    },
-    [orderNumber]
-  );
   
-  const previewableOrder = all.orders.filter(
-    order => order.number === Number(orderNumber)
-  )[0];
+  const { orders } = useSelector(
+    defaultOrderFeedSelector
+  );  
+  
+  const previewableOrder = useMemo(
+    () => {
+      let order = orders.get(Number(orderNumber));
+      if (order) {
+        return order;
+      } else {
+        return getOrder(orderNumber);
+      };
+    },
+    [orderNumber, orders]
+  );
   
   const { availableStock } = useSelector(defaultBurgerIngredientsSelector);
   
@@ -80,7 +91,16 @@ function OrderDetails() {
       
       <p className={styles.number}>#{previewableOrder.number}</p>
       <h3 className={styles.name}>{previewableOrder.name}</h3>
-      <p className={styles.status}>{previewableOrder.status}</p>
+      <p 
+        className={
+          [
+            styles.status, 
+            previewableOrder.status === ORDER_STATUSES.done.original ? styles.statusDone : ""
+          ].join(" ")
+        }
+      >
+        {ORDER_STATUSES[previewableOrder.status].decoded}
+      </p>
       <h3 className={styles.header}>Состав:</h3>
       
       <div className={styles.scrollableContainer}>

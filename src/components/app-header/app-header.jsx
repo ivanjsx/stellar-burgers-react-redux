@@ -11,12 +11,12 @@ import { ProfileIcon } from "@ya.praktikum/react-developer-burger-ui-components"
 // styles
 import styles from "./app-header.module.css";
 
-// constants
+// urls
 import { 
   HOME_PAGE_PATH,
   FEED_PAGE_ABSOLUTE_PATH,
   PROFILE_PAGE_ABSOLUTE_PATH
-} from "../../utils/constants";
+} from "../../utils/urls";
 
 // memoization
 const MemoizedLogo = memo(Logo);

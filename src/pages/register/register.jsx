@@ -12,8 +12,8 @@ import { PasswordInput } from "@ya.praktikum/react-developer-burger-ui-component
 // styles
 import styles from "./register.module.css";
 
-// constants 
-import { LOGIN_PAGE_ABSOLUTE_PATH } from "../../utils/constants";
+// urls 
+import { LOGIN_PAGE_ABSOLUTE_PATH } from "../../utils/urls";
 
 // actions
 import { registerUser } from "../../services/user/user-thunks";

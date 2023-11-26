@@ -17,6 +17,7 @@ import { defaultBurgerIngredientsSelector } from "../../services/selectors";
 
 // utils 
 import { orderPropType } from "../../utils/prop-types";
+import { ORDER_STATUSES } from "../../utils/order-statuses";
 
 
 
@@ -37,7 +38,7 @@ function OrderCard({ order, showStatus, targetLinkPath }) {
         );
       }
     ),
-    [availableStock, order]
+    [order, availableStock]
   );
   
   const totalPrice = useMemo(
@@ -65,7 +66,16 @@ function OrderCard({ order, showStatus, targetLinkPath }) {
           <h2 className={styles.name}>{order.name}</h2>
           {
             showStatus &&
-            <p className={styles.status}>{order.status}</p>
+            <p 
+              className={
+                [
+                  styles.status,
+                  order.status === ORDER_STATUSES.done.original ? styles.statusDone : ""
+                ].join(" ")
+              }
+            >
+              {ORDER_STATUSES[order.status].decoded}
+            </p>
           }
         </div>
         

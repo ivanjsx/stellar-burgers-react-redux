@@ -5,12 +5,12 @@ import { NavLink, Outlet, useMatch } from "react-router-dom";
 // styles
 import styles from "./account.module.css";
 
-// constants
+// urls
 import { 
   LOGOUT_PAGE_ABSOLUTE_PATH, 
   HISTORY_PAGE_ABSOLUTE_PATH, 
   PROFILE_PAGE_ABSOLUTE_PATH,
-} from "../../utils/constants";
+} from "../../utils/urls";
 
 
 

@@ -14,8 +14,8 @@ import styles from "./ingredient-card.module.css";
 // utils
 import { ingredientPropType } from "../../utils/prop-types";
 
-// constants 
-import { INGREDIENT_PAGE_ABSOLUTE_PATH } from "../../utils/constants";
+// urls 
+import { INGREDIENT_PAGE_ABSOLUTE_PATH } from "../../utils/urls";
 
 
 

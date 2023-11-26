@@ -1,36 +1,48 @@
 // libraries 
+import { useMemo } from "react";
 import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
 
 // styles 
 import styles from "./order-list.module.css";
 
-// data 
-import { all } from "../../data/all";
+// selectors 
+import { defaultOrderFeedSelector } from "../../services/selectors";
+
+// utils 
+import { ORDER_STATUSES } from "../../utils/order-statuses";
 
 
 
-function OrderList({ status }) {
+function OrderList({ targetStatus }) {
   
-  const orders = all.orders.filter(
-    order => order.status === status
-  ).sort(
-    (a, b) => a.updatedAt < b.updatedAt ? 1 : -1
-  ).slice(
-    0, 20
+  const { orders } = useSelector(
+    defaultOrderFeedSelector
+  );
+  
+  const content = useMemo(
+    () => [...orders.values()].filter(
+      order => order.status === targetStatus
+    ).toSorted(
+      (a, b) => a.createdAt < b.createdAt ? 1 : -1
+    ).slice(
+      0, 20
+    ),
+    [orders, targetStatus]
   );
   
   return (
     orders.length > 0 &&
     <ul className={styles.list}>
       {
-        orders.map(
+        content.map(
           order => (
             <li 
               key={order.number}
               className={
                 [
                   styles.item,
-                  status === "done" ? styles.done : ""
+                  targetStatus === ORDER_STATUSES.done.original ? styles.done : ""
                 ].join(" ")              
               }
             >
@@ -44,7 +56,7 @@ function OrderList({ status }) {
 };
 
 OrderList.propTypes = {
-  status: PropTypes.string.isRequired
+  targetStatus: PropTypes.string.isRequired
 };
 
 export default OrderList;

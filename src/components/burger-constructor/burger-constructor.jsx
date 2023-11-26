@@ -15,8 +15,11 @@ import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components
 // styles
 import styles from "./burger-constructor.module.css";
 
-// constants
-import { BUNS_IN_BURGER_COUNT, LOGIN_PAGE_ABSOLUTE_PATH } from "../../utils/constants";
+// urls
+import { LOGIN_PAGE_ABSOLUTE_PATH } from "../../utils/urls";
+
+// constants 
+import { BUNS_IN_BURGER_COUNT } from "../../utils/constants";
 
 // actions
 import { 

@@ -1,5 +1,6 @@
 // libraries 
 import { useCallback, useMemo } from "react";
+import { useSelector } from "react-redux";
 import { useMatch } from "react-router-dom";
 
 // components
@@ -8,36 +9,34 @@ import OrderCard from "../order-card/order-card";
 // styles 
 import styles from "./order-feed.module.css";
 
-// data 
-import { all } from "../../data/all";
+// selectors 
+import { defaultOrderFeedSelector } from "../../services/selectors";
 
-// constants 
+// urls 
 import { 
   FEED_PAGE_ABSOLUTE_PATH, 
   HISTORY_PAGE_ABSOLUTE_PATH, 
   OWN_ORDER_PAGE_ABSOLUTE_PATH,
   COMMON_ORDER_PAGE_ABSOLUTE_PATH, 
-} from "../../utils/constants";
+} from "../../utils/urls";
 
 
 
 function OrderFeed({ showStatus }) {
   
+  const { orders } = useSelector(
+    defaultOrderFeedSelector
+  );
+
+  const content = useMemo(
+    () => [...orders.values()].toSorted(
+      (a, b) => a.createdAt < b.createdAt ? 1 : -1
+    ),
+    [orders]
+  );
+  
   const feedMatch = useMatch(FEED_PAGE_ABSOLUTE_PATH);
   const historyMatch = useMatch(HISTORY_PAGE_ABSOLUTE_PATH);
-  
-  const orders = useMemo(
-    () => {
-      if (feedMatch) {
-        return all.orders;
-      };      
-      if (historyMatch) {
-        return all.orders;
-      };      
-      return [];
-    },
-    [feedMatch, historyMatch]
-  );
   
   const targetLinkPath = useCallback(
     (orderNumber) => {
@@ -55,7 +54,7 @@ function OrderFeed({ showStatus }) {
   return (
     <ul className={styles.content}>
       {
-        orders.map(
+        content.map(
           order => (
             <OrderCard 
               key={order.number} 
