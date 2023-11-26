@@ -9,7 +9,7 @@ import { Counter } from "@ya.praktikum/react-developer-burger-ui-components"
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components"
 
 // styles
-import styles from "./card.module.css";
+import styles from "./ingredient-card.module.css";
 
 // utils
 import { ingredientPropType } from "../../utils/prop-types";
@@ -19,7 +19,7 @@ import { INGREDIENT_PAGE_ABSOLUTE_PATH } from "../../utils/constants";
 
 
 
-function Card({ ingredient, count }) {
+function IngredientCard({ ingredient, count }) {
   
   const location = useLocation();
   const targetPath = INGREDIENT_PAGE_ABSOLUTE_PATH.split(":")[0].concat(ingredient._id);
@@ -39,13 +39,13 @@ function Card({ ingredient, count }) {
   dragRef(ref);  
   
   return (
-    <Link
-      to={targetPath}
-      state={{ background: location }}
-      className={styles.link}
-    >
-      <div className={`${styles.container} ${isDragging ? styles.isDragging : ""}`}>
-        <figure ref={ref} className={styles.card}>
+    <li className={`${styles.container} ${isDragging ? styles.isDragging : ""}`}>
+      <Link
+        to={targetPath}
+        state={{ background: location }}
+        className={styles.link}
+      >
+        <figure ref={ref} className={styles.figure}>
           <img 
             src={ingredient.image_large} 
             alt={`фото ингредиента ${ingredient.name} стоимостью ${ingredient.price}`}
@@ -59,14 +59,14 @@ function Card({ ingredient, count }) {
           </figcaption>
         </figure>
         {count > 0 && <Counter count={count} size="default" />}
-      </div>
-    </Link>    
+      </Link>    
+    </li>
   );
 };
 
-Card.propTypes = {
+IngredientCard.propTypes = {
   ingredient: PropTypes.shape(ingredientPropType).isRequired,
   count: PropTypes.number.isRequired,
 };
 
-export default memo(Card);
+export default memo(IngredientCard);

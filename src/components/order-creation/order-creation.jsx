@@ -14,52 +14,52 @@ function OrderCreation() {
   
   const { 
     pendingCreatingOrder,
-    previewableOrder,
+    createdOrder,
     status,
     action,
     iconSrc,
     suggestion
   } = useSelector(defaultOrderCreationSelector);
   
-  const getRandomDigits = useCallback(
-    () => Math.floor(Math.random()*90000) + 10000,
+  const getFiveRandomDigits = useCallback(
+    () => 10000 + Math.floor(Math.random()*90000),
     []
   );
   
-  const [rotatingRandomDigits, setRotatingRandomDigits] = useState(getRandomDigits());
+  const [rotatingRandomDigits, setRotatingRandomDigits] = useState(getFiveRandomDigits());
   
   useEffect(
     () => {
       const interval = setInterval(
         () => {
           if (pendingCreatingOrder) {
-            setRotatingRandomDigits(getRandomDigits());
+            setRotatingRandomDigits(getFiveRandomDigits());
           };
         }, 
         100
       );
       return () => clearInterval(interval);
     }, 
-    [pendingCreatingOrder, getRandomDigits]
+    [pendingCreatingOrder, getFiveRandomDigits]
   );
   
   return (
     <div className={styles.container}>
       <h3 className={styles.id}>
-        {previewableOrder.order?.number || rotatingRandomDigits}
+        {createdOrder.order?.number || rotatingRandomDigits}
       </h3>
       <p className={styles.description}>
         {status}
       </p>
       <img 
         alt="иконка статуса заказа"
+        src={iconSrc}
         className={
           [
             styles.icon,
             pendingCreatingOrder ? styles.rotating : ""
           ].join(" ")
         }
-        src={iconSrc}
       />
       <div className={styles.textArea}>
         <p className={styles.text}>

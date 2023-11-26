@@ -1,16 +1,5 @@
-.description {
-  grid-area: description;
-  margin: 0;
-  padding: 0;
-  composes: text text_type_main-default text_color_inactive from global;
-}
-
-.content {
-  grid-area: content;
-  width: min-content;  
-}
-
 .form {
+  width: min-content;  
   display: flex;
   flex-direction: column;
   gap: 24px;

@@ -1,5 +1,5 @@
 // components
-import { ErrorPage } from "../../pages";
+import OrderDetails from "../../components/order-details/order-details";
 
 // styles 
 import styles from "./order.module.css";
@@ -7,7 +7,12 @@ import styles from "./order.module.css";
 
 
 function OrderPage() {
-  <ErrorPage title="Эта страница пока в разработке" showTips={true} />                
+  return (
+    <div className={styles.container}>
+      <h2 className={styles.heading}>Детали заказа</h2>
+      <OrderDetails />
+    </div> 
+  );  
 };
 
 export default OrderPage;

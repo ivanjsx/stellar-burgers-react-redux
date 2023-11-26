@@ -1,18 +1,14 @@
 .page {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-
   display: flex;
   flex-direction: column;
-
   height: 100vh;
 }
 
 .main {
   composes: mb-10 from global;
-
-  height: calc(98vh - 248px);
-  max-width: 1240px;
+  width: 1240px;
+  max-height: calc(100% - 208px);
   align-self: center;
+  display: flex;
+  flex-direction: column;
 }

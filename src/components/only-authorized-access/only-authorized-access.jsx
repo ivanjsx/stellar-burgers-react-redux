@@ -11,7 +11,7 @@ import { defaultUserSelector } from "../../services/selectors";
 
 
 
-function AuthorizedAccessOnly({ element, reversed=false }) {
+function OnlyAuthorizedAccess({ element, reversed=false }) {
   
   const location = useLocation();
   const { currentUser, authChecked } = useSelector(defaultUserSelector);
@@ -42,9 +42,9 @@ function AuthorizedAccessOnly({ element, reversed=false }) {
   return element;
 };
 
-AuthorizedAccessOnly.propTypes = {
+OnlyAuthorizedAccess.propTypes = {
   element: PropTypes.element.isRequired,
   reversed: PropTypes.bool
 };
 
-export default AuthorizedAccessOnly;
+export default OnlyAuthorizedAccess;

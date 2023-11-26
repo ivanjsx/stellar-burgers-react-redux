@@ -3,7 +3,7 @@
 
   width: 100%;
   max-width: 720px;
-  height: min-content;
+  max-height: calc(100% - 80px);  
   box-sizing: border-box;
 
   border-radius: 40px;

@@ -1,14 +1,9 @@
-.tabs {
-  composes: mb-10 from global;
-  margin-top: 0;
-  padding: 0;
-  list-style: none;  
-  display: flex;
-}
-
 .content {
-  composes: pr-2 custom-scroll from global;
+  composes: ul custom-scroll from global;
   overflow: scroll;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;  
 }
 
 .content::-webkit-scrollbar {

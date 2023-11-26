@@ -1,5 +1,4 @@
 node_modules
-guides
 .DS_Store
+guides
 build
-todos.md

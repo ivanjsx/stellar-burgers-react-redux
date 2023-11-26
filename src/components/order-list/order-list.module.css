@@ -1,0 +1,16 @@
+.list {
+  composes: ul from global; 
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: repeat(10, auto);
+  gap: 8px 36px;
+  grid-auto-flow: column;
+}
+
+.item {
+  composes: text text_type_digits-default from global;
+}
+
+.done {
+  composes: text_color_success from global;
+}

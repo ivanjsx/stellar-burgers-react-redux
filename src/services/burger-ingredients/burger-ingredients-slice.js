@@ -14,7 +14,7 @@ const burgerIngredientsSlice = createSlice(
     name: BURGER_INGREDIENTS_STATE_NAME,
     
     initialState: {
-      availableStock: [],
+      availableStock: new Map(),
       errorRequestingIngredients: false,
       pendingRequestingIngredients: false,
     },

@@ -5,6 +5,7 @@
   max-width: 720px;
   height: min-content;
   box-sizing: border-box;
+  align-self: center;
   
   display: flex;
   flex-direction: column;

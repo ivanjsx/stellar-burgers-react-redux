@@ -19,7 +19,7 @@ const orderCreationSlice = createSlice(
     name: ORDER_CREATION_STATE_NAME,
     
     initialState: {
-      previewableOrder: null,
+      createdOrder: null,
       errorCreatingOrder: false,
       pendingCreatingOrder: false,      
       status: "",
@@ -29,8 +29,8 @@ const orderCreationSlice = createSlice(
     },
     
     reducers: {
-      resetPreviewableOrder: state => {
-        state.previewableOrder = null;        
+      resetCreatedOrder: state => {
+        state.createdOrder = null;        
       }
     },
     
@@ -38,7 +38,7 @@ const orderCreationSlice = createSlice(
       builder.addCase(
         createOrder.pending, state => {
           state.pendingCreatingOrder = true;
-          state.previewableOrder = {};
+          state.createdOrder = {};
           state.status = "создаём заказ";
           state.action = "Скоро начнём готовить заказ";
           state.iconSrc = pendingImage;          
@@ -49,7 +49,7 @@ const orderCreationSlice = createSlice(
           console.error(action.payload);
           state.errorCreatingOrder = true;
           state.pendingCreatingOrder = false;
-          state.previewableOrder = {};
+          state.createdOrder = {};
           state.status = "не удалось создать заказ";
           state.action = "Что-то пошло не так";
           state.iconSrc = failedImage;             
@@ -59,7 +59,7 @@ const orderCreationSlice = createSlice(
         createOrder.fulfilled, (state, action) => {
           state.errorCreatingOrder = false;
           state.pendingCreatingOrder = false;
-          state.previewableOrder = action.payload;
+          state.createdOrder = action.payload;
           state.status = "идентификатор заказа";
           state.action = "Ваш заказ начали готовить";
           state.iconSrc = doneImage;               
@@ -72,6 +72,6 @@ const orderCreationSlice = createSlice(
   }
 );
 
-export const { resetPreviewableOrder } = orderCreationSlice.actions;
+export const { resetCreatedOrder } = orderCreationSlice.actions;
 
 export const orderCreationReducer = orderCreationSlice.reducer;

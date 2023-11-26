@@ -75,8 +75,8 @@ function AppHeader() {
                 to={FEED_PAGE_ABSOLUTE_PATH}
                 className={styles.link} 
                 children={
-                  <p className={textClass(isActive(FEED_PAGE_ABSOLUTE_PATH, true))}>
-                    <ListIcon type={iconType(isActive(FEED_PAGE_ABSOLUTE_PATH, true))} />
+                  <p className={textClass(isActive(FEED_PAGE_ABSOLUTE_PATH, false))}>
+                    <ListIcon type={iconType(isActive(FEED_PAGE_ABSOLUTE_PATH, false))} />
                     Лента&nbsp;заказов
                   </p>
                 }

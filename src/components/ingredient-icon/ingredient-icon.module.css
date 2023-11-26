@@ -1,0 +1,24 @@
+.border {
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(to top right, #801AB2, #4C4CFF);
+  border-radius: 100px;
+}
+
+.background {
+  background-color: #131316;  
+  height: calc(100% - 4px);
+  width: calc(100% - 4px);  
+  border-radius: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;  
+}
+
+.image {
+  object-fit: cover;
+  height: 90%;
+}

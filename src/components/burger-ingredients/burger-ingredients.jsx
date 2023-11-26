@@ -2,7 +2,7 @@
 import { memo, useRef, useState, useCallback } from "react";
 
 // components
-import Gallery from "../gallery/gallery";
+import IngredientGallery from "../ingredient-gallery/ingredient-gallery";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components"
 
 // styles
@@ -45,40 +45,36 @@ function BurgerIngredients() {
   
   return (
     <>
-      <section className={styles.ingredients}>
-        
-        <nav>
-          <ul className={styles.tabsBar}>
-            
-            <Tab 
-              value="bun"
-              active={activeTab === "bun"}
-              onClick={scrollIntoGallery("bun", bunsRef)}
-              children="Булки"
-            />
-            <Tab 
-              value="sauce" 
-              active={activeTab === "sauce"} 
-              onClick={scrollIntoGallery("sauce", saucesRef)}
-              children="Соусы" 
-            />
-            <Tab 
-              value="main" 
-              active={activeTab === "main"} 
-              onClick={scrollIntoGallery("main", mainsRef)}
-              children="Начинки" 
-            />
-            
-          </ul>
-        </nav>
-        
-        <div className={styles.content} ref={wholeSectionRef} onScroll={handleScroll}>
-          <Gallery category="bun" title="Булки" ref={bunsRef} />
-          <Gallery category="sauce" title="Соусы" ref={saucesRef} />
-          <Gallery category="main" title="Начинки" ref={mainsRef} />            
-        </div>
-        
-      </section>
+      <nav>
+        <ul className={styles.tabs}>
+          
+          <Tab 
+            value="bun"
+            active={activeTab === "bun"}
+            onClick={scrollIntoGallery("bun", bunsRef)}
+            children="Булки"
+          />
+          <Tab 
+            value="sauce" 
+            active={activeTab === "sauce"} 
+            onClick={scrollIntoGallery("sauce", saucesRef)}
+            children="Соусы" 
+          />
+          <Tab 
+            value="main" 
+            active={activeTab === "main"} 
+            onClick={scrollIntoGallery("main", mainsRef)}
+            children="Начинки" 
+          />
+          
+        </ul>
+      </nav>
+      
+      <div className={styles.content} ref={wholeSectionRef} onScroll={handleScroll}>
+        <IngredientGallery category="bun" title="Булки" ref={bunsRef} />
+        <IngredientGallery category="sauce" title="Соусы" ref={saucesRef} />
+        <IngredientGallery category="main" title="Начинки" ref={mainsRef} />            
+      </div>
     </>
   );
 };

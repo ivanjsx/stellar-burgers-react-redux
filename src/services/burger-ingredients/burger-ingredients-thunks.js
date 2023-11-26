@@ -18,7 +18,11 @@ export const requestAvailableStock = createAsyncThunk(
         path: "ingredients/" 
       }
     ).then(
-      response => response.data
+      response => new Map(
+        response.data.map(
+          ingredient => [ingredient._id, ingredient]
+        )
+      )
     );
   }
 );

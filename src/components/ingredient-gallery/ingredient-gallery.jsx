@@ -4,13 +4,13 @@ import { useSelector } from "react-redux";
 import { memo, useMemo, useCallback, forwardRef } from "react";
 
 // components
-import Card from "../card/card";
+import IngredientCard from "../ingredient-card/ingredient-card";
 
 // constants
 import { BUNS_IN_BURGER_COUNT } from "../../utils/constants";
 
 // styles
-import styles from "./gallery.module.css";
+import styles from "./ingredient-gallery.module.css";
 
 // selectors
 import { 
@@ -20,7 +20,7 @@ import {
 
 
 
-const Gallery = forwardRef(
+const IngredientGallery = forwardRef(
   ({ category, title }, ref) => {
     
     const { availableStock } = useSelector(defaultBurgerIngredientsSelector);
@@ -37,15 +37,15 @@ const Gallery = forwardRef(
       },
       [chosenBun, chosenToppings]
     );
-
+    
     const items = useMemo(
-      () => availableStock.filter(ingredient => ingredient.type === category),
+      () => [...availableStock.values()].filter(ingredient => ingredient.type === category),
       [availableStock, category]
     );
-
+    
     const content = useMemo(
       () => items.map(
-        ingredient => <Card 
+        ingredient => <IngredientCard 
                         key={ingredient._id} 
                         ingredient={ingredient} 
                         count={countIngredient(ingredient)}
@@ -67,9 +67,9 @@ const Gallery = forwardRef(
   }
 );
 
-Gallery.propTypes = {
+IngredientGallery.propTypes = {
   category: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired
 };
 
-export default memo(Gallery);
+export default memo(IngredientGallery);

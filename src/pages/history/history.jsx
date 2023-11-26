@@ -1,5 +1,5 @@
 // components
-import { ErrorPage } from "../../pages";
+import OrderFeed from "../../components/order-feed/order-feed";
 
 // styles
 import styles from "./history.module.css";
@@ -8,14 +8,9 @@ import styles from "./history.module.css";
 
 function HistoryPage() {
   return (
-    <>
-      <p className={styles.description}>
-        В этом разделе вы можете просмотреть свою историю заказов      
-      </p>
-      <div className={styles.content}>
-        <ErrorPage title="Эта страница пока в разработке" showTips={false} />                
-      </div>
-    </>
+    <section className={styles.content}>
+      <OrderFeed showStatus={true} />
+    </section>
   );
 };
 

@@ -10,7 +10,7 @@ import {
 
 
 
-function UponEmailSentOnly({ element }) {
+function OnlyUponEmailSent({ element }) {
   
   const location = useLocation();  
   
@@ -27,8 +27,8 @@ function UponEmailSentOnly({ element }) {
   return element;
 };
 
-UponEmailSentOnly.propTypes = {
+OnlyUponEmailSent.propTypes = {
   element: PropTypes.element.isRequired,
 };
 
-export default UponEmailSentOnly;
+export default OnlyUponEmailSent;

@@ -13,7 +13,8 @@ export const store = configureStore(
     reducer: rootReducer,
     devTools: process.env.NODE_ENV !== "production",
     middleware: (getDefaultMiddleware) => {
-      let middleware = getDefaultMiddleware().concat(thunk);
+      let middleware = getDefaultMiddleware({ serializableCheck: false });
+      middleware = middleware.concat(thunk);
       if (process.env.NODE_ENV !== "production") {
         middleware = middleware.concat(logger);
       }
