@@ -100,12 +100,14 @@ function App() {
             element={<FeedPage />} 
           />
           <Route 
-            path={OWN_ORDER_PAGE_RELATIVE_PATH}
+            path={COMMON_ORDER_PAGE_RELATIVE_PATH}
             element={<OrderPage />}            
           />
           <Route 
-            path={COMMON_ORDER_PAGE_RELATIVE_PATH}
-            element={<OrderPage />}            
+            path={OWN_ORDER_PAGE_RELATIVE_PATH}
+            element={
+              <OnlyAuthorizedAccess element={<OrderPage />} />
+            }            
           />
           <Route 
             path={INGREDIENT_PAGE_RELATIVE_PATH}
