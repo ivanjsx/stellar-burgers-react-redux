@@ -9,6 +9,9 @@ import IngredientIcon from "../ingredient-icon/ingredient-icon";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
 
+// constants 
+import { MAX_ICONS_IN_ORDER_CARD } from "../../utils/constants";
+
 // styles
 import styles from "./order-card.module.css";
 
@@ -27,18 +30,59 @@ function OrderCard({ order, showStatus, targetLinkPath }) {
   
   const { availableStock } = useSelector(defaultBurgerIngredientsSelector);
   
-  const icons = useMemo(
-    () => [...new Set(order.ingredients)].map(
-      id => {
-        const ingredient = availableStock.get(id);
+  const uniqueIngredients = useMemo(
+    () => [...new Set(order.ingredients)],
+    [order]
+  );
+  
+  const explicitIcons = useMemo(
+    () => {
+      const explicitIngredients = uniqueIngredients.slice(0, MAX_ICONS_IN_ORDER_CARD);
+      return explicitIngredients.map(
+        id => {
+          const ingredient = availableStock.get(id);
+          return (
+            <li key={id} className={styles.icon}>
+              <IngredientIcon 
+                imageSrc={ingredient?.image_large} 
+                isConcealed={false}
+              />
+            </li>
+          );
+        }
+      )
+    },
+    [uniqueIngredients, availableStock]
+  );
+
+  const concealedIcon = useMemo(
+    () => {
+      const concealedIngredients = uniqueIngredients.slice(MAX_ICONS_IN_ORDER_CARD);
+      const ingredient = availableStock.get(concealedIngredients[0]);
+      if (concealedIngredients.length === 0) {
+        return null;
+      };
+      if (concealedIngredients.length === 1) {
         return (
-          <li key={id} className={styles.icon}>
-            <IngredientIcon imageSrc={ingredient?.image_large} />
-          </li>
-        );
-      }
-    ),
-    [order, availableStock]
+          <li key={concealedIngredients[0]} className={styles.icon}>
+            <IngredientIcon 
+              imageSrc={ingredient?.image_large} 
+              isConcealed={false}
+            />
+          </li>          
+        );        
+      };
+      return (
+        <li key={concealedIngredients[0]} className={styles.icon}>
+          <IngredientIcon 
+            imageSrc={ingredient?.image_large} 
+            isConcealed={true}
+            concealedCount={concealedIngredients.length}
+          />
+        </li>          
+      );
+    },
+    [uniqueIngredients, availableStock]
   );
   
   const totalPrice = useMemo(
@@ -81,7 +125,8 @@ function OrderCard({ order, showStatus, targetLinkPath }) {
         
         <div className={styles.info}>
           <ul className={styles.contains}>
-            {icons}
+            {explicitIcons}
+            {concealedIcon}
           </ul>
           <p className={styles.price}>
             {totalPrice} <CurrencyIcon type="primary" />

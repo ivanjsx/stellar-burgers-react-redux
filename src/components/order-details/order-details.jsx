@@ -1,6 +1,6 @@
 // libraries
-import { useMemo } from "react";
-import { useSelector } from "react-redux";
+import { useEffect, useMemo, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
 // components 
@@ -17,11 +17,12 @@ import { ErrorPage } from "../../pages";
 // selectors 
 import { 
   defaultOrderFeedSelector,
-  defaultBurgerIngredientsSelector, 
+  defaultOrderDetailsSelector, 
+  defaultBurgerIngredientsSelector,
 } from "../../services/selectors";
 
-// api 
-import { getOrder } from "../../utils/api";
+// actions 
+import { getOrderByNumber } from "../../services/order-details/order-details-thunks";
 
 // utils 
 import { ORDER_STATUSES } from "../../utils/order-statuses";
@@ -30,47 +31,70 @@ import { ORDER_STATUSES } from "../../utils/order-statuses";
 
 function OrderDetails() {
   
+  const dispatch = useDispatch();
   const { orderNumber } = useParams();
   
   const { orders } = useSelector(
     defaultOrderFeedSelector
+  );
+  
+  useEffect(
+    () => {
+      if (!orders.get(Number(orderNumber))) {
+        dispatch(
+          getOrderByNumber(orderNumber)
+        );
+      };
+    },
+    [orders, orderNumber]
   );  
+  
+  const { fetchedOrder } = useSelector(
+    defaultOrderDetailsSelector
+  );
   
   const previewableOrder = useMemo(
     () => {
-      let order = orders.get(Number(orderNumber));
-      if (order) {
-        return order;
-      } else {
-        return getOrder(orderNumber);
-      };
+      if (orders.get(Number(orderNumber))) {
+        return orders.get(Number(orderNumber));
+      };      
+      return fetchedOrder;
     },
-    [orderNumber, orders]
+    [orders, orderNumber, fetchedOrder]
   );
   
-  const { availableStock } = useSelector(defaultBurgerIngredientsSelector);
+  const { availableStock } = useSelector(
+    defaultBurgerIngredientsSelector
+  );
   
   const quantities = useMemo(
     () => {
       let quantities = {};
-      previewableOrder.ingredients.forEach(
-        id => {
-          if (quantities[id]) {
-            quantities[id] += 1;
-          } else {
-            quantities[id] = 1;
-          };
-        }
-      );
+      if (previewableOrder) {
+        previewableOrder.ingredients.forEach(
+          id => {
+            if (quantities[id]) {
+              quantities[id] += 1;
+            } else {
+              quantities[id] = 1;
+            };
+          }
+        );
+      };
       return quantities;
     },
     [previewableOrder]
   );
-
+  
   const totalPrice = useMemo(
-    () => previewableOrder.ingredients.reduce(
-      (accumulator, current) => accumulator + availableStock.get(current)?.price, 0
-    ),
+    () => {
+      if (previewableOrder) {
+        return previewableOrder.ingredients.reduce(
+          (accumulator, current) => accumulator + availableStock.get(current)?.price, 0
+        );
+      };
+      return 0;
+    },
     [previewableOrder, availableStock]
   );    
   

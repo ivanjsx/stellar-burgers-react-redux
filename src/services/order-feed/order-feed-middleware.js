@@ -53,7 +53,6 @@ const orderFeedMiddleware = store => {
       
       socket.onmessage = (event) => {
         const data = JSON.parse(event.data);
-        console.log(data);
         if (data && data.success) {
           dispatch(setData(data));
         } else if (data && data.message === "Invalid or missing token") {

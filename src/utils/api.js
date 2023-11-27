@@ -77,17 +77,4 @@ function refreshingRequest(params) {
 
 
 
-function getOrder(orderNumber) {
-  return request(
-    {
-      method: "GET",
-      path: `orders/${orderNumber}/`, 
-    }
-  ).then(
-    response => response.orders[0]
-  );
-};
-
-
-
-export { request, refreshingRequest, getOrder, updateAccessToken };
+export { request, refreshingRequest, updateAccessToken };

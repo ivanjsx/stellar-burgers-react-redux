@@ -32,7 +32,6 @@ function OrderList({ targetStatus }) {
   );
   
   return (
-    orders.length > 0 &&
     <ul className={styles.list}>
       {
         content.map(

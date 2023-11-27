@@ -6,6 +6,7 @@
   justify-content: center;
   background: linear-gradient(to top right, #801AB2, #4C4CFF);
   border-radius: 100px;
+  position: relative;
 }
 
 .background {
@@ -15,10 +16,24 @@
   border-radius: 100px;
   display: flex;
   align-items: center;
-  justify-content: center;  
+  justify-content: center; 
+}
+
+.concealedBackground {
+  background-color: #1C1C21;  
 }
 
 .image {
   object-fit: cover;
   height: 90%;
+}
+
+.concealedImage {
+  opacity: 0.6;
+}
+
+.concealedCount {
+  composes: text text_type_main-default from global;
+  position: absolute;
+  z-index: 1;
 }
