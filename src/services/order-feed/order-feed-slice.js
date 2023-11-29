@@ -6,7 +6,7 @@ import {
   ONLINE, 
   OFFLINE,
   CONNECTING,
-  ORDER_FEED_STATE_NAME, 
+  ORDER_FEED_STATE_NAME,
 } from "../../utils/constants";
 
 
@@ -20,12 +20,28 @@ const orderFeedSlice = createSlice(
       allTimeTotal: 0,
       orders: new Map(),
       connectionError: false,
-      dataErrorMessage: false,
       connectionStatus: OFFLINE,
     },
     
     reducers: {
-      setData: (state, action) => {
+      connect: state => {
+        state.connectionStatus = CONNECTING;
+      },
+      disconnect: state => {
+        state.orders = new Map();
+      },
+      onOpen: state => {
+        state.connectionError = false;
+        state.connectionStatus = ONLINE;
+      },
+      onClose: state => {
+        state.connectionError = false;
+        state.connectionStatus = OFFLINE;
+      },
+      onError: state => {
+        state.connectionError = true;
+      },
+      onMessage: (state, action) => {
         state.allTimeTotal = action.payload.total;
         state.todaysTotal = action.payload.totalToday;
         state.orders = new Map(
@@ -34,46 +50,17 @@ const orderFeedSlice = createSlice(
           )
         );
       },
-      setDataErrorMessage: (state, action) => {
-        state.dataErrorMessage = action.payload;
-      },
-      
-      connect: state => state,
-      disconnect: state => {
-        state.orders = new Map();
-      },
-      
-      connecting: state => {
-        state.connectionStatus = CONNECTING;
-      },
-      opened: state => {
-        state.connectionError = false;
-        state.connectionStatus = ONLINE;
-      },
-      closed: state => {
-        state.connectionError = false;
-        state.connectionStatus = OFFLINE;
-      },
-      closedWithError: state => {
-        state.connectionError = true;
-      },
     },
   }
 );
 
 export const { 
-  
-  setData,
-  setDataErrorMessage,
-  
-  connect, 
+  connect,
   disconnect, 
-  
-  connecting, 
-  opened, 
-  closed, 
-  closedWithError, 
-  
+  onOpen, 
+  onClose, 
+  onError, 
+  onMessage, 
 } = orderFeedSlice.actions;
 
 export const orderFeedReducer = orderFeedSlice.reducer;

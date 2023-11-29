@@ -4,10 +4,36 @@ import logger from "redux-logger";
 import { configureStore } from "@reduxjs/toolkit";
 
 // reducers
-import { rootReducer } from "./reducer"
+import { rootReducer } from "./reducers"
 
 // middleware
-import orderFeedMiddleware from "./order-feed/order-feed-middleware";
+import webSocketMiddleware from "./middleware";
+
+// actions
+import {
+  connect,
+  disconnect,
+  onOpen,
+  onClose,
+  onError,
+  onMessage,
+} from "./order-feed/order-feed-slice";
+
+// constants 
+import { BASE_WS_URL } from "../utils/constants";
+
+
+
+const orderFeedMiddleware = webSocketMiddleware(
+  BASE_WS_URL, {
+    connect,
+    disconnect,
+    onOpen,
+    onClose,
+    onError,
+    onMessage,
+  }
+);
 
 
 

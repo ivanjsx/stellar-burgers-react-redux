@@ -36,7 +36,7 @@ function ProfilePage() {
   
   const { onChange } = useForm();
   const dispatch = useDispatch();
-
+  
   function onSubmit(event) {
     event.preventDefault();
     dispatch(updateUser({ name, email, password }));
