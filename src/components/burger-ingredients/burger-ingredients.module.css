@@ -1,12 +1,4 @@
-.ingredients {
-  composes: mt-5 from global;
-  display: flex;
-  flex-direction: column;  
-  max-width: 600px;
-  max-height: 100%;
-}
-
-.tabsBar {
+.tabs {
   composes: mb-10 from global;
   margin-top: 0;
   padding: 0;
@@ -28,4 +20,3 @@
   border: none;
   border-radius: 0;
 };
-

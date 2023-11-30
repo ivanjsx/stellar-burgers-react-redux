@@ -36,7 +36,7 @@ function ProfilePage() {
   
   const { onChange } = useForm();
   const dispatch = useDispatch();
-
+  
   function onSubmit(event) {
     event.preventDefault();
     dispatch(updateUser({ name, email, password }));
@@ -50,50 +50,43 @@ function ProfilePage() {
   };
   
   return (
-    <>
-      <p className={styles.description}>
-        В этом разделе вы можете изменить свои персональные данные
-      </p>
-      <div className={styles.content}>
-        <form className={styles.form} onSubmit={onSubmit} onReset={onReset}>
-          <Input
-            type="text"
-            placeholder="Имя"
-            name="name"
-            value={name}
-            onChange={onChange(setName, setIsNameValid)}
-            icon="EditIcon"
-          />        
-          <EmailInput
-            name="email"
-            value={email}
-            onChange={onChange(setEmail, setIsEmailValid)}
-            isIcon={true}
-          />        
-          <PasswordInput
-            name="password"
-            value={password}
-            onChange={onChange(setPassword, setIsPasswordValid)}
-            icon="EditIcon"
-          />
-          <Button
-            size="medium" 
-            type="primary" 
-            htmlType="submit" 
-            disabled={!isNameValid || !isEmailValid || !isPasswordValid}
-            extraClass={styles.button}
-            children="Сохранить"
-          />           
-          <Button
-            size="medium" 
-            type="secondary" 
-            htmlType="reset" 
-            extraClass={styles.button}
-            children="Отменить"
-          />                
-        </form>      
-      </div>
-    </>
+    <form className={styles.form} onSubmit={onSubmit} onReset={onReset}>
+      <Input
+        type="text"
+        placeholder="Имя"
+        name="name"
+        value={name}
+        onChange={onChange(setName, setIsNameValid)}
+        icon="EditIcon"
+      />        
+      <EmailInput
+        name="email"
+        value={email}
+        onChange={onChange(setEmail, setIsEmailValid)}
+        isIcon={true}
+      />        
+      <PasswordInput
+        name="password"
+        value={password}
+        onChange={onChange(setPassword, setIsPasswordValid)}
+        icon="EditIcon"
+      />
+      <Button
+        size="medium" 
+        type="primary" 
+        htmlType="submit" 
+        disabled={!isNameValid || !isEmailValid || !isPasswordValid}
+        extraClass={styles.button}
+        children="Сохранить"
+      />           
+      <Button
+        size="medium" 
+        type="secondary" 
+        htmlType="reset" 
+        extraClass={styles.button}
+        children="Отменить"
+      />                
+    </form>      
   );
 };
 

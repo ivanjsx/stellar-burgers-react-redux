@@ -11,7 +11,7 @@
   opacity: 0;
 }
 
-.card {
+.figure {
   margin: 0;
   display: flex;
   flex-direction: column;
@@ -28,6 +28,7 @@
 .price {
   composes: m-2 text text_type_digits-default from global;
   display: flex;
+  align-items: center;
   gap: 8px
 }
 

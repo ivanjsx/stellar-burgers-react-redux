@@ -2,15 +2,15 @@
 import PropTypes from "prop-types";
 import { Navigate, useLocation } from "react-router-dom";
 
+// urls 
+import { FORGOT_PASSWORD_PAGE_ABSOLUTE_PATH } from "../../utils/urls";
+
 // constants 
-import { 
-  PASSWORD_RESET_EMAIL_SENT_KEY,
-  FORGOT_PASSWORD_PAGE_ABSOLUTE_PATH, 
-} from "../../utils/constants";
+import { PASSWORD_RESET_EMAIL_SENT_KEY } from "../../utils/constants";
 
 
 
-function UponEmailSentOnly({ element }) {
+function OnlyUponEmailSent({ element }) {
   
   const location = useLocation();  
   
@@ -27,8 +27,8 @@ function UponEmailSentOnly({ element }) {
   return element;
 };
 
-UponEmailSentOnly.propTypes = {
+OnlyUponEmailSent.propTypes = {
   element: PropTypes.element.isRequired,
 };
 
-export default UponEmailSentOnly;
+export default OnlyUponEmailSent;

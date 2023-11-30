@@ -2,11 +2,11 @@
 import PropTypes from "prop-types";
 
 // styles
-import styles from "./nutrition.module.css";
+import styles from "./ingredient-nutrition.module.css";
 
 
 
-function Nutrition({ name, value }) {
+function IngredientNutrition({ name, value }) {
   return (
     <li className={styles.nutrition}>
       <p className={`${styles.text} ${styles.name}`}>{name}</p>
@@ -15,9 +15,9 @@ function Nutrition({ name, value }) {
   );
 };
 
-Nutrition.propTypes = {
+IngredientNutrition.propTypes = {
   name: PropTypes.string.isRequired,
   value: PropTypes.number.isRequired
 };
 
-export default Nutrition;
+export default IngredientNutrition;

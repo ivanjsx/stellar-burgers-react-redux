@@ -9,7 +9,7 @@ import { DragIcon } from "@ya.praktikum/react-developer-burger-ui-components"
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components"
 
 // styles
-import styles from "./topping-row.module.css";
+import styles from "./burger-topping-row.module.css";
 
 // utils
 import { ingredientPropType } from "../../utils/prop-types";
@@ -19,7 +19,7 @@ import { dragTopping } from "../../services/burger-constructor/burger-constructo
 
 
 
-function ToppingRow({ index, topping, deleteHandler, isThumbnail=false }) {
+function BurgerToppingRow({ index, topping, deleteHandler, isThumbnail=false }) {
   
   const dispatch = useDispatch();
   const ref = useRef();
@@ -107,11 +107,11 @@ function ToppingRow({ index, topping, deleteHandler, isThumbnail=false }) {
   );
 };
 
-ToppingRow.propTypes = {
+BurgerToppingRow.propTypes = {
   index: PropTypes.number,
   topping: PropTypes.shape(ingredientPropType),
   deleteHandler: PropTypes.func,
   isThumbnail: PropTypes.bool
 };
 
-export default ToppingRow;
+export default BurgerToppingRow;

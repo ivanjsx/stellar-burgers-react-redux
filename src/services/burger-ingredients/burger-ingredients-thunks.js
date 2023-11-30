@@ -9,8 +9,8 @@ import { BURGER_INGREDIENTS_STATE_NAME } from "../../utils/constants";
 
 
 
-export const requestAvailableIngredientsStock = createAsyncThunk(
-  `${BURGER_INGREDIENTS_STATE_NAME}/requestAvailableIngredientsStock`,
+export const requestAvailableStock = createAsyncThunk(
+  `${BURGER_INGREDIENTS_STATE_NAME}/requestAvailableStock`,
   () => {
     return request(
       { 
@@ -18,7 +18,11 @@ export const requestAvailableIngredientsStock = createAsyncThunk(
         path: "ingredients/" 
       }
     ).then(
-      response => response.data
+      response => new Map(
+        response.data.map(
+          ingredient => [ingredient._id, ingredient]
+        )
+      )
     );
   }
 );

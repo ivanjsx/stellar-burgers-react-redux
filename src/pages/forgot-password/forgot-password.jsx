@@ -10,11 +10,11 @@ import { EmailInput } from "@ya.praktikum/react-developer-burger-ui-components";
 // styles
 import styles from "./forgot-password.module.css";
 
-// constants 
+// urls 
 import { 
   LOGIN_PAGE_ABSOLUTE_PATH,
   SET_NEW_PASSWORD_PAGE_ABSOLUTE_PATH
-} from "../../utils/constants";
+} from "../../utils/urls";
 
 // actions
 import { resetPassword } from "../../services/user/user-thunks";

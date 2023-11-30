@@ -6,10 +6,11 @@ import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 // components
 import Modal from "../modal/modal";
 import Logout from "../logout/logout";
+import OrderDetails from "../order-details/order-details";
 import IngredientDetails from "../ingredient-details/ingredient-details";
-import UponEmailSentOnly from "../upon-email-sent-only/upon-email-sent-only";
-import AuthorizedAccessOnly from "../authorized-access-only/authorized-access-only";
-import UnauthorizedAccessOnly from "../unauthorized-access-only/unauthorized-access-only";
+import OnlyUponEmailSent from "../only-upon-email-sent/only-upon-email-sent";
+import OnlyAuthorizedAccess from "../only-authorized-access/only-authorized-access";
+import OnlyUnauthorizedAccess from "../only-unauthorized-access/only-unauthorized-access";
 
 // layouts
 import { RootLayout, AccountLayout } from "../../layouts";
@@ -29,24 +30,27 @@ import {
   SetNewPasswordPage,
 } from "../../pages";
 
-// constants 
+// urls 
 import { 
   HOME_PAGE_PATH,
   FEED_PAGE_RELATIVE_PATH,
   LOGIN_PAGE_RELATIVE_PATH,
-  ORDER_PAGE_RELATIVE_PATH,
   LOGOUT_PAGE_RELATIVE_PATH,
   PROFILE_PAGE_RELATIVE_PATH,
   HISTORY_PAGE_RELATIVE_PATH,
   REGISTER_PAGE_RELATIVE_PATH,
+  OWN_ORDER_PAGE_RELATIVE_PATH,
+  OWN_ORDER_PAGE_ABSOLUTE_PATH,
   INGREDIENT_PAGE_RELATIVE_PATH,
   INGREDIENT_PAGE_ABSOLUTE_PATH,
+  COMMON_ORDER_PAGE_RELATIVE_PATH,
+  COMMON_ORDER_PAGE_ABSOLUTE_PATH,
   FORGOT_PASSWORD_PAGE_RELATIVE_PATH,
   SET_NEW_PASSWORD_PAGE_RELATIVE_PATH,
-} from "../../utils/constants";
+} from "../../utils/urls";
 
 // actions
-import { requestAvailableIngredientsStock } from "../../services/burger-ingredients/burger-ingredients-thunks";
+import { requestAvailableStock } from "../../services/burger-ingredients/burger-ingredients-thunks";
 
 // hooks 
 import useAuth from "../../hooks/use-auth";
@@ -56,13 +60,13 @@ import useAuth from "../../hooks/use-auth";
 function App() {
   
   const dispatch = useDispatch();
-
+  
   const { checkUserAuth } = useAuth();
   
   useEffect(
     () => {
       dispatch(
-        requestAvailableIngredientsStock()
+        requestAvailableStock()
       ).then(
         () => {
           checkUserAuth();
@@ -94,7 +98,17 @@ function App() {
           <Route 
             path={FEED_PAGE_RELATIVE_PATH} 
             element={<FeedPage />} 
-          />        
+          />
+          <Route 
+            path={COMMON_ORDER_PAGE_RELATIVE_PATH}
+            element={<OrderPage />}            
+          />
+          <Route 
+            path={OWN_ORDER_PAGE_RELATIVE_PATH}
+            element={
+              <OnlyAuthorizedAccess element={<OrderPage />} />
+            }            
+          />
           <Route 
             path={INGREDIENT_PAGE_RELATIVE_PATH}
             element={<IngredientPage />} 
@@ -102,33 +116,33 @@ function App() {
           <Route
             path={LOGIN_PAGE_RELATIVE_PATH}
             element={
-              <UnauthorizedAccessOnly element={<LoginPage />} />
+              <OnlyUnauthorizedAccess element={<LoginPage />} />
             }
           />
           <Route
             path={LOGOUT_PAGE_RELATIVE_PATH}
             element={
-              <AuthorizedAccessOnly element={<Logout />} />
+              <OnlyAuthorizedAccess element={<Logout />} />
             }
           />               
           <Route 
             path={REGISTER_PAGE_RELATIVE_PATH}
             element={
-              <UnauthorizedAccessOnly element={<RegisterPage />} />
+              <OnlyUnauthorizedAccess element={<RegisterPage />} />
             }             
           />
           <Route 
             path={FORGOT_PASSWORD_PAGE_RELATIVE_PATH}
             element={
-              <UnauthorizedAccessOnly element={<ForgotPasswordPage />} />
+              <OnlyUnauthorizedAccess element={<ForgotPasswordPage />} />
             }
           />            
           <Route 
             path={SET_NEW_PASSWORD_PAGE_RELATIVE_PATH}
             element={
-              <UnauthorizedAccessOnly 
+              <OnlyUnauthorizedAccess 
                 element={
-                  <UponEmailSentOnly element={<SetNewPasswordPage />}/>
+                  <OnlyUponEmailSent element={<SetNewPasswordPage />}/>
                 } 
               />
             }             
@@ -136,28 +150,21 @@ function App() {
           <Route 
             path={PROFILE_PAGE_RELATIVE_PATH}
             element={
-              <AuthorizedAccessOnly element={<AccountLayout />} />
+              <OnlyAuthorizedAccess element={<AccountLayout />} />
             } 
           >
             <Route 
               index 
               element={
-                <AuthorizedAccessOnly element={<ProfilePage />} />
+                <OnlyAuthorizedAccess element={<ProfilePage />} />
               } 
             />          
             <Route 
               path={HISTORY_PAGE_RELATIVE_PATH}
               element={
-                <AuthorizedAccessOnly element={<HistoryPage />} />
+                <OnlyAuthorizedAccess element={<HistoryPage />} />
               } 
-            >
-              <Route 
-                path={ORDER_PAGE_RELATIVE_PATH}
-                element={
-                  <AuthorizedAccessOnly element={<OrderPage />} />
-                }             
-              />
-            </Route>
+            />
           </Route>        
           <Route 
             path="*" 
@@ -173,12 +180,29 @@ function App() {
               path={INGREDIENT_PAGE_ABSOLUTE_PATH}
               element={
                 <Modal 
-                  heading="Детали ингредиента"
                   closeHandler={handleModalClose}
                   children={<IngredientDetails />} 
                 />
               }
             />
+            <Route
+              path={COMMON_ORDER_PAGE_ABSOLUTE_PATH}
+              element={
+                <Modal 
+                  closeHandler={handleModalClose}
+                  children={<OrderDetails />} 
+                />
+              }
+            />
+            <Route
+              path={OWN_ORDER_PAGE_ABSOLUTE_PATH}
+              element={
+                <Modal 
+                  closeHandler={handleModalClose}
+                  children={<OrderDetails />} 
+                />
+              }
+            />                        
           </Routes>
         )
       }        

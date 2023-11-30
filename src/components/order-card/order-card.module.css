@@ -1,0 +1,56 @@
+.container {
+  composes: mr-2 p-6 from global;
+  border-radius: 40px;
+  background: #1C1C21;
+}
+
+.link {
+  composes: anchor from global;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;  
+}
+
+.info {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  align-items: center;
+}
+
+.number {
+  composes: text text_type_digits-default from global;
+}
+
+.date {
+  composes: text text_type_main-default text_color_inactive from global;
+}
+
+.name {
+  composes: text text_type_main-medium from global;
+}
+
+.status {
+  composes: mt-2 text text_type_main-default from global;
+}
+
+.statusDone {
+  composes: text_color_success from global;
+}
+
+.contains {
+  composes: ul from global;
+  display: flex;
+}
+
+.icon {
+  margin-right: -16px;
+}
+
+.price {
+  composes: text text_type_digits-default from global;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}

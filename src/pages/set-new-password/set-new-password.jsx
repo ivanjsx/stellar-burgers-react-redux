@@ -11,8 +11,8 @@ import { PasswordInput } from "@ya.praktikum/react-developer-burger-ui-component
 // styles
 import styles from "./set-new-password.module.css";
 
-// constants 
-import { LOGIN_PAGE_ABSOLUTE_PATH } from "../../utils/constants";
+// urls 
+import { LOGIN_PAGE_ABSOLUTE_PATH } from "../../utils/urls";
 
 // actions
 import { setNewPassword } from "../../services/user/user-thunks";

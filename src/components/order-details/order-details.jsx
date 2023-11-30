@@ -1,74 +1,164 @@
 // libraries
-import { useSelector } from "react-redux";
-import { useState, useEffect, useCallback } from "react";
+import { useEffect, useMemo } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+
+// components 
+import IngredientIcon from "../ingredient-icon/ingredient-icon";
+import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
 
 // styles
 import styles from "./order-details.module.css";
 
+// pages 
+import { ErrorPage } from "../../pages";
+
 // selectors 
-import { defaultCreateOrderSelector } from "../../services/selectors";
+import { 
+  defaultOrderFeedSelector,
+  defaultOrderDetailsSelector, 
+  defaultBurgerIngredientsSelector,
+} from "../../services/selectors";
+
+// actions 
+import { getOrderByNumber } from "../../services/order-details/order-details-thunks";
+
+// utils 
+import { ORDER_STATUSES } from "../../utils/order-statuses";
 
 
 
 function OrderDetails() {
   
-  const { 
-    pendingRequestingOrder,
-    previewableOrder,
-    status,
-    action,
-    iconSrc,
-    suggestion
-  } = useSelector(defaultCreateOrderSelector);
+  const dispatch = useDispatch();
+  const { orderNumber } = useParams();
   
-  const getRandomDigits = useCallback(
-    () => Math.floor(Math.random()*90000) + 10000,
-    []
+  const { orders } = useSelector(
+    defaultOrderFeedSelector
   );
-  
-  const [rotatingRandomDigits, setRotatingRandomDigits] = useState(getRandomDigits());
   
   useEffect(
     () => {
-      const interval = setInterval(
-        () => {
-          if (pendingRequestingOrder) {
-            setRotatingRandomDigits(getRandomDigits());
-          };
-        }, 
-        100
-      );
-      return () => clearInterval(interval);
-    }, 
-    [pendingRequestingOrder, getRandomDigits]
+      if (!orders.get(Number(orderNumber))) {
+        dispatch(
+          getOrderByNumber(orderNumber)
+        );
+      };
+    },
+    [orders, orderNumber]
+  );  
+  
+  const { fetchedOrder } = useSelector(
+    defaultOrderDetailsSelector
   );
+  
+  const previewableOrder = useMemo(
+    () => {
+      if (orders.get(Number(orderNumber))) {
+        return orders.get(Number(orderNumber));
+      };      
+      return fetchedOrder;
+    },
+    [orders, orderNumber, fetchedOrder]
+  );
+  
+  const { availableStock } = useSelector(
+    defaultBurgerIngredientsSelector
+  );
+  
+  const quantities = useMemo(
+    () => {
+      let quantities = {};
+      if (previewableOrder) {
+        previewableOrder.ingredients.forEach(
+          id => {
+            if (quantities[id]) {
+              quantities[id] += 1;
+            } else {
+              quantities[id] = 1;
+            };
+          }
+        );
+      };
+      return quantities;
+    },
+    [previewableOrder]
+  );
+  
+  const totalPrice = useMemo(
+    () => {
+      if (previewableOrder) {
+        return previewableOrder.ingredients.reduce(
+          (accumulator, current) => accumulator + availableStock.get(current)?.price, 0
+        );
+      };
+      return 0;
+    },
+    [previewableOrder, availableStock]
+  );    
+  
+  if (!previewableOrder) {
+    return <ErrorPage title="Такой заказ не найден!" showTips={true} />;
+  };
+  
+  if (
+    Object.keys(quantities).some(
+      ingredient => !availableStock.has(ingredient)
+    )
+  ) {
+    return <ErrorPage title="В заказе неизвестные ингредиенты!" showTips={true} />;
+  };
   
   return (
     <div className={styles.container}>
-      <h3 className={styles.id}>
-        {previewableOrder.order?.number || rotatingRandomDigits}
-      </h3>
-      <p className={styles.description}>
-        {status}
-      </p>
-      <img 
-        alt="иконка статуса заказа"
+      
+      <p className={styles.number}>#{previewableOrder.number}</p>
+      <h3 className={styles.name}>{previewableOrder.name}</h3>
+      <p 
         className={
           [
-            styles.icon,
-            pendingRequestingOrder ? styles.rotating : ""
+            styles.status, 
+            previewableOrder.status === ORDER_STATUSES.done.original ? styles.statusDone : ""
           ].join(" ")
         }
-        src={iconSrc}
-      />
-      <div className={styles.textArea}>
-        <p className={styles.text}>
-          {action}
-        </p>      
-        <p className={`${styles.text} ${styles.inactive}`}>
-          {suggestion}    
-        </p>      
+      >
+        {ORDER_STATUSES[previewableOrder.status].decoded}
+      </p>
+      <h3 className={styles.header}>Состав:</h3>
+      
+      <div className={styles.scrollableContainer}>
+        <ul className={styles.contains}>
+          {
+            Object.entries(quantities).map(
+              ([ingredient, quantity]) => (
+                <li 
+                  key={ingredient}
+                  className={styles.ingredient}
+                >
+                  <IngredientIcon imageSrc={availableStock.get(ingredient)?.image_large} />
+                  <p className={styles.title}>{availableStock.get(ingredient)?.name}</p>
+                  <p className={styles.price}>
+                    <span>{quantity}</span>
+                    <span>x</span>
+                    <span>{availableStock.get(ingredient)?.price}</span>
+                    <CurrencyIcon type="primary" />
+                  </p>
+                </li>
+              )
+            )
+          }
+        </ul>
       </div>
+      
+      <div className={styles.footer}>
+        <p className={styles.date}>
+          <FormattedDate date={new Date(previewableOrder.createdAt)} />
+        </p>
+        <p className={styles.price}>
+          {totalPrice} <CurrencyIcon type="primary" />
+        </p>
+      </div>    
     </div>
   );
 };

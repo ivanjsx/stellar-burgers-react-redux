@@ -11,3 +11,11 @@ export const ingredientPropType = {
   fat: PropTypes.number.isRequired,
   carbohydrates: PropTypes.number.isRequired
 };
+
+export const orderPropType = {
+  ingredients: PropTypes.arrayOf(PropTypes.string).isRequired,
+  number: PropTypes.number.isRequired,
+  createdAt: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  status: PropTypes.string.isRequired,
+};

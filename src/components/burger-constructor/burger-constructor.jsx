@@ -6,17 +6,20 @@ import { useDispatch, useSelector } from "react-redux";
 
 // components
 import Modal from "../modal/modal";
-import BunRow from "../bun-row/bun-row";
-import ToppingRow from "../topping-row/topping-row";
-import OrderDetails from "../order-details/order-details";
+import BurgerBunRow from "../burger-bun-row/burger-bun-row";
+import OrderCreation from "../order-creation/order-creation";
+import BurgerToppingRow from "../burger-topping-row/burger-topping-row";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
 // styles
 import styles from "./burger-constructor.module.css";
 
-// constants
-import { BUNS_IN_BURGER_COUNT, LOGIN_PAGE_ABSOLUTE_PATH } from "../../utils/constants";
+// urls
+import { LOGIN_PAGE_ABSOLUTE_PATH } from "../../utils/urls";
+
+// constants 
+import { BUNS_IN_BURGER_COUNT } from "../../utils/constants";
 
 // actions
 import { 
@@ -25,13 +28,13 @@ import {
   setChosenBun, 
   removeTopping, 
 } from "../../services/burger-constructor/burger-constructor-slice";
-import { resetPreviewableOrder } from "../../services/create-order/create-order-slice";
-import { requestOrderPlacement } from "../../services/create-order/create-order-thunks";
+import { createOrder } from "../../services/order-creation/order-creation-thunks";
+import { resetCreatedOrder } from "../../services/order-creation/order-creation-slice";
 
 // selectors
 import { 
   defaultUserSelector, 
-  defaultCreateOrderSelector,
+  defaultOrderCreationSelector,
   defaultBurgerConstructorSelector,
 } from "../../services/selectors";
 
@@ -42,7 +45,7 @@ function BurgerConstructor() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { currentUser } = useSelector(defaultUserSelector);
-  const { previewableOrder } = useSelector(defaultCreateOrderSelector);
+  const { createdOrder } = useSelector(defaultOrderCreationSelector);
   const { chosenBun, chosenToppings, canPlaceOrder } = useSelector(defaultBurgerConstructorSelector);
   
   const [{ canDrop }, dropTargetRef] = useDrop(
@@ -83,8 +86,8 @@ function BurgerConstructor() {
       };
       if (canPlaceOrder) {
         dispatch(
-          requestOrderPlacement(
-            [chosenBun, ...chosenToppings].map(
+          createOrder(
+            Array(BUNS_IN_BURGER_COUNT).fill(chosenBun).concat(chosenToppings).map(
               ingredient => ingredient._id
             )
           )
@@ -100,66 +103,62 @@ function BurgerConstructor() {
   
   return (
     <>
-      <section className={styles.constructor}>
-        <div 
-          className={`${styles.shadowWrapper} ${canDrop ? styles.welcomingShadow : ""}`}
-          ref={dropTargetRef}
-        >
-          <ul className={styles.content}>
-            
-            <BunRow type="top" />
-            <li className={styles.scrollableContentContainer}>
-              <ul className={styles.scrollableContent}>
-                {
-                  chosenToppings.length === 0
-                  ? (
-                    <ToppingRow isThumbnail={true} />
-                  ) : chosenToppings.map(
-                    (topping, index) => (
-                      <ToppingRow 
-                        key={topping._uuidv4}
-                        index={index}
-                        topping={topping} 
-                        deleteHandler={
-                          () => {
-                            dispatch(removeTopping(index));
-                          }
+      <div 
+        className={`${styles.shadowWrapper} ${canDrop ? styles.welcomingShadow : ""}`}
+        ref={dropTargetRef}
+      >
+        <ul className={styles.content}>
+          
+          <BurgerBunRow type="top" />
+          <li className={styles.scrollableContentContainer}>
+            <ul className={styles.scrollableContent}>
+              {
+                chosenToppings.length === 0
+                ? (
+                  <BurgerToppingRow isThumbnail={true} />
+                ) : chosenToppings.map(
+                  (topping, index) => (
+                    <BurgerToppingRow 
+                      key={topping._uuidv4}
+                      index={index}
+                      topping={topping} 
+                      deleteHandler={
+                        () => {
+                          dispatch(removeTopping(index));
                         }
-                      />
-                    )
+                      }
+                    />
                   )
-                }
-              </ul>
-            </li>
-            <BunRow type="bottom" />
-            
-          </ul>
-        </div>
-        
-        <div className={styles.summary}>
-          <p className={styles.price}>
-            {totalPrice} <CurrencyIcon type="primary" />
-          </p>        
-          <Button 
-            size="large" 
-            type="primary" 
-            htmlType="button" 
-            onClick={placeOrder}
-            disabled={!canPlaceOrder}
-            children="Оформить заказ"
-          />
-        </div>
-        
-      </section>
+                )
+              }
+            </ul>
+          </li>
+          <BurgerBunRow type="bottom" />
+          
+        </ul>
+      </div>
+      
+      <div className={styles.summary}>
+        <p className={styles.price}>
+          {totalPrice} <CurrencyIcon type="primary" />
+        </p>        
+        <Button 
+          size="large" 
+          type="primary" 
+          htmlType="button" 
+          onClick={placeOrder}
+          disabled={!canPlaceOrder}
+          children="Оформить заказ"
+        />
+      </div>
       
       {
-        previewableOrder && (
+        createdOrder && (
           <Modal 
-            heading=""
-            children={<OrderDetails />} 
+            children={<OrderCreation />} 
             closeHandler={
               () => { 
-                dispatch(resetPreviewableOrder());
+                dispatch(resetCreatedOrder());
               }
             }
           />

@@ -1,0 +1,17 @@
+.content {
+  composes: ul custom-scroll from global;
+  overflow: scroll;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;  
+}
+
+.content::-webkit-scrollbar {
+  height: 0;
+  width: 8px;    
+}
+
+.content::-webkit-scrollbar-thumb {
+  border: none;
+  border-radius: 0;
+};

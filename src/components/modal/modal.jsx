@@ -1,18 +1,46 @@
 // libraries
-import { useEffect } from "react";
 import PropTypes from "prop-types";
 import { createPortal } from "react-dom";
+import { useEffect, useMemo } from "react";
+import { useMatch } from "react-router-dom";
 
 // components
 import ModalOverlay from "../modal-overlay/modal-overlay";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+
+// urls 
+import { 
+  OWN_ORDER_PAGE_ABSOLUTE_PATH,
+  INGREDIENT_PAGE_ABSOLUTE_PATH, 
+  COMMON_ORDER_PAGE_ABSOLUTE_PATH, 
+} from "../../utils/urls";
 
 // styles
 import styles from "./modal.module.css";
 
 
 
-function Modal({ heading, closeHandler, children }) {
+function Modal({ closeHandler, children }) {
+  
+  const ownOrderMatch = useMatch(OWN_ORDER_PAGE_ABSOLUTE_PATH);
+  const ingredientMatch = useMatch(INGREDIENT_PAGE_ABSOLUTE_PATH);
+  const commonOrderMatch = useMatch(COMMON_ORDER_PAGE_ABSOLUTE_PATH);
+  
+  const heading = useMemo(
+    () => {
+      if (ownOrderMatch) {
+        return "Детали заказа";
+      };      
+      if (ingredientMatch) {
+        return "Детали ингредиента";
+      };      
+      if (commonOrderMatch) {
+        return "Детали заказа";
+      };      
+      return "";
+    },
+    [ownOrderMatch, ingredientMatch, commonOrderMatch]
+  );
   
   useEffect(
     () => {
@@ -46,9 +74,9 @@ function Modal({ heading, closeHandler, children }) {
               <CloseIcon type="primary" />
             </button>
           </div>
-
+          
           {children}    
-        
+          
         </div>
       </ModalOverlay>
     ),
@@ -57,7 +85,6 @@ function Modal({ heading, closeHandler, children }) {
 };
 
 Modal.propTypes = {
-  heading: PropTypes.string.isRequired,
   closeHandler: PropTypes.func,
   children: PropTypes.element.isRequired
 };

@@ -39,13 +39,16 @@ function HomePage() {
       </h1>            
       <div className={styles.content}>
         <DndProvider backend={HTML5Backend}>
-          <BurgerIngredients />
-          <BurgerConstructor />
+          <section className={styles.ingredients}>
+            <BurgerIngredients />
+          </section>
+          <section className={styles.constructor}>
+            <BurgerConstructor />
+          </section>
         </DndProvider>
       </div>           
     </>
   );
-  
 };
 
 export default HomePage;

@@ -11,12 +11,12 @@ import { ProfileIcon } from "@ya.praktikum/react-developer-burger-ui-components"
 // styles
 import styles from "./app-header.module.css";
 
-// constants
+// urls
 import { 
   HOME_PAGE_PATH,
   FEED_PAGE_ABSOLUTE_PATH,
   PROFILE_PAGE_ABSOLUTE_PATH
-} from "../../utils/constants";
+} from "../../utils/urls";
 
 // memoization
 const MemoizedLogo = memo(Logo);
@@ -75,8 +75,8 @@ function AppHeader() {
                 to={FEED_PAGE_ABSOLUTE_PATH}
                 className={styles.link} 
                 children={
-                  <p className={textClass(isActive(FEED_PAGE_ABSOLUTE_PATH, true))}>
-                    <ListIcon type={iconType(isActive(FEED_PAGE_ABSOLUTE_PATH, true))} />
+                  <p className={textClass(isActive(FEED_PAGE_ABSOLUTE_PATH, false))}>
+                    <ListIcon type={iconType(isActive(FEED_PAGE_ABSOLUTE_PATH, false))} />
                     Лента&nbsp;заказов
                   </p>
                 }
