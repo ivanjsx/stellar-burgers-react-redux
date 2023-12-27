@@ -12,7 +12,7 @@ import ErrorBoundary from "./components/error-boundary/error-boundary";
 import "./index.css";
 
 // store
-import { store } from "./services/store"
+import store from "./services/store"
 
 
 
