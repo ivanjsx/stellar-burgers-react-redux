@@ -2,6 +2,7 @@
 import thunk from "redux-thunk";
 import logger from "redux-logger";
 import { configureStore } from "@reduxjs/toolkit";
+import { useDispatch, useSelector, TypedUseSelectorHook } from "react-redux";
 
 // reducers
 import { rootReducer } from "./reducers"
@@ -22,6 +23,10 @@ import {
 // constants 
 import { BASE_WS_URL } from "../utils/constants";
 
+// types 
+import { RootStateType } from "./reducers";
+import type {} from "redux-thunk/extend-redux";
+
 
 
 const orderFeedMiddleware = webSocketMiddleware(
@@ -37,17 +42,23 @@ const orderFeedMiddleware = webSocketMiddleware(
 
 
 
-export const store = configureStore(
+const store = configureStore(
   { 
     reducer: rootReducer,
     devTools: process.env.NODE_ENV !== "production",
-    middleware: (getDefaultMiddleware) => {
-      let middleware = getDefaultMiddleware({ serializableCheck: false });
-      middleware = middleware.concat(thunk, orderFeedMiddleware);
-      if (process.env.NODE_ENV !== "production") {
-        middleware = middleware.concat(logger);
-      }
-      return middleware;
-    }
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware(
+      { serializableCheck: false }
+    ).concat(logger, thunk, orderFeedMiddleware)
   }
 );
+
+
+
+type AppDispatch = typeof store.dispatch;
+
+export const useAppDispatch: () => AppDispatch = useDispatch;
+export const useAppSelector: TypedUseSelectorHook<RootStateType> = useSelector; 
+
+
+
+export default store;
