@@ -1,6 +1,5 @@
 // libraries
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 
 // components
 import OrderFeed from "../../components/order-feed/order-feed";
@@ -24,11 +23,14 @@ import { LoadingPage, ErrorPage } from "../../pages";
 // utils 
 import { ORDER_STATUSES } from "../../utils/order-statuses";
 
+// hooks
+import { useAppSelector, useAppDispatch } from "../../services/store";
+
 
 
 function FeedPage() {
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   
   useEffect(
     () => {
@@ -40,11 +42,11 @@ function FeedPage() {
     [dispatch]
   );  
   
-  const { errorRequestingIngredients, pendingRequestingIngredients } = useSelector(
+  const { errorRequestingIngredients, pendingRequestingIngredients } = useAppSelector(
     defaultBurgerIngredientsSelector
   );  
   
-  const { allTimeTotal, todaysTotal } = useSelector(
+  const { allTimeTotal, todaysTotal } = useAppSelector(
     defaultOrderFeedSelector
   );
   

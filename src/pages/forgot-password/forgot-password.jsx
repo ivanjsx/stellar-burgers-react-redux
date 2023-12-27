@@ -1,6 +1,5 @@
 // libraries
 import { useState } from "react";
-import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
 // components
@@ -21,6 +20,7 @@ import { resetPassword } from "../../services/user/user-thunks";
 
 // hooks
 import useForm from "../../hooks/use-form";
+import { useAppDispatch } from "../../services/store";
 
 
 
@@ -29,7 +29,7 @@ function ForgotPasswordPage() {
   const [email, setEmail] = useState("");  
   const [isEmailValid, setIsEmailValid] = useState(false);
   const { onChange } = useForm();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   
   function onSubmit(event) {

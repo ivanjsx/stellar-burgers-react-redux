@@ -1,6 +1,5 @@
 // libraries
 import PropTypes from "prop-types";
-import { useSelector } from "react-redux";
 import { Navigate, useLocation } from "react-router-dom";
 
 // urls 
@@ -15,12 +14,15 @@ import { defaultUserSelector } from "../../services/selectors";
 // pages
 import { LoadingPage } from "../../pages";
 
+// hooks
+import { useAppSelector } from "../../services/store";
+
 
 
 function OnlyAuthorizedAccess({ element, reversed=false }) {
   
   const location = useLocation();
-  const { currentUser, authChecked } = useSelector(defaultUserSelector);
+  const { currentUser, authChecked } = useAppSelector(defaultUserSelector);
   
   if (!authChecked) {
     return <LoadingPage />;

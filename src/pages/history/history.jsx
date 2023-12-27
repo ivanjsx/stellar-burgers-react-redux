@@ -1,6 +1,5 @@
 // libraries 
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 
 // components
 import OrderFeed from "../../components/order-feed/order-feed";
@@ -23,13 +22,16 @@ import styles from "./history.module.css";
 // pages 
 import { ErrorPage, LoadingPage } from "../../pages";
 
+// hooks
+import { useAppSelector, useAppDispatch } from "../../services/store";
+
 
 
 function HistoryPage() {
   
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   
-  const { currentUser } = useSelector(defaultUserSelector);
+  const { currentUser } = useAppSelector(defaultUserSelector);
   
   useEffect(
     () => {
@@ -42,7 +44,7 @@ function HistoryPage() {
     [currentUser, dispatch]
   );  
   
-  const { errorRequestingIngredients, pendingRequestingIngredients } = useSelector(
+  const { errorRequestingIngredients, pendingRequestingIngredients } = useAppSelector(
     defaultBurgerIngredientsSelector
   );  
   

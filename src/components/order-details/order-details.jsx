@@ -1,6 +1,5 @@
 // libraries
 import { useEffect, useMemo } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
 // components 
@@ -27,14 +26,17 @@ import { getOrderByNumber } from "../../services/order-details/order-details-thu
 // utils 
 import { ORDER_STATUSES } from "../../utils/order-statuses";
 
+// hooks
+import { useAppSelector, useAppDispatch } from "../../services/store";
+
 
 
 function OrderDetails() {
   
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { orderNumber } = useParams();
   
-  const { orders } = useSelector(
+  const { orders } = useAppSelector(
     defaultOrderFeedSelector
   );
   
@@ -49,7 +51,7 @@ function OrderDetails() {
     [orders, orderNumber, dispatch]
   );  
   
-  const { fetchedOrder } = useSelector(
+  const { fetchedOrder } = useAppSelector(
     defaultOrderDetailsSelector
   );
   
@@ -63,7 +65,7 @@ function OrderDetails() {
     [orders, orderNumber, fetchedOrder]
   );
   
-  const { availableStock } = useSelector(
+  const { availableStock } = useAppSelector(
     defaultBurgerIngredientsSelector
   );
   

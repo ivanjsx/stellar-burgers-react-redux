@@ -1,6 +1,5 @@
 // libraries
 import { useCallback } from "react";
-import { useDispatch } from "react-redux";
 
 // actions
 import { getUser } from "../services/user/user-thunks";
@@ -9,11 +8,14 @@ import { setUser, setAuthChecked } from "../services/user/user-slice";
 // constants
 import { ACCESS_TOKEN_KEY, REFRESH_TOKEN_KEY } from "../utils/constants";
 
+// hooks
+import { useAppDispatch } from "../services/store";
+
 
 
 function useAuth() {
   
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   
   const checkUserAuth = useCallback(
     () => {

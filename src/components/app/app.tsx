@@ -1,5 +1,4 @@
 // libraries
-import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 
@@ -54,12 +53,13 @@ import { requestAvailableStock } from "../../services/burger-ingredients/burger-
 
 // hooks 
 import useAuth from "../../hooks/use-auth";
+import { useAppDispatch } from "../../services/store";
 
 
 
 function App() {
   
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   
   const { checkUserAuth } = useAuth();
   

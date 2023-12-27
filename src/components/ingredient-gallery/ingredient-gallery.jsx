@@ -1,6 +1,5 @@
 // libraries
 import PropTypes from "prop-types";
-import { useSelector } from "react-redux";
 import { memo, useMemo, useCallback, forwardRef } from "react";
 
 // components
@@ -18,13 +17,16 @@ import {
   defaultBurgerConstructorSelector,
 } from "../../services/selectors";
 
+// hooks
+import { useAppSelector } from "../../services/store";
+
 
 
 const IngredientGallery = forwardRef(
   ({ category, title }, ref) => {
     
-    const { availableStock } = useSelector(defaultBurgerIngredientsSelector);
-    const { chosenBun, chosenToppings } = useSelector(defaultBurgerConstructorSelector);
+    const { availableStock } = useAppSelector(defaultBurgerIngredientsSelector);
+    const { chosenBun, chosenToppings } = useAppSelector(defaultBurgerConstructorSelector);
     
     const countIngredient = useCallback(
       ingredient => {

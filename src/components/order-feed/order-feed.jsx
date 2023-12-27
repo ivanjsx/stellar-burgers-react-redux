@@ -1,6 +1,5 @@
 // libraries 
 import { useCallback, useMemo } from "react";
-import { useSelector } from "react-redux";
 import { useMatch } from "react-router-dom";
 
 // components
@@ -20,11 +19,14 @@ import {
   COMMON_ORDER_PAGE_ABSOLUTE_PATH, 
 } from "../../utils/urls";
 
+// hooks
+import { useAppSelector } from "../../services/store";
+
 
 
 function OrderFeed({ showStatus }) {
   
-  const { orders } = useSelector(
+  const { orders } = useAppSelector(
     defaultOrderFeedSelector
   );
 

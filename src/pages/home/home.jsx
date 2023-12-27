@@ -1,6 +1,5 @@
 // libraries
 import { DndProvider } from "react-dnd";
-import { useSelector } from "react-redux";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
 // components
@@ -16,11 +15,14 @@ import styles from "./home.module.css";
 // selectors
 import { defaultBurgerIngredientsSelector } from "../../services/selectors";
 
+// hooks
+import { useAppSelector } from "../../services/store";
+
 
 
 function HomePage() {
   
-  const { errorRequestingIngredients, pendingRequestingIngredients } = useSelector(
+  const { errorRequestingIngredients, pendingRequestingIngredients } = useAppSelector(
     defaultBurgerIngredientsSelector
   );  
   

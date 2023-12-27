@@ -1,6 +1,5 @@
 // libraries
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 
 // components
 import { Input } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -16,6 +15,7 @@ import { updateUser } from "../../services/user/user-thunks";
 
 // hooks
 import useForm from "../../hooks/use-form";
+import { useAppSelector, useAppDispatch } from "../../services/store";
 
 // selectors
 import { defaultUserSelector } from "../../services/selectors";
@@ -24,7 +24,7 @@ import { defaultUserSelector } from "../../services/selectors";
 
 function ProfilePage() {
   
-  const { currentUser } = useSelector(defaultUserSelector);
+  const { currentUser } = useAppSelector(defaultUserSelector);
   
   const [name, setName] = useState(currentUser.name);
   const [email, setEmail] = useState(currentUser.email);
@@ -35,7 +35,7 @@ function ProfilePage() {
   const [isPasswordValid, setIsPasswordValid] = useState(false);
   
   const { onChange } = useForm();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   
   function onSubmit(event) {
     event.preventDefault();

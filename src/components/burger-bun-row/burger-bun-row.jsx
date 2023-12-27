@@ -1,7 +1,6 @@
 // libraries
 import { memo } from "react";
 import PropTypes from "prop-types";
-import { useSelector } from "react-redux";
 
 // components
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components"
@@ -12,11 +11,14 @@ import styles from "./burger-bun-row.module.css";
 // selectors
 import { defaultBurgerConstructorSelector } from "../../services/selectors";
 
+// hooks
+import { useAppSelector } from "../../services/store";
+
 
 
 function BurgerBunRow({ type }) {
   
-  const { chosenBun } = useSelector(defaultBurgerConstructorSelector);
+  const { chosenBun } = useAppSelector(defaultBurgerConstructorSelector);
   
   const content = chosenBun
                   ? (

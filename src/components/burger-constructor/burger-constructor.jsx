@@ -2,7 +2,6 @@
 import { useDrop } from "react-dnd";
 import { useNavigate } from "react-router-dom";
 import { memo, useMemo, useCallback } from "react";
-import { useDispatch, useSelector } from "react-redux";
 
 // components
 import Modal from "../modal/modal";
@@ -38,15 +37,18 @@ import {
   defaultBurgerConstructorSelector,
 } from "../../services/selectors";
 
+// hooks
+import { useAppSelector, useAppDispatch } from "../../services/store";
+
 
 
 function BurgerConstructor() {
   
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { currentUser } = useSelector(defaultUserSelector);
-  const { createdOrder } = useSelector(defaultOrderCreationSelector);
-  const { chosenBun, chosenToppings, canPlaceOrder } = useSelector(defaultBurgerConstructorSelector);
+  const { currentUser } = useAppSelector(defaultUserSelector);
+  const { createdOrder } = useAppSelector(defaultOrderCreationSelector);
+  const { chosenBun, chosenToppings, canPlaceOrder } = useAppSelector(defaultBurgerConstructorSelector);
   
   const [{ canDrop }, dropTargetRef] = useDrop(
     {

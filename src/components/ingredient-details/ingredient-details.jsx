@@ -1,5 +1,4 @@
 // libraries
-import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
 // components
@@ -14,12 +13,15 @@ import { ErrorPage } from "../../pages";
 // selectors
 import { defaultBurgerIngredientsSelector } from "../../services/selectors";
 
+// hooks
+import { useAppSelector } from "../../services/store";
+
 
 
 function IngredientDetails() {
   
   const { ingredientId } = useParams();
-  const { availableStock } = useSelector(defaultBurgerIngredientsSelector);
+  const { availableStock } = useAppSelector(defaultBurgerIngredientsSelector);
   const previewableIngredient = availableStock.get(ingredientId);
   
   if (!previewableIngredient) {

@@ -1,7 +1,6 @@
 // libraries 
 import { useMemo } from "react";
 import PropTypes from "prop-types";
-import { useSelector } from "react-redux";
 
 // styles 
 import styles from "./order-list.module.css";
@@ -12,11 +11,14 @@ import { defaultOrderFeedSelector } from "../../services/selectors";
 // utils 
 import { ORDER_STATUSES } from "../../utils/order-statuses";
 
+// hooks
+import { useAppSelector } from "../../services/store";
+
 
 
 function OrderList({ targetStatus }) {
   
-  const { orders } = useSelector(
+  const { orders } = useAppSelector(
     defaultOrderFeedSelector
   );
   

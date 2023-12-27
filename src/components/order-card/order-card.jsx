@@ -1,7 +1,6 @@
 // libraries 
 import { useMemo } from "react";
 import PropTypes from "prop-types";
-import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 
 // components 
@@ -22,13 +21,16 @@ import { defaultBurgerIngredientsSelector } from "../../services/selectors";
 import { orderPropType } from "../../utils/prop-types";
 import { ORDER_STATUSES } from "../../utils/order-statuses";
 
+// hooks
+import { useAppSelector } from "../../services/store";
+
 
 
 function OrderCard({ order, showStatus, targetLinkPath }) {
   
   const location = useLocation();
   
-  const { availableStock } = useSelector(defaultBurgerIngredientsSelector);
+  const { availableStock } = useAppSelector(defaultBurgerIngredientsSelector);
   
   const uniqueIngredients = useMemo(
     () => [...new Set(order.ingredients)],

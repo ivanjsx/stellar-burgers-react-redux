@@ -1,14 +1,16 @@
 // libraries
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
 
 // actions
 import { logoutUser } from "../../services/user/user-thunks";
 
+// hooks
+import { useAppDispatch } from "../../services/store";
+
 
 
 function Logout() {
-  const dispatch = useDispatch();  
+  const dispatch = useAppDispatch();  
   useEffect(
     () => {
       dispatch(logoutUser());

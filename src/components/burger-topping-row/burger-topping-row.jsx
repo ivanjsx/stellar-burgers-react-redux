@@ -1,6 +1,5 @@
 // libraries
 import PropTypes from "prop-types";
-import { useDispatch } from "react-redux";
 import { useRef, useCallback } from "react";
 import { useDrag, useDrop } from "react-dnd";
 
@@ -17,11 +16,14 @@ import { ingredientPropType } from "../../utils/prop-types";
 // actions
 import { dragTopping } from "../../services/burger-constructor/burger-constructor-slice";
 
+// hooks
+import { useAppDispatch } from "../../services/store";
+
 
 
 function BurgerToppingRow({ index, topping, deleteHandler, isThumbnail=false }) {
   
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const ref = useRef();
   
   const dragRow = useCallback(

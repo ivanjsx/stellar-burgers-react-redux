@@ -1,5 +1,4 @@
 // libraries
-import { useSelector } from "react-redux";
 import { useState, useEffect, useCallback } from "react";
 
 // styles
@@ -7,6 +6,9 @@ import styles from "./order-creation.module.css";
 
 // selectors 
 import { defaultOrderCreationSelector } from "../../services/selectors";
+
+// hooks
+import { useAppSelector } from "../../services/store";
 
 
 
@@ -19,7 +21,7 @@ function OrderCreation() {
     action,
     iconSrc,
     suggestion
-  } = useSelector(defaultOrderCreationSelector);
+  } = useAppSelector(defaultOrderCreationSelector);
   
   const getFiveRandomDigits = useCallback(
     () => 10000 + Math.floor(Math.random()*90000),
