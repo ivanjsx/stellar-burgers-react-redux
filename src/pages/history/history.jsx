@@ -39,7 +39,7 @@ function HistoryPage() {
         dispatch(disconnect());
       };
     }, 
-    [currentUser]
+    [currentUser, dispatch]
   );  
   
   const { errorRequestingIngredients, pendingRequestingIngredients } = useSelector(

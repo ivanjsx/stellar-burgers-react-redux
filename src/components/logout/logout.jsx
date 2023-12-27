@@ -13,7 +13,7 @@ function Logout() {
     () => {
       dispatch(logoutUser());
     },
-    []
+    [dispatch]
   );
   return null;
 };

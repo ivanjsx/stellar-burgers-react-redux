@@ -37,7 +37,7 @@ function FeedPage() {
         dispatch(disconnect());
       };
     }, 
-    []
+    [dispatch]
   );  
   
   const { errorRequestingIngredients, pendingRequestingIngredients } = useSelector(

@@ -73,7 +73,7 @@ function App() {
         }
       );
     },
-    [checkUserAuth]
+    [checkUserAuth, dispatch]
   );    
   
   const navigate = useNavigate();

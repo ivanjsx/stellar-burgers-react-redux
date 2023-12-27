@@ -36,7 +36,7 @@ function useAuth() {
         dispatch(setAuthChecked(true));
       };
     },
-    []
+    [dispatch]
   );  
   
   return { checkUserAuth };

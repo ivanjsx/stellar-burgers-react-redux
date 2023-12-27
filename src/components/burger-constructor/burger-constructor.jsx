@@ -98,7 +98,7 @@ function BurgerConstructor() {
         );
       };
     },
-    [currentUser, canPlaceOrder, chosenBun, chosenToppings]
+    [currentUser, canPlaceOrder, chosenBun, chosenToppings, dispatch, navigate]
   );
   
   return (

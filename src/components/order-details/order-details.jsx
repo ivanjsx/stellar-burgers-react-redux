@@ -46,7 +46,7 @@ function OrderDetails() {
         );
       };
     },
-    [orders, orderNumber]
+    [orders, orderNumber, dispatch]
   );  
   
   const { fetchedOrder } = useSelector(

@@ -30,7 +30,7 @@ function BurgerToppingRow({ index, topping, deleteHandler, isThumbnail=false }) 
         dragTopping(fromIndex, toIndex)
       );
     },
-    []
+    [dispatch]
   );  
   
   const [{ isDragging }, dragRef] = useDrag(
