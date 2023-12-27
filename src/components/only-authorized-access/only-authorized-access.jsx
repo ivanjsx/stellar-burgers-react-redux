@@ -12,6 +12,9 @@ import {
 // selectors
 import { defaultUserSelector } from "../../services/selectors";
 
+// pages
+import { LoadingPage } from "../../pages";
+
 
 
 function OnlyAuthorizedAccess({ element, reversed=false }) {
@@ -20,7 +23,7 @@ function OnlyAuthorizedAccess({ element, reversed=false }) {
   const { currentUser, authChecked } = useSelector(defaultUserSelector);
   
   if (!authChecked) {
-    return null;
+    return <LoadingPage />;
   };
   
   if (!reversed && !currentUser) {
