@@ -1,5 +1,5 @@
 // libraries
-import { combineReducers } from "redux";
+import { combineReducers } from "@reduxjs/toolkit"
 
 // constants 
 import { 
@@ -31,3 +31,5 @@ export const rootReducer = combineReducers(
     [BURGER_CONSTRUCTOR_STATE_NAME]: burgerConstructorReducer,
   }    
 );
+
+export type RootStateType = ReturnType<typeof rootReducer>;
