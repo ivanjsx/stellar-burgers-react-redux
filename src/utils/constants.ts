@@ -38,6 +38,8 @@ export const PASSWORD_RESET_EMAIL_SENT_KEY = "passwordResetEmailSent";
 
 // WEBSOCKET CONNECTION STATUSES
 
-export const ONLINE = "ONLINE";
-export const OFFLINE = "OFFLINE";
-export const CONNECTING = "CONNECTING";
+export enum WS_CONNECTION_STATUSES {
+  ONLINE = "ONLINE",
+  OFFLINE = "OFFLINE",
+  CONNECTING = "CONNECTING",  
+}

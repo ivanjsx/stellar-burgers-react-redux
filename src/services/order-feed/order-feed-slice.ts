@@ -2,11 +2,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 // constants 
-import { 
-  ONLINE, 
-  OFFLINE,
-  CONNECTING,
+import {
   ORDER_FEED_STATE_NAME,
+  WS_CONNECTION_STATUSES,
 } from "../../utils/constants";
 
 // types 
@@ -19,10 +17,7 @@ type InitialStateType = {
   allTimeTotal: number,
   orders: Map<number, FetchedOrderType>,
   connectionError: boolean,
-  connectionStatus: typeof ONLINE 
-                  | typeof OFFLINE 
-                  | typeof CONNECTING 
-                  | typeof ORDER_FEED_STATE_NAME
+  connectionStatus: WS_CONNECTION_STATUSES
 }
 
 const initialState: InitialStateType = {
@@ -30,7 +25,7 @@ const initialState: InitialStateType = {
   allTimeTotal: 0,
   orders: new Map(),
   connectionError: false,
-  connectionStatus: OFFLINE,
+  connectionStatus: WS_CONNECTION_STATUSES.OFFLINE,
 }
 
 
@@ -42,18 +37,18 @@ const orderFeedSlice = createSlice(
     
     reducers: {
       connect: (state, action: PayloadAction<string>) => {
-        state.connectionStatus = CONNECTING;
+        state.connectionStatus = WS_CONNECTION_STATUSES.CONNECTING;
       },
       disconnect: (state) => {
         state.orders = new Map();
       },
       onOpen: (state) => {
         state.connectionError = false;
-        state.connectionStatus = ONLINE;
+        state.connectionStatus = WS_CONNECTION_STATUSES.ONLINE;
       },
       onClose: (state) => {
         state.connectionError = false;
-        state.connectionStatus = OFFLINE;
+        state.connectionStatus = WS_CONNECTION_STATUSES.OFFLINE;
       },
       onError: (state) => {
         state.connectionError = true;
