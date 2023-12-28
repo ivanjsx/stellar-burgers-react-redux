@@ -11,7 +11,7 @@ import { ORDER_CREATION_STATE_NAME } from "../../utils/constants";
 
 export const createOrder = createAsyncThunk(
   `${ORDER_CREATION_STATE_NAME}/createOrder`,
-  arg => {
+  (arg: Array<string>) => {
     return refreshingRequest(
       {
         method: "POST",

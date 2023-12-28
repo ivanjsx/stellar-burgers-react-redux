@@ -14,6 +14,15 @@ import {
 
 
 
+type UserInfoType = {
+  name: string,
+  email: string,
+  password: string,
+  securityCode: string,
+}
+
+
+
 export const getUser = createAsyncThunk(
   `${USER_STATE_NAME}/getUser`,  
   () => {
@@ -24,14 +33,14 @@ export const getUser = createAsyncThunk(
         path: "auth/user/"
       }
     ).then(
-      response => response.user
+      (response) => response.user
     );
   }
 );
 
 export const updateUser = createAsyncThunk(
   `${USER_STATE_NAME}/updateUser`,  
-  ({ email, password, name }) => {
+  ({ email, password, name }: Omit<UserInfoType, "securityCode">) => {
     return refreshingRequest(
       {
         method: "PATCH",
@@ -40,14 +49,14 @@ export const updateUser = createAsyncThunk(
         body: { email, password, name }
       }
     ).then(
-      response => response.user
+      (response) => response.user
     );
   }
 );
 
 export const loginUser = createAsyncThunk(
   `${USER_STATE_NAME}/loginUser`,
-  ({ email, password }) => {
+  ({ email, password }: Pick<UserInfoType, "email" | "password">) => {
     return request(
       {
         method: "POST",
@@ -55,7 +64,7 @@ export const loginUser = createAsyncThunk(
         body: { email, password }
       }
     ).then(
-      response => {
+      (response) => {
         localStorage.setItem(ACCESS_TOKEN_KEY, response[ACCESS_TOKEN_KEY]);
         localStorage.setItem(REFRESH_TOKEN_KEY, response[REFRESH_TOKEN_KEY]);
         return response.user;
@@ -66,7 +75,7 @@ export const loginUser = createAsyncThunk(
 
 export const registerUser = createAsyncThunk(
   `${USER_STATE_NAME}/registerUser`,
-  ({ email, password, name }) => {
+  ({ email, password, name }: Omit<UserInfoType, "securityCode">) => {
     return request(
       {
         method: "POST",
@@ -74,7 +83,7 @@ export const registerUser = createAsyncThunk(
         body: { email, password, name }
       }
     ).then(
-      response => {
+      (response) => {
         localStorage.setItem(ACCESS_TOKEN_KEY, response[ACCESS_TOKEN_KEY]);
         localStorage.setItem(REFRESH_TOKEN_KEY, response[REFRESH_TOKEN_KEY]);
         return response.user;
@@ -103,7 +112,7 @@ export const logoutUser = createAsyncThunk(
 
 export const resetPassword = createAsyncThunk(
   `${USER_STATE_NAME}/resetPassword`,  
-  ({ email }) => {
+  ({ email }: Pick<UserInfoType, "email">) => {
     return request(
       {
         method: "POST",
@@ -120,7 +129,7 @@ export const resetPassword = createAsyncThunk(
 
 export const setNewPassword = createAsyncThunk(
   `${USER_STATE_NAME}/setNewPassword`,  
-  ({ password, securityCode }) => {
+  ({ password, securityCode }: Omit<UserInfoType, "email" | "name">) => {
     return request(
       {
         method: "POST",

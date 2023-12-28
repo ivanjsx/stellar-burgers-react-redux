@@ -7,6 +7,9 @@ import { request } from "../../utils/api";
 // constants 
 import { BURGER_INGREDIENTS_STATE_NAME } from "../../utils/constants";
 
+// types
+import { IngredientType } from "../../utils/types";
+
 
 
 export const requestAvailableStock = createAsyncThunk(
@@ -18,9 +21,9 @@ export const requestAvailableStock = createAsyncThunk(
         path: "ingredients/" 
       }
     ).then(
-      response => new Map(
+      (response) => new Map<string, IngredientType>(
         response.data.map(
-          ingredient => [ingredient._id, ingredient]
+          (ingredient: IngredientType) => [ingredient._id, ingredient]
         )
       )
     );

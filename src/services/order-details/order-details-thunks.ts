@@ -11,14 +11,14 @@ import { ORDER_DETAILS_STATE_NAME } from "../../utils/constants";
 
 export const getOrderByNumber = createAsyncThunk(
   `${ORDER_DETAILS_STATE_NAME}/getOrderByNumber`,
-  (orderNumber) => {
+  (orderNumber: number) => {
     return request(
       { 
         method: "GET",
         path: `orders/${orderNumber}/`, 
       }
     ).then(
-      response => response.orders[0]
+      (response) => response.orders[0]
     );
   }
 );

@@ -1,5 +1,5 @@
 export type IngredientType = {
-  id: string,
+  _id: string,
 }
 
 export type CreatedOrderType = {
