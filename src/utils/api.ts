@@ -7,41 +7,59 @@ import {
 
 
 
-function checkResponseOk(response) {
-  if (response && !response.ok && response.status === 403) {
+const checkResponseOk = <Type>(response: Response): Promise<Type> => {
+  if (!response.ok && response.status === 403) {
     return response.json();
   };
-  if (response && response.ok) {
+  if (response.ok) {
     return response.json();
   };
   return Promise.reject(response);
 };
 
-function checkResponseSuccess(response) {
-  if (response && response.success) {
-    return response;
+const checkDataSuccess = (data: any) => {
+  if (data.success) {
+    return data;
   };
-  return Promise.reject(response);
+  return Promise.reject(data);
 };
 
 
 
-function request({ path, method, body, withToken }) {
+type RequestParamsType = {
+  path: string, 
+  method: string, 
+  body?: any,
+  withToken?: boolean,
+}
+
+type FetchOptionsType = {
+  method: string,
+  body: string,
+  headers: {
+    "Content-Type": string,
+    Authorization?: string,
+  }
+}
+
+
+
+function request({ path, method, body, withToken }: RequestParamsType) {
   
   const url = BASE_API_URL.concat(path);
-  const options = {
+  const options: FetchOptionsType = {
     method,
     body: JSON.stringify(body),
-    headers: { 
-      "Content-Type": "application/json;charset=utf-8"
+    headers: {
+      "Content-Type": "application/json;charset=utf-8",
     }
   };
   
   if (withToken) {
-    options.headers.Authorization = localStorage.getItem(ACCESS_TOKEN_KEY);
+    options.headers.Authorization = localStorage.getItem(ACCESS_TOKEN_KEY) as string;
   };
   
-  return fetch(url, options).then(checkResponseOk).then(checkResponseSuccess);
+  return fetch(url, options).then(checkResponseOk).then(checkDataSuccess);
 };
 
 
@@ -63,7 +81,7 @@ function updateAccessToken() {
 
 
 
-function refreshingRequest(params) {
+function refreshingRequest(params: RequestParamsType) {
   return request(params).catch(
     response => {
       if (response.message === "jwt expired") {
