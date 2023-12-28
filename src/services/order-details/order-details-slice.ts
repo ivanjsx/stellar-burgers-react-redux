@@ -7,23 +7,34 @@ import { ORDER_DETAILS_STATE_NAME } from "../../utils/constants";
 // actions
 import { getOrderByNumber } from "./order-details-thunks";
 
+// types 
+import { FetchedOrderType } from "../../utils/types";
+
+
+
+type InitialStateType = {
+  fetchedOrder: FetchedOrderType | null,
+  errorRequestingOrder: boolean,
+  pendingRequestingOrder: boolean,
+}
+
+const initialState: InitialStateType = {
+  fetchedOrder: null,
+  errorRequestingOrder: false,
+  pendingRequestingOrder: false,
+}
+
 
 
 const orderDetailsSlice = createSlice(
   {
     name: ORDER_DETAILS_STATE_NAME,
-    
-    initialState: {
-      fetchedOrder: null,
-      errorRequestingOrder: false,
-      pendingRequestingOrder: false,
-    },
-    
+    initialState,
     reducers: {},
     
-    extraReducers: builder => {
+    extraReducers: (builder) => {
       builder.addCase(
-        getOrderByNumber.pending, state => {
+        getOrderByNumber.pending, (state) => {
           state.pendingRequestingOrder = true;
         }
       ).addCase(
@@ -39,7 +50,7 @@ const orderDetailsSlice = createSlice(
           state.fetchedOrder = action.payload;
         }
       ).addDefaultCase(
-        state => state
+        (state) => state
       );
     },
   }
