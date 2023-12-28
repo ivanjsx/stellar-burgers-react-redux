@@ -13,11 +13,13 @@ import { useAppDispatch } from "../services/store";
 
 
 
+type CheckUserAuthCallbackType = () => void;
+
 function useAuth() {
   
   const dispatch = useAppDispatch();
   
-  const checkUserAuth = useCallback(
+  const checkUserAuth = useCallback<CheckUserAuthCallbackType>(
     () => {
       dispatch(setAuthChecked(false));
       if (localStorage.getItem(ACCESS_TOKEN_KEY)) {
