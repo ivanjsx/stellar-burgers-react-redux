@@ -12,14 +12,8 @@ import {
   PASSWORD_RESET_EMAIL_SENT_KEY, 
 } from "../../utils/constants";
 
-
-
-type UserInfoType = {
-  name: string,
-  email: string,
-  password: string,
-  securityCode: string,
-}
+// types
+import { UserInfoType } from "../../utils/types";
 
 
 

@@ -18,3 +18,10 @@ export type FeedMessageType = {
   totalToday: number,
   orders: Array<FetchedOrderType>
 }
+
+export type UserInfoType = {
+  name: string,
+  email: string,
+  password: string,
+  securityCode: string,
+}
