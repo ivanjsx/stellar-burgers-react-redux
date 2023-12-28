@@ -10,14 +10,14 @@ import {
 } from "../../utils/constants";
 
 // types 
-import { FeedMessageType, OrderType } from "../../utils/types";
+import { FeedMessageType, FetchedOrderType } from "../../utils/types";
 
 
 
 type InitialStateType = {
   todaysTotal: number,
   allTimeTotal: number,
-  orders: Map<number, OrderType>,
+  orders: Map<number, FetchedOrderType>,
   connectionError: boolean,
   connectionStatus: typeof ONLINE 
                   | typeof OFFLINE 

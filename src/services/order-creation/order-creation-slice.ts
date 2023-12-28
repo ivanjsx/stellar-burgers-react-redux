@@ -12,31 +12,47 @@ import doneImage from "../../images/done.svg";
 import failedImage from "../../images/failed.svg";
 import pendingImage from "../../images/pending.svg";
 
+// types 
+import { CreatedOrderType } from "../../utils/types";
+
+
+
+type InitialStateType = {
+  createdOrder: CreatedOrderType | null,
+  errorCreatingOrder: boolean,
+  pendingCreatingOrder: boolean,      
+  status: string,
+  action: string,
+  iconSrc: string,
+  suggestion: string,
+}
+
+const initialState: InitialStateType = {
+  createdOrder: null,
+  errorCreatingOrder: false,
+  pendingCreatingOrder: false,      
+  status: "",
+  action: "",
+  iconSrc: "",
+  suggestion: "",
+}
+
 
 
 const orderCreationSlice = createSlice(
   {
     name: ORDER_CREATION_STATE_NAME,
-    
-    initialState: {
-      createdOrder: null,
-      errorCreatingOrder: false,
-      pendingCreatingOrder: false,      
-      status: "",
-      action: "",
-      iconSrc: "",
-      suggestion: "",
-    },
+    initialState,
     
     reducers: {
-      resetCreatedOrder: state => {
+      resetCreatedOrder: (state) => {
         state.createdOrder = null;        
       }
     },
     
-    extraReducers: builder => {
+    extraReducers: (builder) => {
       builder.addCase(
-        createOrder.pending, state => {
+        createOrder.pending, (state) => {
           state.pendingCreatingOrder = true;
           state.createdOrder = {};
           state.status = "создаём заказ";
@@ -66,7 +82,7 @@ const orderCreationSlice = createSlice(
           state.suggestion = "Дождитесь готовности на орбитальной станции";
         }
       ).addDefaultCase(
-        state => state
+        (state) => state
       );
     },
   }

@@ -2,7 +2,13 @@ export type IngredientType = {
   id: string,
 }
 
-export type OrderType = {
+export type CreatedOrderType = {
+  order?: {
+    number: number
+  }
+}
+
+export type FetchedOrderType = {
   id: string,
   number: number,
 }
@@ -10,5 +16,5 @@ export type OrderType = {
 export type FeedMessageType = {
   total: number,
   totalToday: number,
-  orders: Array<OrderType>
+  orders: Array<FetchedOrderType>
 }
