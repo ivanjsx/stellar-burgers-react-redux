@@ -23,7 +23,7 @@ type wsActionTypes = {
 
 
 
-const webSocketMiddleware = (baseUrl: string, wsActions: wsActionTypes): Middleware<{}, RootStateType> => store => {
+const webSocketMiddleware = (baseUrl: string, wsActions: wsActionTypes): Middleware<{}, RootStateType> => (store) => {
   
   let socket: WebSocket | null = null;
   const { dispatch } = store;
@@ -38,7 +38,7 @@ const webSocketMiddleware = (baseUrl: string, wsActions: wsActionTypes): Middlew
     onMessage,
   } = wsActions;
   
-  return next => action => {
+  return (next) => (action) => {
     
     if (connect.match(action)) {
       const url = baseUrl.concat(action.payload);

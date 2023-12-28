@@ -44,18 +44,18 @@ const orderFeedSlice = createSlice(
       connect: (state, action: PayloadAction<string>) => {
         state.connectionStatus = CONNECTING;
       },
-      disconnect: state => {
+      disconnect: (state) => {
         state.orders = new Map();
       },
-      onOpen: state => {
+      onOpen: (state) => {
         state.connectionError = false;
         state.connectionStatus = ONLINE;
       },
-      onClose: state => {
+      onClose: (state) => {
         state.connectionError = false;
         state.connectionStatus = OFFLINE;
       },
-      onError: state => {
+      onError: (state) => {
         state.connectionError = true;
       },
       onMessage: (state, action: PayloadAction<FeedMessageType>) => {
@@ -63,7 +63,7 @@ const orderFeedSlice = createSlice(
         state.todaysTotal = action.payload.totalToday;
         state.orders = new Map(
           action.payload.orders.map(
-            order => [order.number, order]
+            (order) => [order.number, order]
           )
         );
       },

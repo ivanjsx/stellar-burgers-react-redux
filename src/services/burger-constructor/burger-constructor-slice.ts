@@ -26,7 +26,7 @@ const burgerConstructorSlice = createSlice(
     initialState,
     
     reducers: {
-      emptyCart: state => {
+      emptyCart: (state) => {
         state.chosenBun = null;
         state.chosenToppings = [];
         state.canPlaceOrder = false;
