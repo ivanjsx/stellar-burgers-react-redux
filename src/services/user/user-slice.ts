@@ -1,5 +1,5 @@
 // libraries
-import { createSlice } from "@reduxjs/toolkit";
+import { AsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 // constants 
 import { USER_STATE_NAME } from "../../utils/constants";
@@ -13,20 +13,35 @@ import {
   registerUser,
 } from "./user-thunks";
 
+// types
+import { UserInfoType } from "../../utils/types";
+
+
+
+type InitialStateType = {
+  currentUser: Pick<UserInfoType, "email" | "name"> | null,
+  authChecked: boolean,
+  errorAuthorizingUser: boolean,
+  pendingAuthorizingUser: boolean,
+  errorDeauthorizingUser: boolean,
+  pendingDeauthorizingUser: boolean,
+}
+
+const initialState: InitialStateType = {
+  currentUser: null,
+  authChecked: false,
+  errorAuthorizingUser: false,
+  pendingAuthorizingUser: false,
+  errorDeauthorizingUser: false,
+  pendingDeauthorizingUser: false,
+}
+
 
 
 const userSlice = createSlice(
   {
     name: USER_STATE_NAME,
-    
-    initialState: {
-      currentUser: null,
-      authChecked: false,
-      errorAuthorizingUser: false,
-      pendingAuthorizingUser: false,
-      errorDeauthorizingUser: false,
-      pendingDeauthorizingUser: false,
-    },
+    initialState,
     
     reducers: {
       setUser: (state, action) => {
@@ -37,11 +52,11 @@ const userSlice = createSlice(
       }
     },
 
-    extraReducers: builder => {
+    extraReducers: (builder) => {
       
-      const addAuthCases = asyncThunk => {
+      const addAuthCases = (asyncThunk: AsyncThunk<any, any, {}>) => {
         builder.addCase(
-          asyncThunk.pending, state => {
+          asyncThunk.pending, (state) => {
             state.pendingAuthorizingUser = true;
           }
         ).addCase(
@@ -65,7 +80,7 @@ const userSlice = createSlice(
       addAuthCases(registerUser);
       
       builder.addCase(
-        logoutUser.pending, state => {
+        logoutUser.pending, (state) => {
           state.pendingDeauthorizingUser = true;
         }
       ).addCase(
@@ -75,13 +90,13 @@ const userSlice = createSlice(
           console.error(action.payload);
         }
       ).addCase(
-        logoutUser.fulfilled, state => {
+        logoutUser.fulfilled, (state) => {
           state.errorDeauthorizingUser = false;
           state.pendingDeauthorizingUser = false;
           state.currentUser = null;
         }
       ).addDefaultCase(
-        state => state
+        (state) => state
       );
     }
   }
