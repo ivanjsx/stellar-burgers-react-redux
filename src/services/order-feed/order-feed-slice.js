@@ -24,7 +24,7 @@ const orderFeedSlice = createSlice(
     },
     
     reducers: {
-      connect: state => {
+      connect: (state, action) => {
         state.connectionStatus = CONNECTING;
       },
       disconnect: state => {

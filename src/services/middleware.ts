@@ -1,11 +1,31 @@
 // actions 
 import { getUser } from "./user/user-thunks";
 
+// types 
+import { 
+  Middleware,
+  ActionCreatorWithPayload, 
+  ActionCreatorWithoutPayload,
+} from "@reduxjs/toolkit";
+import { RootStateType } from "./reducers";
 
 
-const webSocketMiddleware = (baseUrl, wsActions) => store => {
+
+type wsActionTypes = {
+  connect: ActionCreatorWithPayload<string>,
+  disconnect: ActionCreatorWithoutPayload,
+  sendMessage?: ActionCreatorWithPayload<any>,
+  onOpen: ActionCreatorWithoutPayload,
+  onClose: ActionCreatorWithoutPayload,
+  onError: ActionCreatorWithoutPayload,
+  onMessage: ActionCreatorWithPayload<any>,
+}
+
+
+
+const webSocketMiddleware = (baseUrl: string, wsActions: wsActionTypes): Middleware<{}, RootStateType> => store => {
   
-  let socket = null;
+  let socket: WebSocket | null = null;
   const { dispatch } = store;
   
   const {
@@ -20,7 +40,7 @@ const webSocketMiddleware = (baseUrl, wsActions) => store => {
   
   return next => action => {
     
-    if (action.type === connect.type) {
+    if (connect.match(action)) {
       const url = baseUrl.concat(action.payload);
       socket = new WebSocket(url);
       
@@ -49,10 +69,10 @@ const webSocketMiddleware = (baseUrl, wsActions) => store => {
     };
     
     if (socket) {
-      if (action.type === disconnect.type) {
+      if (disconnect.match(action)) {
         socket.close();
       };
-      if (sendMessage && action.type === sendMessage.type) {
+      if (sendMessage?.match(action)) {
         socket.send(JSON.stringify(action.payload));
       };
     };
