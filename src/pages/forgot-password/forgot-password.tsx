@@ -1,5 +1,5 @@
 // libraries
-import { useState } from "react";
+import { FC, FormEvent, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 // components
@@ -24,7 +24,7 @@ import { useAppDispatch } from "../../services/store";
 
 
 
-function ForgotPasswordPage() {
+const ForgotPasswordPage: FC = () => {
   
   const [email, setEmail] = useState("");  
   const [isEmailValid, setIsEmailValid] = useState(false);
@@ -32,7 +32,7 @@ function ForgotPasswordPage() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   
-  function onSubmit(event) {
+  function onSubmit(event: FormEvent) {
     event.preventDefault();
     dispatch(
       resetPassword({ email })

@@ -51,7 +51,7 @@ const userSlice = createSlice(
         state.authChecked = action.payload;
       }
     },
-
+    
     extraReducers: (builder) => {
       
       const addAuthCases = (asyncThunk: AsyncThunk<any, any, {}>) => {

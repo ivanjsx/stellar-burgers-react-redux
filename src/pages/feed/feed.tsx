@@ -1,5 +1,5 @@
 // libraries
-import { useEffect } from "react";
+import { FC, useEffect } from "react";
 
 // components
 import OrderFeed from "../../components/order-feed/order-feed";
@@ -18,7 +18,7 @@ import {
 import { connect, disconnect } from "../../services/order-feed/order-feed-slice";
 
 // pages 
-import { LoadingPage, ErrorPage } from "../../pages";
+import { LoadingPage, ErrorPage } from "..";
 
 // utils 
 import { ORDER_STATUSES } from "../../utils/order-statuses";
@@ -28,8 +28,8 @@ import { useAppSelector, useAppDispatch } from "../../services/store";
 
 
 
-function FeedPage() {
-
+const FeedPage: FC = () => {
+  
   const dispatch = useAppDispatch();
   
   useEffect(

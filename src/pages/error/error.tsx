@@ -1,5 +1,4 @@
 // libraries
-import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 
 // components  
@@ -13,7 +12,13 @@ import { HOME_PAGE_PATH } from "../../utils/urls";
 
 
 
-function ErrorPage({ title, showTips }) {
+type PropsType = {
+  title: string,
+  showTips: boolean  
+}
+
+function ErrorPage({ title, showTips }: PropsType): JSX.Element {
+  
   const navigate = useNavigate();
   
   function goBack() {
@@ -57,11 +62,6 @@ function ErrorPage({ title, showTips }) {
       }
     </>
   );
-};
-
-ErrorPage.propTypes = {
-  title: PropTypes.string.isRequired,
-  showTips: PropTypes.bool.isRequired,
 };
 
 export default ErrorPage;

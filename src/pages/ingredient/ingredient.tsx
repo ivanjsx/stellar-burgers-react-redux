@@ -1,3 +1,6 @@
+// libraries
+import { FC } from "react";
+
 // components
 import IngredientDetails from "../../components/ingredient-details/ingredient-details";
 
@@ -6,7 +9,7 @@ import styles from "./ingredient.module.css";
 
 
 
-function IngredientPage() {
+const IngredientPage: FC = () => {
   return (
     <div className={styles.container}>
       <h2 className={styles.heading}>Детали ингредиента</h2>

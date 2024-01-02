@@ -1,79 +1,79 @@
 // libraries
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, FC, FormEvent } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 // components
 import { Input } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import { EmailInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import { PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
 
 // styles
-import styles from "./register.module.css";
+import styles from "./set-new-password.module.css";
 
 // urls 
 import { LOGIN_PAGE_ABSOLUTE_PATH } from "../../utils/urls";
 
 // actions
-import { registerUser } from "../../services/user/user-thunks";
+import { setNewPassword } from "../../services/user/user-thunks";
 
 // hooks
 import useForm from "../../hooks/use-form";
 import { useAppDispatch } from "../../services/store";
 
 
-
-function RegisterPage() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+const SetNewPasswordPage: FC = () => {
   
-  const [isNameValid, setIsNameValid] = useState(false);
-  const [isEmailValid, setIsEmailValid] = useState(false);
+  const [password, setPassword] = useState("");
+  const [securityCode, setSecurityCode] = useState("");
+  
   const [isPasswordValid, setIsPasswordValid] = useState(false);
+  const [isSecurityCodeValid, setIsSecurityCodeValid] = useState(false);
   
   const { onChange } = useForm();
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   
-  function onSubmit(event) {
+  function onSubmit(event: FormEvent) {
     event.preventDefault();
-    dispatch(registerUser({ name, email, password }));
+    dispatch(
+      setNewPassword({ password, securityCode })
+    ).then(
+      () => {
+        navigate(LOGIN_PAGE_ABSOLUTE_PATH);
+      }
+    );
   };
   
   return (
     <>
       <h1 className={styles.heading}>
-        Регистрация
+        Восстановление пароля
       </h1>            
-      <form className={styles.form} onSubmit={onSubmit}>
-        <Input
-          type="text"
-          placeholder="Имя"
-          name="name"
-          value={name}
-          onChange={onChange(setName, setIsNameValid)}
-        />        
-        <EmailInput
-          name="email"
-          value={email}
-          onChange={onChange(setEmail, setIsEmailValid)}
-        />        
+      <form className={styles.form} onSubmit={onSubmit}>   
         <PasswordInput
+          placeholder="Введите новый пароль"
           name="password"
           value={password}
           onChange={onChange(setPassword, setIsPasswordValid)}
         />
+        <Input
+          type="text"
+          placeholder="Введите код из письма"
+          name="securityCode"
+          value={securityCode}
+          onChange={onChange(setSecurityCode, setIsSecurityCodeValid)}
+        />          
         <Button 
           size="medium" 
           type="primary" 
           htmlType="submit" 
-          disabled={!isNameValid || !isEmailValid || !isPasswordValid}
-          children="Зарегистрироваться"
+          disabled={!isPasswordValid || !isSecurityCodeValid}
+          children="Сохранить"
         />           
       </form>
       <div className={styles.tips}>
         <p className={styles.tip}>
-          Уже зарегистрированы?&nbsp;
+          Вспомнили пароль?&nbsp;
           <Link 
             to={LOGIN_PAGE_ABSOLUTE_PATH} 
             className={styles.link}
@@ -85,4 +85,4 @@ function RegisterPage() {
   );
 };
 
-export default RegisterPage;
+export default SetNewPasswordPage;

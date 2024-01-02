@@ -1,5 +1,5 @@
 // libraries
-import { useState } from "react";
+import { FC, FormEvent, useState } from "react";
 
 // components
 import { Input } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -21,13 +21,12 @@ import { useAppSelector, useAppDispatch } from "../../services/store";
 import { defaultUserSelector } from "../../services/selectors";
 
 
-
-function ProfilePage() {
+const ProfilePage: FC = () => {
   
   const { currentUser } = useAppSelector(defaultUserSelector);
   
-  const [name, setName] = useState(currentUser.name);
-  const [email, setEmail] = useState(currentUser.email);
+  const [name, setName] = useState(currentUser!.name);
+  const [email, setEmail] = useState(currentUser!.email);
   const [password, setPassword] = useState("");
   
   const [isNameValid, setIsNameValid] = useState(false);
@@ -37,15 +36,15 @@ function ProfilePage() {
   const { onChange } = useForm();
   const dispatch = useAppDispatch();
   
-  function onSubmit(event) {
+  function onSubmit(event: FormEvent) {
     event.preventDefault();
     dispatch(updateUser({ name, email, password }));
   };
   
-  function onReset(event) {
+  function onReset(event: FormEvent) {
     event.preventDefault();
-    setName(currentUser.name);
-    setEmail(currentUser.email);
+    setName(currentUser!.name);
+    setEmail(currentUser!.email);
     setPassword("");
   };
   

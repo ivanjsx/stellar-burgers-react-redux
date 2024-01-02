@@ -1,4 +1,5 @@
 // libraries
+import { FC } from "react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
@@ -7,7 +8,7 @@ import BurgerIngredients from "../../components/burger-ingredients/burger-ingred
 import BurgerConstructor from "../../components/burger-constructor/burger-constructor";
 
 // pages
-import { LoadingPage, ErrorPage } from "../../pages";
+import { LoadingPage, ErrorPage } from "..";
 
 // styles
 import styles from "./home.module.css";
@@ -20,7 +21,7 @@ import { useAppSelector } from "../../services/store";
 
 
 
-function HomePage() {
+const HomePage: FC = () => {
   
   const { errorRequestingIngredients, pendingRequestingIngredients } = useAppSelector(
     defaultBurgerIngredientsSelector
@@ -44,7 +45,7 @@ function HomePage() {
           <section className={styles.ingredients}>
             <BurgerIngredients />
           </section>
-          <section className={styles.constructor}>
+          <section className={styles.cart}>
             <BurgerConstructor />
           </section>
         </DndProvider>

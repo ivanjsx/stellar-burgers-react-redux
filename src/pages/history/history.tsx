@@ -1,5 +1,5 @@
 // libraries 
-import { useEffect } from "react";
+import { FC, useEffect } from "react";
 
 // components
 import OrderFeed from "../../components/order-feed/order-feed";
@@ -20,14 +20,14 @@ import { connect, disconnect } from "../../services/order-feed/order-feed-slice"
 import styles from "./history.module.css";
 
 // pages 
-import { ErrorPage, LoadingPage } from "../../pages";
+import { ErrorPage, LoadingPage } from "..";
 
 // hooks
 import { useAppSelector, useAppDispatch } from "../../services/store";
 
 
 
-function HistoryPage() {
+const HistoryPage: FC = () => {
   
   const dispatch = useAppDispatch();
   
@@ -35,7 +35,7 @@ function HistoryPage() {
   
   useEffect(
     () => {
-      const accessToken = localStorage.getItem(ACCESS_TOKEN_KEY).split(" ")[1];
+      const accessToken = localStorage.getItem(ACCESS_TOKEN_KEY)!.split(" ")[1];
       dispatch(connect(`orders?token=${accessToken}`));
       return () => {
         dispatch(disconnect());

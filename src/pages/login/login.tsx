@@ -1,5 +1,5 @@
 // libraries
-import { useState } from "react";
+import { FC, FormEvent, useState } from "react";
 import { Link } from "react-router-dom";
 
 // components
@@ -25,7 +25,7 @@ import { useAppDispatch } from "../../services/store";
 
 
 
-function LoginPage() {
+const LoginPage: FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   
@@ -35,7 +35,7 @@ function LoginPage() {
   const { onChange } = useForm();
   const dispatch = useAppDispatch();
   
-  function onSubmit(event) {
+  function onSubmit(event: FormEvent) {
     event.preventDefault();
     dispatch(loginUser({ email, password }));
   };
