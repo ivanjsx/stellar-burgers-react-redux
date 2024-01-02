@@ -1,5 +1,5 @@
 // libraries
-import { useMemo } from "react";
+import { FC, useMemo } from "react";
 import { NavLink, Outlet, useMatch } from "react-router-dom";
 
 // styles
@@ -14,7 +14,7 @@ import {
 
 
 
-function AccountLayout() {
+const AccountLayout: FC = () => {
   
   const profileMatch = useMatch(PROFILE_PAGE_ABSOLUTE_PATH);
   const historyMatch = useMatch(HISTORY_PAGE_ABSOLUTE_PATH);
@@ -31,7 +31,7 @@ function AccountLayout() {
     },
     [profileMatch, historyMatch]
   );  
-
+  
   return (
     <div className={styles.container}>
       <aside className={styles.aside}>

@@ -1,4 +1,5 @@
 // libraries
+import { FC } from "react";
 import { Outlet } from "react-router-dom";
 
 // components
@@ -9,7 +10,7 @@ import styles from "./root.module.css";
 
 
 
-function RootLayout() {
+const RootLayout: FC = () => {
   return (
     <div className={styles.page}>
       <AppHeader />
