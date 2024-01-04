@@ -1,19 +1,28 @@
 // libraries
-import { Component } from "react";
+import { Component, ErrorInfo, ReactNode } from "react";
+
+
+type Props = {
+  children?: ReactNode;
+};
+
+type State = {
+  hasError: boolean;
+};
 
 
 
-class ErrorBoundary extends Component {
-  constructor(props) {
+class ErrorBoundary extends Component<Props, State> {
+  constructor(props: any) {
     super(props);
     this.state = {hasError: false};
   };
 
-  static getDerivedStateFromError(error) {
+  static getDerivedStateFromError(_: Error): State {
     return {hasError: true};
   };
 
-  componentDidCatch(error, info) {
+  componentDidCatch(error: Error, info: ErrorInfo) {
     console.error("error:", error, info);
   };
 
