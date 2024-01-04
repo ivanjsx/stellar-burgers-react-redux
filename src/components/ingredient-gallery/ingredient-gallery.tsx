@@ -1,5 +1,4 @@
 // libraries
-import PropTypes from "prop-types";
 import { memo, useMemo, useCallback, forwardRef } from "react";
 
 // components
@@ -20,9 +19,19 @@ import {
 // hooks
 import { useAppSelector } from "../../services/store";
 
+// types 
+import { IngredientType } from "../../utils/types";
 
 
-const IngredientGallery = forwardRef(
+
+type PropsType = Readonly<{
+  title: string,
+  category: IngredientType["type"],
+}>;
+
+
+
+const IngredientGallery = forwardRef<HTMLDivElement, PropsType>(
   ({ category, title }, ref) => {
     
     const { availableStock } = useAppSelector(defaultBurgerIngredientsSelector);
@@ -68,10 +77,5 @@ const IngredientGallery = forwardRef(
     );    
   }
 );
-
-IngredientGallery.propTypes = {
-  category: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired
-};
 
 export default memo(IngredientGallery);

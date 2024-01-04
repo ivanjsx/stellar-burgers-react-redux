@@ -27,11 +27,13 @@ import { useAppSelector } from "../../services/store";
 
 
 
-type PropsType = {
+type PropsType = Readonly<{
   order: FetchedOrderType,
   showStatus: boolean,
   targetLinkPath: string,
-}
+}>;
+
+
 
 function OrderCard({ order, showStatus, targetLinkPath }: PropsType): JSX.Element {
   

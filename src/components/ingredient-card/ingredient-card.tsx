@@ -18,10 +18,12 @@ import { INGREDIENT_PAGE_ABSOLUTE_PATH } from "../../utils/urls";
 
 
 
-type PropsType = {
+type PropsType = Readonly<{
   ingredient: IngredientType,
   count: number,
-}
+}>;
+
+
 
 function IngredientCard({ ingredient, count }: PropsType): JSX.Element {
   

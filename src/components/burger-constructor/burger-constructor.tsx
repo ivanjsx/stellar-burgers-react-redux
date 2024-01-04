@@ -1,7 +1,7 @@
 // libraries
 import { useDrop } from "react-dnd";
 import { useNavigate } from "react-router-dom";
-import { memo, useMemo, useCallback } from "react";
+import { memo, useMemo, useCallback, FC } from "react";
 
 // components
 import Modal from "../modal/modal";
@@ -40,9 +40,12 @@ import {
 // hooks
 import { useAppSelector, useAppDispatch } from "../../services/store";
 
+// types 
+import { IngredientType } from "../../utils/types";
 
 
-function BurgerConstructor() {
+
+const BurgerConstructor: FC = () => {
   
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -53,7 +56,7 @@ function BurgerConstructor() {
   const [{ canDrop }, dropTargetRef] = useDrop(
     {
       accept: "ingredient",
-      drop(item) {
+      drop(item: IngredientType) {
         if (item.type === "bun") {
           dispatch(setChosenBun(item));
         } else {

@@ -12,10 +12,12 @@ import { HOME_PAGE_PATH } from "../../utils/urls";
 
 
 
-type PropsType = {
+type PropsType = Readonly<{
   title: string,
   showTips: boolean  
-}
+}>;
+
+
 
 function ErrorPage({ title, showTips }: PropsType): JSX.Element {
   

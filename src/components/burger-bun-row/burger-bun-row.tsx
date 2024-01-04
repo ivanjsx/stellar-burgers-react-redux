@@ -1,6 +1,5 @@
 // libraries
 import { memo } from "react";
-import PropTypes from "prop-types";
 
 // components
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components"
@@ -16,7 +15,13 @@ import { useAppSelector } from "../../services/store";
 
 
 
-function BurgerBunRow({ type }) {
+type PropsType = Readonly<{
+  type: "top" | "bottom"
+}>;
+
+
+
+function BurgerBunRow({ type }: PropsType): JSX.Element {
   
   const { chosenBun } = useAppSelector(defaultBurgerConstructorSelector);
   
@@ -40,10 +45,6 @@ function BurgerBunRow({ type }) {
       {content}
     </li>
   );
-};
-
-BurgerBunRow.propTypes = {
-  type: PropTypes.string.isRequired
 };
 
 export default memo(BurgerBunRow);

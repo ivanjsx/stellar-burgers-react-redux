@@ -1,5 +1,5 @@
 // libraries
-import { memo, useRef, useState, useCallback } from "react";
+import { memo, useRef, useState, useCallback, FC } from "react";
 
 // components
 import IngredientGallery from "../ingredient-gallery/ingredient-gallery";
@@ -10,21 +10,22 @@ import styles from "./burger-ingredients.module.css";
 
 
 
-function BurgerIngredients() {  
+const BurgerIngredients: FC = () => {
   
   const [activeTab, setActiveTab] = useState("bun");
-  const wholeSectionRef = useRef();
-  const bunsRef = useRef();
-  const saucesRef = useRef();
-  const mainsRef = useRef();
+  
+  const wholeSectionRef = useRef<HTMLDivElement>(null);
+  const bunsRef = useRef<HTMLDivElement>(null);
+  const saucesRef = useRef<HTMLDivElement>(null);
+  const mainsRef = useRef<HTMLDivElement>(null);
   
   const handleScroll = useCallback(
     () => {
-      const bunsHeight = bunsRef.current.clientHeight;
-      const saucesHeight = saucesRef.current.clientHeight;
-      if (wholeSectionRef.current.scrollTop < bunsHeight) {
+      const bunsHeight = bunsRef.current!.clientHeight;
+      const saucesHeight = saucesRef.current!.clientHeight;
+      if (wholeSectionRef.current!.scrollTop < bunsHeight) {
         setActiveTab("bun");
-      } else if (wholeSectionRef.current.scrollTop < bunsHeight + saucesHeight) {
+      } else if (wholeSectionRef.current!.scrollTop < bunsHeight + saucesHeight) {
         setActiveTab("sauce");
       } else {
         setActiveTab("main");

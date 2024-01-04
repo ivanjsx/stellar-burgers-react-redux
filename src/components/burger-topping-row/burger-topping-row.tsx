@@ -20,12 +20,16 @@ import { useAppDispatch } from "../../services/store";
 
 
 
-type PropsType = {
-  index: number,
-  topping: IngredientType,
-  deleteHandler: () => void,
-  isThumbnail: boolean
-}
+type PropsType = Partial<
+  Readonly<{
+    index: number,
+    topping: IngredientType,
+    deleteHandler: () => void,
+    isThumbnail: boolean,
+  }>
+>;
+
+
 
 function BurgerToppingRow({ index, topping, deleteHandler, isThumbnail=false }: PropsType): JSX.Element {
   
@@ -54,12 +58,12 @@ function BurgerToppingRow({ index, topping, deleteHandler, isThumbnail=false }: 
   const [, dropTargetRef] = useDrop(
     {
       accept: "topping",
-      hover(item: { index: number }, monitor) {
+      hover(item: { index: number | undefined }, monitor) {
         if (!ref.current) {
           return
         };
-        const fromIndex = item.index;
-        const toIndex = index;
+        const fromIndex = item.index!;
+        const toIndex = index!;
         // Don't replace items with themselves
         if (fromIndex === toIndex) {
           return
@@ -97,9 +101,9 @@ function BurgerToppingRow({ index, topping, deleteHandler, isThumbnail=false }: 
                     <>
                       <DragIcon type="primary" />  
                       <ConstructorElement
-                        text={topping.name}
-                        price={topping.price}
-                        thumbnail={topping.image_large}
+                        text={topping!.name}
+                        price={topping!.price}
+                        thumbnail={topping!.image_large}
                         handleClose={deleteHandler}
                       />
                     </>

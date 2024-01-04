@@ -1,5 +1,5 @@
 // libraries
-import { memo, useCallback } from "react";
+import { FC, memo, useCallback } from "react";
 import { useLocation, Link } from "react-router-dom";
 
 // components
@@ -23,10 +23,10 @@ const MemoizedLogo = memo(Logo);
 
 
 
-function AppHeader() {
+const AppHeader: FC = () => {
   
   const location = useLocation();
-
+  
   const isActive = useCallback(
     (absPath, exact) => {
       if (exact) {
@@ -36,7 +36,7 @@ function AppHeader() {
     },
     [location]
   );
-
+  
   const textClass = useCallback(
     isActive => [
       styles.text,

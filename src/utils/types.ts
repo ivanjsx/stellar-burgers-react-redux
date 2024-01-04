@@ -3,6 +3,7 @@ export type IngredientType = {
   fat: number,
   name: string,
   price: number,
+  _uuidv4?: string,
   calories: number,
   proteins: number,
   image_large: string,

@@ -1,5 +1,5 @@
 // libraries
-import { useEffect } from "react";
+import { FC, useEffect } from "react";
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 
 // components
@@ -57,7 +57,7 @@ import { useAppDispatch } from "../../services/store";
 
 
 
-function App() {
+const App: FC = () => {
   
   const dispatch = useAppDispatch();
   
