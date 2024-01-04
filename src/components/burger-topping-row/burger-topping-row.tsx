@@ -1,5 +1,4 @@
 // libraries
-import PropTypes from "prop-types";
 import { useRef, useCallback } from "react";
 import { useDrag, useDrop } from "react-dnd";
 
@@ -10,8 +9,8 @@ import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-comp
 // styles
 import styles from "./burger-topping-row.module.css";
 
-// utils
-import { ingredientPropType } from "../../utils/prop-types";
+// types
+import { IngredientType } from "../../utils/types";
 
 // actions
 import { dragTopping } from "../../services/burger-constructor/burger-constructor-slice";
@@ -21,10 +20,17 @@ import { useAppDispatch } from "../../services/store";
 
 
 
-function BurgerToppingRow({ index, topping, deleteHandler, isThumbnail=false }) {
+type PropsType = {
+  index: number,
+  topping: IngredientType,
+  deleteHandler: () => void,
+  isThumbnail: boolean
+}
+
+function BurgerToppingRow({ index, topping, deleteHandler, isThumbnail=false }: PropsType): JSX.Element {
   
   const dispatch = useAppDispatch();
-  const ref = useRef();
+  const ref = useRef<HTMLLIElement>(null);
   
   const dragRow = useCallback(
     (fromIndex, toIndex) => {
@@ -48,7 +54,7 @@ function BurgerToppingRow({ index, topping, deleteHandler, isThumbnail=false }) 
   const [, dropTargetRef] = useDrop(
     {
       accept: "topping",
-      hover(item, monitor) {
+      hover(item: { index: number }, monitor) {
         if (!ref.current) {
           return
         };
@@ -63,7 +69,7 @@ function BurgerToppingRow({ index, topping, deleteHandler, isThumbnail=false }) 
           hoverBoundingRect.bottom - hoverBoundingRect.top
         ) / 2;
         const clientOffset = monitor.getClientOffset();
-        const hoverClientY = clientOffset.y - hoverBoundingRect.top
+        const hoverClientY = clientOffset!.y - hoverBoundingRect.top
         // Only perform the move when the mouse has crossed half of the items height
         // When dragging downwards, only move when the cursor is below 50%
         if (fromIndex < toIndex && hoverClientY < hoverMiddleY) {
@@ -107,13 +113,6 @@ function BurgerToppingRow({ index, topping, deleteHandler, isThumbnail=false }) 
       {content}
     </li>  
   );
-};
-
-BurgerToppingRow.propTypes = {
-  index: PropTypes.number,
-  topping: PropTypes.shape(ingredientPropType),
-  deleteHandler: PropTypes.func,
-  isThumbnail: PropTypes.bool
 };
 
 export default BurgerToppingRow;

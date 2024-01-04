@@ -1,6 +1,5 @@
 // libraries 
 import { useMemo } from "react";
-import PropTypes from "prop-types";
 import { Link, useLocation } from "react-router-dom";
 
 // components 
@@ -17,8 +16,10 @@ import styles from "./order-card.module.css";
 // selectors 
 import { defaultBurgerIngredientsSelector } from "../../services/selectors";
 
+// types 
+import { FetchedOrderType } from "../../utils/types";
+
 // utils 
-import { orderPropType } from "../../utils/prop-types";
 import { ORDER_STATUSES } from "../../utils/order-statuses";
 
 // hooks
@@ -26,7 +27,13 @@ import { useAppSelector } from "../../services/store";
 
 
 
-function OrderCard({ order, showStatus, targetLinkPath }) {
+type PropsType = {
+  order: FetchedOrderType,
+  showStatus: boolean,
+  targetLinkPath: string,
+}
+
+function OrderCard({ order, showStatus, targetLinkPath }: PropsType): JSX.Element {
   
   const location = useLocation();
   
@@ -89,7 +96,7 @@ function OrderCard({ order, showStatus, targetLinkPath }) {
   
   const totalPrice = useMemo(
     () => order.ingredients.reduce(
-      (accumulator, current) => accumulator + availableStock.get(current)?.price, 0
+      (accumulator, current) => accumulator + availableStock.get(current)!.price, 0
     ),
     [availableStock, order]
   );  
@@ -137,11 +144,6 @@ function OrderCard({ order, showStatus, targetLinkPath }) {
       </Link>      
     </li>
   );
-};
-
-OrderCard.propTypes = {
-  order: PropTypes.shape(orderPropType).isRequired,
-  showStatus: PropTypes.bool.isRequired
 };
 
 export default OrderCard;

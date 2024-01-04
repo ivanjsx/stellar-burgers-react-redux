@@ -1,5 +1,4 @@
 // libraries
-import PropTypes from "prop-types";
 import { useDrag } from "react-dnd";
 import { memo, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
@@ -11,20 +10,25 @@ import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components
 // styles
 import styles from "./ingredient-card.module.css";
 
-// utils
-import { ingredientPropType } from "../../utils/prop-types";
+// types
+import { IngredientType } from "../../utils/types";
 
 // urls 
 import { INGREDIENT_PAGE_ABSOLUTE_PATH } from "../../utils/urls";
 
 
 
-function IngredientCard({ ingredient, count }) {
+type PropsType = {
+  ingredient: IngredientType,
+  count: number,
+}
+
+function IngredientCard({ ingredient, count }: PropsType): JSX.Element {
   
   const location = useLocation();
   const targetPath = INGREDIENT_PAGE_ABSOLUTE_PATH.split(":")[0].concat(ingredient._id);
   
-  const ref = useRef();
+  const ref = useRef<HTMLElement>(null);
   
   const [{ isDragging }, dragRef] = useDrag(
     {
@@ -62,11 +66,6 @@ function IngredientCard({ ingredient, count }) {
       </Link>    
     </li>
   );
-};
-
-IngredientCard.propTypes = {
-  ingredient: PropTypes.shape(ingredientPropType).isRequired,
-  count: PropTypes.number.isRequired,
 };
 
 export default memo(IngredientCard);
