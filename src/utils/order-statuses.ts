@@ -1,18 +1,18 @@
 export const ORDER_STATUSES = {
   done: {
-    original: "done",
-    decoded: "Выполнен",
+    original: "done" as const,
+    decoded: "Выполнен" as const,
   },
   pending: {
-    original: "pending",
-    decoded: "Готовится",
+    original: "pending" as const,
+    decoded: "Готовится" as const,
   },
   created: {
-    original: "created",
-    decoded: "Создан",
+    original: "created" as const,
+    decoded: "Создан" as const,
   },
   cancelled: {
-    original: "cancelled",
-    decoded: "Отменён",
+    original: "cancelled" as const,
+    decoded: "Отменён" as const,
   },      
 };

@@ -1,6 +1,5 @@
 // libraries 
 import { useMemo } from "react";
-import PropTypes from "prop-types";
 
 // styles 
 import styles from "./order-list.module.css";
@@ -14,9 +13,18 @@ import { ORDER_STATUSES } from "../../utils/order-statuses";
 // hooks
 import { useAppSelector } from "../../services/store";
 
+// types 
+import { FetchedOrderType } from "../../utils/types";
 
 
-function OrderList({ targetStatus }) {
+
+type PropsType = Readonly<{
+  targetStatus: FetchedOrderType["status"],
+}>
+
+
+
+function OrderList({ targetStatus }: PropsType): JSX.Element {
   
   const { orders } = useAppSelector(
     defaultOrderFeedSelector
@@ -25,11 +33,9 @@ function OrderList({ targetStatus }) {
   const content = useMemo(
     () => [...orders.values()].filter(
       (order) => order.status === targetStatus
-    ).toSorted(
+    ).sort(
       (a, b) => a.createdAt < b.createdAt ? 1 : -1
-    ).slice(
-      0, 20
-    ),
+    ).slice(0, 20),
     [orders, targetStatus]
   );
   
@@ -54,10 +60,6 @@ function OrderList({ targetStatus }) {
       }
     </ul>
   );
-};
-
-OrderList.propTypes = {
-  targetStatus: PropTypes.string.isRequired
 };
 
 export default OrderList;

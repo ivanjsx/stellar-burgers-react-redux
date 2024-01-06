@@ -4,8 +4,8 @@ import styles from "./ingredient-icon.module.css";
 
 
 type PropsType = Readonly<{
-  imageSrc: string,
-  isConcealed: boolean,
+  imageSrc: string | undefined,
+  isConcealed?: boolean,
   concealedCount?: number,
 }>;
 

@@ -1,5 +1,5 @@
 // libraries
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, FC } from "react";
 
 // styles
 import styles from "./order-creation.module.css";
@@ -12,7 +12,7 @@ import { useAppSelector } from "../../services/store";
 
 
 
-function OrderCreation() {
+const OrderCreation: FC = () => {
   
   const { 
     pendingCreatingOrder,
@@ -48,7 +48,7 @@ function OrderCreation() {
   return (
     <div className={styles.container}>
       <h3 className={styles.id}>
-        {createdOrder.order?.number || rotatingRandomDigits}
+        {createdOrder?.order?.number || rotatingRandomDigits}
       </h3>
       <p className={styles.description}>
         {status}

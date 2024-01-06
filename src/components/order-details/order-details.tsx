@@ -1,5 +1,5 @@
 // libraries
-import { useEffect, useMemo } from "react";
+import { FC, useEffect, useMemo } from "react";
 import { useParams } from "react-router-dom";
 
 // components 
@@ -31,7 +31,7 @@ import { useAppSelector, useAppDispatch } from "../../services/store";
 
 
 
-function OrderDetails() {
+const OrderDetails: FC = () => {
   
   const dispatch = useAppDispatch();
   const { orderNumber } = useParams();
@@ -44,7 +44,7 @@ function OrderDetails() {
     () => {
       if (!orders.get(Number(orderNumber))) {
         dispatch(
-          getOrderByNumber(orderNumber)
+          getOrderByNumber(Number(orderNumber))
         );
       };
     },
@@ -71,7 +71,7 @@ function OrderDetails() {
   
   const quantities = useMemo(
     () => {
-      let quantities = {};
+      let quantities: { [id in string]: number } = {};
       if (previewableOrder) {
         previewableOrder.ingredients.forEach(
           (id) => {
@@ -92,7 +92,7 @@ function OrderDetails() {
     () => {
       if (previewableOrder) {
         return previewableOrder.ingredients.reduce(
-          (accumulator, current) => accumulator + availableStock.get(current)?.price, 0
+          (accumulator, current) => accumulator + availableStock.get(current)!.price, 0
         );
       };
       return 0;

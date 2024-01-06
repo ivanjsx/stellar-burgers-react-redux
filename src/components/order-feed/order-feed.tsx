@@ -24,14 +24,20 @@ import { useAppSelector } from "../../services/store";
 
 
 
-function OrderFeed({ showStatus }) {
+type PropsType = Readonly<{
+  showStatus: boolean,
+}>;
+
+
+
+function OrderFeed({ showStatus }: PropsType): JSX.Element {
   
   const { orders } = useAppSelector(
     defaultOrderFeedSelector
   );
-
+  
   const content = useMemo(
-    () => [...orders.values()].toSorted(
+    () => [...orders.values()].sort(
       (a, b) => a.createdAt < b.createdAt ? 1 : -1
     ),
     [orders]
