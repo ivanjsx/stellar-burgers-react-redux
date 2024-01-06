@@ -1,12 +1,17 @@
-// libraries 
-import PropTypes from "prop-types";
-
 // styles
 import styles from "./ingredient-icon.module.css";
 
 
 
-function IngredientIcon({ imageSrc, isConcealed, concealedCount }) {
+type PropsType = Readonly<{
+  imageSrc: string,
+  isConcealed: boolean,
+  concealedCount?: number,
+}>;
+
+
+
+function IngredientIcon({ imageSrc, isConcealed, concealedCount }: PropsType): JSX.Element {
   return (
     <div className={styles.border}>
       <div 
@@ -34,12 +39,6 @@ function IngredientIcon({ imageSrc, isConcealed, concealedCount }) {
       }      
     </div>    
   );
-};
-
-IngredientIcon.propTypes = {
-  imageSrc: PropTypes.string,
-  isConcealed: PropTypes.bool,
-  concealedCount: PropTypes.number,
 };
 
 export default IngredientIcon;

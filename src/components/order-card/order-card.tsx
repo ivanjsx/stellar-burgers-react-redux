@@ -55,7 +55,7 @@ function OrderCard({ order, showStatus, targetLinkPath }: PropsType): JSX.Elemen
           return (
             <li key={id} className={styles.icon}>
               <IngredientIcon 
-                imageSrc={ingredient?.image_large} 
+                imageSrc={ingredient!.image_large} 
                 isConcealed={false}
               />
             </li>
@@ -77,7 +77,7 @@ function OrderCard({ order, showStatus, targetLinkPath }: PropsType): JSX.Elemen
         return (
           <li key={concealedIngredients[0]} className={styles.icon}>
             <IngredientIcon 
-              imageSrc={ingredient?.image_large} 
+              imageSrc={ingredient!.image_large} 
               isConcealed={false}
             />
           </li>          
@@ -86,7 +86,7 @@ function OrderCard({ order, showStatus, targetLinkPath }: PropsType): JSX.Elemen
       return (
         <li key={concealedIngredients[0]} className={styles.icon}>
           <IngredientIcon 
-            imageSrc={ingredient?.image_large} 
+            imageSrc={ingredient!.image_large} 
             isConcealed={true}
             concealedCount={concealedIngredients.length}
           />

@@ -1,4 +1,5 @@
 // libraries
+import { FC } from "react";
 import { useParams } from "react-router-dom";
 
 // components
@@ -18,11 +19,11 @@ import { useAppSelector } from "../../services/store";
 
 
 
-function IngredientDetails() {
+const IngredientDetails: FC = () => {
   
   const { ingredientId } = useParams();
   const { availableStock } = useAppSelector(defaultBurgerIngredientsSelector);
-  const previewableIngredient = availableStock.get(ingredientId);
+  const previewableIngredient = availableStock.get(ingredientId!);
   
   if (!previewableIngredient) {
     return <ErrorPage title="Что-то пошло не так!" showTips={true} />;
