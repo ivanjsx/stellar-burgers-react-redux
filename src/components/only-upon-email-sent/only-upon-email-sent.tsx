@@ -1,5 +1,4 @@
 // libraries
-import PropTypes from "prop-types";
 import { Navigate, useLocation } from "react-router-dom";
 
 // urls 
@@ -10,7 +9,13 @@ import { PASSWORD_RESET_EMAIL_SENT_KEY } from "../../utils/constants";
 
 
 
-function OnlyUponEmailSent({ element }) {
+type PropsType = Readonly<{
+  element: JSX.Element,
+}>;
+
+
+
+function OnlyUponEmailSent({ element }: PropsType): JSX.Element {
   
   const location = useLocation();  
   
@@ -25,10 +30,6 @@ function OnlyUponEmailSent({ element }) {
   };  
   
   return element;
-};
-
-OnlyUponEmailSent.propTypes = {
-  element: PropTypes.element.isRequired,
 };
 
 export default OnlyUponEmailSent;

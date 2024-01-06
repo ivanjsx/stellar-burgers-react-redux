@@ -1,5 +1,5 @@
 // libraries
-import { useEffect } from "react";
+import { FC, useEffect } from "react";
 
 // actions
 import { logoutUser } from "../../services/user/user-thunks";
@@ -9,7 +9,7 @@ import { useAppDispatch } from "../../services/store";
 
 
 
-function Logout() {
+const Logout: FC = () => {
   const dispatch = useAppDispatch();  
   useEffect(
     () => {

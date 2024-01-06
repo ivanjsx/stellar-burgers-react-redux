@@ -1,5 +1,4 @@
 // libraries
-import PropTypes from "prop-types";
 import { Navigate, useLocation } from "react-router-dom";
 
 // urls 
@@ -19,7 +18,14 @@ import { useAppSelector } from "../../services/store";
 
 
 
-function OnlyAuthorizedAccess({ element, reversed=false }) {
+type PropsType = Readonly<{
+  element: JSX.Element,
+  reversed?: boolean
+}>;
+
+
+
+function OnlyAuthorizedAccess({ element, reversed=false }: PropsType): JSX.Element {
   
   const location = useLocation();
   const { currentUser, authChecked } = useAppSelector(defaultUserSelector);
@@ -48,11 +54,6 @@ function OnlyAuthorizedAccess({ element, reversed=false }) {
   };  
   
   return element;
-};
-
-OnlyAuthorizedAccess.propTypes = {
-  element: PropTypes.element.isRequired,
-  reversed: PropTypes.bool
 };
 
 export default OnlyAuthorizedAccess;
