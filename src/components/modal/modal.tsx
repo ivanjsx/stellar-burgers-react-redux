@@ -1,5 +1,4 @@
 // libraries
-import PropTypes from "prop-types";
 import { createPortal } from "react-dom";
 import { useEffect, useMemo } from "react";
 import { useMatch } from "react-router-dom";
@@ -20,7 +19,14 @@ import styles from "./modal.module.css";
 
 
 
-function Modal({ closeHandler, children }) {
+type PropsType = Readonly<{
+  children: JSX.Element,
+  closeHandler: () => void,
+}>
+
+
+
+function Modal({ closeHandler, children }: PropsType): JSX.Element {
   
   const ownOrderMatch = useMatch(OWN_ORDER_PAGE_ABSOLUTE_PATH);
   const ingredientMatch = useMatch(INGREDIENT_PAGE_ABSOLUTE_PATH);
@@ -44,7 +50,7 @@ function Modal({ closeHandler, children }) {
   
   useEffect(
     () => {
-      function handleEscapePress(event) {
+      function handleEscapePress(event: KeyboardEvent) {
         if (event.key === "Escape") {
           closeHandler();
         };
@@ -56,9 +62,9 @@ function Modal({ closeHandler, children }) {
     }, 
     [closeHandler]
   );
-
-  const modalRoot = document.querySelector("#modals");
-
+  
+  const modalRoot = document.querySelector("#modals")!;
+  
   return createPortal(
     (
       <ModalOverlay closeHandler={closeHandler}>
@@ -82,11 +88,6 @@ function Modal({ closeHandler, children }) {
     ),
     modalRoot
   );
-};
-
-Modal.propTypes = {
-  closeHandler: PropTypes.func,
-  children: PropTypes.element.isRequired
 };
 
 export default Modal;

@@ -1,14 +1,21 @@
 // libraries
-import PropTypes from "prop-types";
+import { MouseEventHandler } from "react";
 
 // styles 
 import styles from "./modal-overlay.module.css";
 
 
 
-function ModalOverlay({ closeHandler, children }) {
+type PropsType = Readonly<{
+  children: JSX.Element,
+  closeHandler: () => void,
+}>
+
+
+
+function ModalOverlay({ closeHandler, children }: PropsType): JSX.Element {
   
-  function handleOverlayClick(event) {
+  const handleOverlayClick: MouseEventHandler<HTMLDivElement> = (event) => {
     if (event.target === event.currentTarget) {
       closeHandler();
     };
@@ -22,11 +29,6 @@ function ModalOverlay({ closeHandler, children }) {
       {children}
     </div>
   );
-};
-
-ModalOverlay.propTypes = {
-  closeHandler: PropTypes.func.isRequired,
-  children: PropTypes.element.isRequired
 };
 
 export default ModalOverlay;
