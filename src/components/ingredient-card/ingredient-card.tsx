@@ -36,7 +36,7 @@ function IngredientCard({ ingredient, count }: PropsType): JSX.Element {
     {
       type: "ingredient",
       item: ingredient,
-      collect: monitor => ({
+      collect: (monitor) => ({
         isDragging: monitor.isDragging()
       })      
     }

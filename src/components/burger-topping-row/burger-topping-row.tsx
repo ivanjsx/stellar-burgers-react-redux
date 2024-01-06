@@ -49,7 +49,7 @@ function BurgerToppingRow({ index, topping, deleteHandler, isThumbnail=false }: 
     {
       type: "topping",
       item: { index },
-      collect: monitor => ({
+      collect: (monitor) => ({
         isDragging: monitor.isDragging()
       })
     }

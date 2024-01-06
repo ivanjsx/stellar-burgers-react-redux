@@ -72,7 +72,7 @@ function updateAccessToken() {
       body: { token: localStorage.getItem(REFRESH_TOKEN_KEY) }      
     }
   ).then(
-    response => {
+    (response) => {
       localStorage.setItem(ACCESS_TOKEN_KEY, response[ACCESS_TOKEN_KEY]);
       localStorage.setItem(REFRESH_TOKEN_KEY, response[REFRESH_TOKEN_KEY]);
     }      
@@ -83,7 +83,7 @@ function updateAccessToken() {
 
 function refreshingRequest(params: RequestParamsType) {
   return request(params).catch(
-    response => {
+    (response) => {
       if (response.message === "jwt expired") {
         return updateAccessToken().then(
           () => request(params)

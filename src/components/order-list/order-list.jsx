@@ -24,7 +24,7 @@ function OrderList({ targetStatus }) {
   
   const content = useMemo(
     () => [...orders.values()].filter(
-      order => order.status === targetStatus
+      (order) => order.status === targetStatus
     ).toSorted(
       (a, b) => a.createdAt < b.createdAt ? 1 : -1
     ).slice(
@@ -37,7 +37,7 @@ function OrderList({ targetStatus }) {
     <ul className={styles.list}>
       {
         content.map(
-          order => (
+          (order) => (
             <li 
               key={order.number}
               className={

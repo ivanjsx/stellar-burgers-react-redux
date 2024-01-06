@@ -39,8 +39,8 @@ const AccountLayout: FC = () => {
           <NavLink 
             end
             to={PROFILE_PAGE_ABSOLUTE_PATH} 
-            className={({ isActive }) => 
-              `${styles.link} ${isActive ? styles.active : ""}`
+            className={
+              ({ isActive }) => `${styles.link} ${isActive ? styles.active : ""}`
             }
             children={
               <p className={styles.text}>
@@ -51,8 +51,8 @@ const AccountLayout: FC = () => {
           <NavLink 
             end
             to={HISTORY_PAGE_ABSOLUTE_PATH} 
-            className={({ isActive }) => 
-              `${styles.link} ${isActive ? styles.active : ""}`
+            className={
+              ({ isActive }) => `${styles.link} ${isActive ? styles.active : ""}`
             }
             children={
               <p className={styles.text}>

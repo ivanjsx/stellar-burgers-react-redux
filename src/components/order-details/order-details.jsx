@@ -74,7 +74,7 @@ function OrderDetails() {
       let quantities = {};
       if (previewableOrder) {
         previewableOrder.ingredients.forEach(
-          id => {
+          (id) => {
             if (quantities[id]) {
               quantities[id] += 1;
             } else {
@@ -106,7 +106,7 @@ function OrderDetails() {
   
   if (
     Object.keys(quantities).some(
-      ingredient => !availableStock.has(ingredient)
+      (ingredient) => !availableStock.has(ingredient)
     )
   ) {
     return <ErrorPage title="В заказе неизвестные ингредиенты!" showTips={true} />;

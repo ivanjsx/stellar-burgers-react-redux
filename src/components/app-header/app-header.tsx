@@ -38,7 +38,7 @@ const AppHeader: FC = () => {
   );
   
   const textClass = useCallback(
-    isActive => [
+    (isActive) => [
       styles.text,
       isActive ? "" : styles.inactive
     ].join(" "),
@@ -46,7 +46,7 @@ const AppHeader: FC = () => {
   );
   
   const iconType = useCallback(
-    isActive => isActive ? "primary" : "secondary",
+    (isActive) => isActive ? "primary" : "secondary",
     []
   );  
   

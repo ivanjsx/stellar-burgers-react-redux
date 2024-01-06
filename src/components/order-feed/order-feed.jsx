@@ -57,7 +57,7 @@ function OrderFeed({ showStatus }) {
     <ul className={styles.content}>
       {
         content.map(
-          order => (
+          (order) => (
             <OrderCard 
               key={order.number} 
               order={order} 

@@ -63,7 +63,7 @@ const BurgerConstructor: FC = () => {
           dispatch(addTopping(item));
         };
       },
-      collect: monitor => (
+      collect: (monitor) => (
         {
           canDrop: monitor.canDrop()
         }
@@ -93,7 +93,7 @@ const BurgerConstructor: FC = () => {
         dispatch(
           createOrder(
             Array(BUNS_IN_BURGER_COUNT).fill(chosenBun).concat(chosenToppings).map(
-              ingredient => ingredient._id
+              (ingredient) => ingredient._id
             )
           )
         ).then(

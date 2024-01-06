@@ -38,7 +38,7 @@ const IngredientGallery = forwardRef<HTMLDivElement, PropsType>(
     const { chosenBun, chosenToppings } = useAppSelector(defaultBurgerConstructorSelector);
     
     const countIngredient = useCallback(
-      ingredient => {
+      (ingredient) => {
         let outcome = chosenBun 
                       ? Number(chosenBun._id === ingredient._id) * BUNS_IN_BURGER_COUNT 
                       : 0;
@@ -50,17 +50,17 @@ const IngredientGallery = forwardRef<HTMLDivElement, PropsType>(
     );
     
     const items = useMemo(
-      () => [...availableStock.values()].filter(ingredient => ingredient.type === category),
+      () => [...availableStock.values()].filter((ingredient) => ingredient.type === category),
       [availableStock, category]
     );
     
     const content = useMemo(
       () => items.map(
-        ingredient => <IngredientCard 
-                        key={ingredient._id} 
-                        ingredient={ingredient} 
-                        count={countIngredient(ingredient)}
-                      />
+        (ingredient) => <IngredientCard 
+                          key={ingredient._id} 
+                          ingredient={ingredient} 
+                          count={countIngredient(ingredient)}
+                        />
       ),
       [items, countIngredient]
     );
