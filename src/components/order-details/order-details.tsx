@@ -92,7 +92,10 @@ const OrderDetails: FC = () => {
     () => {
       if (previewableOrder) {
         return previewableOrder.ingredients.reduce(
-          (accumulator, current) => accumulator + availableStock.get(current)!.price, 0
+          (accumulator, current) => {
+            const ingredient = availableStock.get(current);
+            return ingredient ? accumulator + ingredient.price : 0
+          }, 0
         );
       };
       return 0;
