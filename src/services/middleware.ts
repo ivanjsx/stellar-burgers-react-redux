@@ -14,7 +14,7 @@ import { RootStateType } from "./reducers";
 type wsActionTypes = {
   connect: ActionCreatorWithPayload<string>,
   disconnect: ActionCreatorWithoutPayload,
-  sendMessage?: ActionCreatorWithPayload<any>,
+  sendMessage?: ActionCreatorWithPayload<unknown>,
   onOpen: ActionCreatorWithoutPayload,
   onClose: ActionCreatorWithoutPayload,
   onError: ActionCreatorWithoutPayload,

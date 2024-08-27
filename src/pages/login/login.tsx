@@ -50,12 +50,12 @@ const LoginPage: FC = () => {
           name="email"
           value={email}
           onChange={onChange(setEmail, setIsEmailValid)}
-          />        
+        />        
         <PasswordInput
           name="password"
           value={password}
           onChange={onChange(setPassword, setIsPasswordValid)}
-            />
+        />
         <Button 
           size="medium" 
           type="primary" 

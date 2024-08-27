@@ -29,7 +29,7 @@ const checkDataSuccess = (data: any) => {
 type RequestParamsType = {
   path: string, 
   method: string, 
-  body?: any,
+  body?: unknown,
   withToken?: boolean,
 }
 
@@ -95,4 +95,4 @@ function refreshingRequest(params: RequestParamsType) {
 
 
 
-export { request, refreshingRequest, updateAccessToken };
+export { request, refreshingRequest };

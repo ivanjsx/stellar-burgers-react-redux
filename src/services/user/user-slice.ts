@@ -54,7 +54,7 @@ const userSlice = createSlice(
     
     extraReducers: (builder) => {
       
-      const addAuthCases = (asyncThunk: AsyncThunk<any, any, {}>) => {
+      const addAuthCases = (asyncThunk: AsyncThunk<UserInfoType, any, {}>) => {
         builder.addCase(
           asyncThunk.pending, (state) => {
             state.pendingAuthorizingUser = true;
