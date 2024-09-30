@@ -1,0 +1,17 @@
+name: stellar-burgers
+
+networks:
+  default:
+    name: burgers-default
+
+services:
+  burgers:
+    image: ivanjsx/stellar-burgers:latest
+    container_name: stellar-burgers
+    platform: "linux/amd64"
+    restart: always
+    ports:
+      - name: web
+        host_ip: 127.0.0.1
+        published: "8003"
+        target: 80
