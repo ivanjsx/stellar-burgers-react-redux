@@ -28,7 +28,7 @@ const HomePage: FC = () => {
   );  
   
   if (errorRequestingIngredients) {
-    return <ErrorPage title="Что-то пошло не так!" showTips={true} />;
+    return <ErrorPage title="Something went wrong!" showTips={true} />;
   };
   
   if (pendingRequestingIngredients) {
@@ -38,7 +38,7 @@ const HomePage: FC = () => {
   return (
     <>
       <h1 className={styles.heading}>
-        Соберите бургер
+        Construct your burger
       </h1>            
       <div className={styles.content}>
         <DndProvider backend={HTML5Backend}>

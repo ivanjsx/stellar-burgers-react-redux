@@ -22,10 +22,10 @@ const AccountLayout: FC = () => {
   const description = useMemo(
     () => {
       if (profileMatch) {
-        return "В этом разделе вы можете изменить свои персональные данные";
+        return "In this section, you can edit your personal information";
       };      
       if (historyMatch) {
-        return "В этом разделе вы можете просмотреть свою историю заказов";
+        return "In this section, you can view your order history";
       };          
       return "";
     },
@@ -44,7 +44,7 @@ const AccountLayout: FC = () => {
             }
             children={
               <p className={styles.text}>
-                Профиль
+                My Profile
               </p>            
             }
           />
@@ -56,7 +56,7 @@ const AccountLayout: FC = () => {
             }
             children={
               <p className={styles.text}>
-                История заказов
+                Order History
               </p>            
             }
           />        
@@ -65,7 +65,7 @@ const AccountLayout: FC = () => {
             className={styles.link}
             children={
               <p className={styles.text}>
-                Выход
+                Sign Out
               </p>            
             }
           />       

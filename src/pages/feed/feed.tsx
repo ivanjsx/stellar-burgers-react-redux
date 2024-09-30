@@ -51,7 +51,7 @@ const FeedPage: FC = () => {
   );
   
   if (errorRequestingIngredients) {
-    return <ErrorPage title="Что-то пошло не так!" showTips={true} />;
+    return <ErrorPage title="Something went wrong!" showTips={true} />;
   };
   
   if (pendingRequestingIngredients) {
@@ -61,7 +61,7 @@ const FeedPage: FC = () => {
   return (
     <>
       <h1 className={styles.heading}>
-        Лента заказов
+        Order Feed
       </h1>            
       <div className={styles.content}>
         
@@ -72,15 +72,15 @@ const FeedPage: FC = () => {
         <section className={styles.summary}>
           
           <div className={styles.lists}>
-            <h2 className={styles.listHeading}>Готовы:</h2>
+            <h2 className={styles.listHeading}>Ready:</h2>
             <OrderList targetStatus={ORDER_STATUSES.done.original} />
-            <h2 className={styles.listHeading}>В работе:</h2>
+            <h2 className={styles.listHeading}>In progress:</h2>
             <OrderList targetStatus={ORDER_STATUSES.pending.original} />
           </div>
           
-          <h2 className={styles.totalHeading}>Выполнено за все время:</h2>
+          <h2 className={styles.totalHeading}>Completed all time:</h2>
           <p className={styles.digits}>{allTimeTotal}</p>
-          <h2 className={styles.totalHeading}>Выполнено за сегодня:</h2>
+          <h2 className={styles.totalHeading}>Completed today:</h2>
           <p className={styles.digits}>{todaysTotal}</p>
           
         </section>

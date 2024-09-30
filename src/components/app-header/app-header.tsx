@@ -64,7 +64,7 @@ const AppHeader: FC = () => {
                 children={
                   <p className={textClass(isActive(HOME_PAGE_PATH, true))}>
                     <BurgerIcon type={iconType(isActive(HOME_PAGE_PATH, true))} />
-                    Конструктор
+                    Constructor
                   </p>
                 }
               />
@@ -77,7 +77,7 @@ const AppHeader: FC = () => {
                 children={
                   <p className={textClass(isActive(FEED_PAGE_ABSOLUTE_PATH, false))}>
                     <ListIcon type={iconType(isActive(FEED_PAGE_ABSOLUTE_PATH, false))} />
-                    Лента&nbsp;заказов
+                    Order&nbsp;Feed
                   </p>
                 }
               />
@@ -100,7 +100,7 @@ const AppHeader: FC = () => {
                 children={
                   <p className={textClass(isActive(PROFILE_PAGE_ABSOLUTE_PATH, false))}>
                     <ProfileIcon type={iconType(isActive(PROFILE_PAGE_ABSOLUTE_PATH, false))} />
-                    Личный&nbsp;кабинет
+                    My&nbsp;Profile
                   </p>
                 }
               />

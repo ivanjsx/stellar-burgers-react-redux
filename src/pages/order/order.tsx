@@ -12,7 +12,7 @@ import styles from "./order.module.css";
 const OrderPage: FC = () => {
   return (
     <div className={styles.container}>
-      <h2 className={styles.heading}>Детали заказа</h2>
+      <h2 className={styles.heading}>Order Details</h2>
       <OrderDetails />
     </div> 
   );  

@@ -30,9 +30,9 @@ class ErrorBoundary extends Component<Props, State> {
     if (this.state.hasError) {
       return (
         <section>
-          <h1>Что-то пошло не так!</h1>
+          <h1>Something went wrong!</h1>
           <p>
-            В приложении произошла ошибка. Пожалуйста, перезагрузите страницу.
+            App encountered an error. Please, refresh the page.
           </p>
         </section>
       );

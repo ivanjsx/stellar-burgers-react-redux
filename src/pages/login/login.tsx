@@ -43,7 +43,7 @@ const LoginPage: FC = () => {
   return (
     <>
       <h1 className={styles.heading}>
-        Вход
+        Sign In
       </h1>            
       <form className={styles.form} onSubmit={onSubmit}>
         <EmailInput
@@ -61,24 +61,24 @@ const LoginPage: FC = () => {
           type="primary" 
           htmlType="submit" 
           disabled={!isEmailValid || !isPasswordValid}
-          children="Войти"
+          children="Sign In"
         />           
       </form>
       <div className={styles.tips}>
         <p className={styles.tip}>
-          Вы — новый пользователь?&nbsp;
+          New customer?&nbsp;
           <Link 
             to={REGISTER_PAGE_ABSOLUTE_PATH} 
             className={styles.link}
-            children="Зарегистрироваться"
+            children="Register"
           />
         </p>
         <p className={styles.tip}>
-          Забыли пароль?&nbsp;
+          Forgot your password?&nbsp;
           <Link 
             to={FORGOT_PASSWORD_PAGE_ABSOLUTE_PATH} 
             className={styles.link}
-            children="Восстановить"
+            children="Recover it"
           />
         </p>
       </div>

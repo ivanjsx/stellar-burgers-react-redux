@@ -55,10 +55,10 @@ const orderCreationSlice = createSlice(
         createOrder.pending, (state) => {
           state.pendingCreatingOrder = true;
           state.createdOrder = {};
-          state.status = "создаём заказ";
-          state.action = "Скоро начнём готовить заказ";
+          state.status = "Creating an order";
+          state.action = "We’ll start preparing the order soon";
           state.iconSrc = pendingImage;          
-          state.suggestion = "Обычно это занимает совсем немного времени";
+          state.suggestion = "It usually doesn’t take much time";
         }
       ).addCase(
         createOrder.rejected, (state, action) => {
@@ -66,20 +66,20 @@ const orderCreationSlice = createSlice(
           state.errorCreatingOrder = true;
           state.pendingCreatingOrder = false;
           state.createdOrder = {};
-          state.status = "не удалось создать заказ";
-          state.action = "Что-то пошло не так";
+          state.status = "Failed to create order";
+          state.action = "Something went wrong";
           state.iconSrc = failedImage;             
-          state.suggestion = "Лучше всего будет, если вы напишете в поддержку";
+          state.suggestion = "It would be best if you contact support";
         }
       ).addCase(
         createOrder.fulfilled, (state, action) => {
           state.errorCreatingOrder = false;
           state.pendingCreatingOrder = false;
           state.createdOrder = action.payload;
-          state.status = "идентификатор заказа";
-          state.action = "Ваш заказ начали готовить";
+          state.status = "order id";
+          state.action = "Your order has started being prepared";
           state.iconSrc = doneImage;               
-          state.suggestion = "Дождитесь готовности на орбитальной станции";
+          state.suggestion = "Wait for completion at the orbital station";
         }
       ).addDefaultCase(
         (state) => state

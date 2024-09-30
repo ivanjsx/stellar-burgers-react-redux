@@ -30,13 +30,13 @@ function BurgerBunRow({ type }: PropsType): JSX.Element {
                     <ConstructorElement
                       type={type}
                       isLocked={true}
-                      text={`${chosenBun.name} ${type === "top" ? "(верх)" : "(низ)"}`}
+                      text={`${chosenBun.name} (${type})`}
                       price={chosenBun.price}
                       thumbnail={chosenBun.image_large}
                     />        
                   ) : (
                     <p className={styles.thumbnailText}>
-                      {type === "top" ? "Перетащите сюда булку" : ""}
+                      {type === "top" ? "Drag a bun right here" : ""}
                     </p>
                   );
 
