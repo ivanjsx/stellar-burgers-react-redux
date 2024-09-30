@@ -153,7 +153,7 @@ const BurgerConstructor: FC = () => {
           htmlType="button" 
           onClick={placeOrder}
           disabled={!canPlaceOrder}
-          children="Оформить заказ"
+          children="Place order"
         />
       </div>
       

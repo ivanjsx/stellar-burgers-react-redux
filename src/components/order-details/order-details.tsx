@@ -104,7 +104,7 @@ const OrderDetails: FC = () => {
   );    
   
   if (!previewableOrder) {
-    return <ErrorPage title="Такой заказ не найден!" showTips={true} />;
+    return <ErrorPage title="Order Not Found!" showTips={true} />;
   };
   
   if (
@@ -112,7 +112,7 @@ const OrderDetails: FC = () => {
       (ingredient) => !availableStock.has(ingredient)
     )
   ) {
-    return <ErrorPage title="В заказе неизвестные ингредиенты!" showTips={true} />;
+    return <ErrorPage title="The order contains unexpected ingredients!" showTips={true} />;
   };
   
   return (
@@ -130,7 +130,7 @@ const OrderDetails: FC = () => {
       >
         {ORDER_STATUSES[previewableOrder.status].decoded}
       </p>
-      <h3 className={styles.header}>Состав:</h3>
+      <h3 className={styles.header}>Contains:</h3>
       
       <div className={styles.scrollableContainer}>
         <ul className={styles.contains}>

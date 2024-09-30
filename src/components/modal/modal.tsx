@@ -35,13 +35,13 @@ function Modal({ closeHandler, children }: PropsType): JSX.Element {
   const heading = useMemo(
     () => {
       if (ownOrderMatch) {
-        return "Детали заказа";
+        return "Order Details";
       };      
       if (ingredientMatch) {
-        return "Детали ингредиента";
+        return "Ingredient Details";
       };      
       if (commonOrderMatch) {
-        return "Детали заказа";
+        return "Order Details";
       };      
       return "";
     },

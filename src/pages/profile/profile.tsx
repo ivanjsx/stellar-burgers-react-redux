@@ -52,7 +52,7 @@ const ProfilePage: FC = () => {
     <form className={styles.form} onSubmit={onSubmit} onReset={onReset}>
       <Input
         type="text"
-        placeholder="Имя"
+        placeholder="Name"
         name="name"
         value={name}
         onChange={onChange(setName, setIsNameValid)}
@@ -76,14 +76,14 @@ const ProfilePage: FC = () => {
         htmlType="submit" 
         disabled={!isNameValid || !isEmailValid || !isPasswordValid}
         extraClass={styles.button}
-        children="Сохранить"
+        children="Save"
       />           
       <Button
         size="medium" 
         type="secondary" 
         htmlType="reset" 
         extraClass={styles.button}
-        children="Отменить"
+        children="Cancel"
       />                
     </form>      
   );

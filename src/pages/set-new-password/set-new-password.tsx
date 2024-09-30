@@ -47,18 +47,18 @@ const SetNewPasswordPage: FC = () => {
   return (
     <>
       <h1 className={styles.heading}>
-        Восстановление пароля
+        Password Recovery
       </h1>            
       <form className={styles.form} onSubmit={onSubmit}>   
         <PasswordInput
-          placeholder="Введите новый пароль"
+          placeholder="Type in your new password"
           name="password"
           value={password}
           onChange={onChange(setPassword, setIsPasswordValid)}
         />
         <Input
           type="text"
-          placeholder="Введите код из письма"
+          placeholder="Type in the security code"
           name="securityCode"
           value={securityCode}
           onChange={onChange(setSecurityCode, setIsSecurityCodeValid)}
@@ -68,16 +68,16 @@ const SetNewPasswordPage: FC = () => {
           type="primary" 
           htmlType="submit" 
           disabled={!isPasswordValid || !isSecurityCodeValid}
-          children="Сохранить"
+          children="Save"
         />           
       </form>
       <div className={styles.tips}>
         <p className={styles.tip}>
-          Вспомнили пароль?&nbsp;
+          Recalled your password?&nbsp;
           <Link 
             to={LOGIN_PAGE_ABSOLUTE_PATH} 
             className={styles.link}
-            children="Войти"
+            children="Sign In"
           />
         </p>
       </div>

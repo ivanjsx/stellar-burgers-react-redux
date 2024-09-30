@@ -40,24 +40,24 @@ function ErrorPage({ title, showTips }: PropsType): JSX.Element {
         showTips && (
           <div className={styles.tip}>
             <p>
-              Вы всегда можете&nbsp;
+              You can always&nbsp;
             </p>
             <Button 
               onClick={goBack} 
               htmlType="button" 
               type="secondary" 
               size="medium"
-              children="вернуться назад"
+              children="go back"
             />
             <p>
-              &nbsp;или перейти на&nbsp;
+              &nbsp;or go to the&nbsp;
             </p>  
             <Button 
               onClick={goHome} 
               htmlType="button" 
               type="secondary" 
               size="medium"
-              children="главную страницу"
+              children="main page"
             />
           </div>
         )

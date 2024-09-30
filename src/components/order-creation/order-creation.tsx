@@ -54,7 +54,7 @@ const OrderCreation: FC = () => {
         {status}
       </p>
       <img 
-        alt="иконка статуса заказа"
+        alt="order status icon"
         src={iconSrc}
         className={
           [

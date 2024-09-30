@@ -43,12 +43,12 @@ const RegisterPage: FC = () => {
   return (
     <>
       <h1 className={styles.heading}>
-        Регистрация
+        Registration
       </h1>            
       <form className={styles.form} onSubmit={onSubmit}>
         <Input
           type="text"
-          placeholder="Имя"
+          placeholder="Name"
           name="name"
           value={name}
           onChange={onChange(setName, setIsNameValid)}
@@ -68,16 +68,16 @@ const RegisterPage: FC = () => {
           type="primary" 
           htmlType="submit" 
           disabled={!isNameValid || !isEmailValid || !isPasswordValid}
-          children="Зарегистрироваться"
+          children="Register"
         />           
       </form>
       <div className={styles.tips}>
         <p className={styles.tip}>
-          Уже зарегистрированы?&nbsp;
+          Already registered?&nbsp;
           <Link 
             to={LOGIN_PAGE_ABSOLUTE_PATH} 
             className={styles.link}
-            children="Войти"
+            children="Sign in"
           />
         </p>
       </div>

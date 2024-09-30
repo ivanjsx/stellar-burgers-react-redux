@@ -54,7 +54,7 @@ function IngredientCard({ ingredient, count }: PropsType): JSX.Element {
         <figure ref={ref} className={styles.figure}>
           <img 
             src={ingredient.image_large} 
-            alt={`фото ингредиента ${ingredient.name} стоимостью ${ingredient.price}`}
+            alt={`${ingredient.name} costs ${ingredient.price}`}
             className={styles.image} 
           />
           <p className={styles.price}>

@@ -12,7 +12,7 @@ import styles from "./ingredient.module.css";
 const IngredientPage: FC = () => {
   return (
     <div className={styles.container}>
-      <h2 className={styles.heading}>Детали ингредиента</h2>
+      <h2 className={styles.heading}>Ingredient Details</h2>
       <IngredientDetails />
     </div> 
   );

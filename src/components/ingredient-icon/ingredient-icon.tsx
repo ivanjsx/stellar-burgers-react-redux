@@ -24,7 +24,7 @@ function IngredientIcon({ imageSrc, isConcealed, concealedCount }: PropsType): J
       >
         <img 
           src={imageSrc}
-          alt="иконка ингредиента" 
+          alt="ingredient icon" 
           className={
             [
               styles.image,

@@ -168,7 +168,7 @@ const App: FC = () => {
           </Route>        
           <Route 
             path="*" 
-            element={<ErrorPage title="Упс! Такой страницы нет" showTips={true} />}
+            element={<ErrorPage title="Oops! This page does not exist" showTips={true} />}
           />        
         </Route>
       </Routes>

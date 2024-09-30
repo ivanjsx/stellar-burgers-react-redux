@@ -46,30 +46,30 @@ const ForgotPasswordPage: FC = () => {
   return (
     <>
       <h1 className={styles.heading}>
-        Восстановление пароля
+        Password recovery
       </h1>            
       <form className={styles.form} onSubmit={onSubmit}>   
         <EmailInput
           name="email"
           value={email}
           onChange={onChange(setEmail, setIsEmailValid)}
-          placeholder="Укажите e-mail"
+          placeholder="Provide your email"
         />        
         <Button 
           size="medium" 
           type="primary" 
           htmlType="submit" 
           disabled={!isEmailValid}
-          children="Восстановить"
+          children="Restore password"
         />           
       </form>
       <div className={styles.tips}>
         <p className={styles.tip}>
-          Вспомнили пароль?&nbsp;
+          Recalled your password?&nbsp;
           <Link 
             to={LOGIN_PAGE_ABSOLUTE_PATH} 
             className={styles.link}
-            children="Войти"
+            children="Sign In"
           />
         </p>
       </div>

@@ -53,28 +53,28 @@ const BurgerIngredients: FC = () => {
             value="bun"
             active={activeTab === "bun"}
             onClick={scrollIntoGallery("bun", bunsRef)}
-            children="Булки"
+            children="Buns"
           />
           <Tab 
             value="sauce" 
             active={activeTab === "sauce"} 
             onClick={scrollIntoGallery("sauce", saucesRef)}
-            children="Соусы" 
+            children="Sauces" 
           />
           <Tab 
             value="main" 
             active={activeTab === "main"} 
             onClick={scrollIntoGallery("main", mainsRef)}
-            children="Начинки" 
+            children="Toppings" 
           />
           
         </ul>
       </nav>
       
       <div className={styles.content} ref={wholeSectionRef} onScroll={handleScroll}>
-        <IngredientGallery category="bun" title="Булки" ref={bunsRef} />
-        <IngredientGallery category="sauce" title="Соусы" ref={saucesRef} />
-        <IngredientGallery category="main" title="Начинки" ref={mainsRef} />            
+        <IngredientGallery category="bun" title="Buns" ref={bunsRef} />
+        <IngredientGallery category="sauce" title="Sauces" ref={saucesRef} />
+        <IngredientGallery category="main" title="Toppings" ref={mainsRef} />            
       </div>
     </>
   );

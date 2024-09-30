@@ -49,7 +49,7 @@ const HistoryPage: FC = () => {
   );  
   
   if (errorRequestingIngredients) {
-    return <ErrorPage title="Что-то пошло не так!" showTips={true} />;
+    return <ErrorPage title="Something went wrong!" showTips={true} />;
   };
   
   if (pendingRequestingIngredients) {

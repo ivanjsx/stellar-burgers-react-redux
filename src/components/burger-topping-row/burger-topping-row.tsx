@@ -95,7 +95,7 @@ function BurgerToppingRow({ index, topping, deleteHandler, isThumbnail=false }: 
   const content = isThumbnail
                   ? (
                     <p className={styles.thumbnailText}>
-                      А сюда - ингредиенты
+                      Drag ingredients right here
                     </p>
                   ) : (
                     <>

@@ -26,7 +26,7 @@ const IngredientDetails: FC = () => {
   const previewableIngredient = availableStock.get(ingredientId!);
   
   if (!previewableIngredient) {
-    return <ErrorPage title="Что-то пошло не так!" showTips={true} />;
+    return <ErrorPage title="Something went wrong!" showTips={true} />;
   };
   
   return (
@@ -35,7 +35,7 @@ const IngredientDetails: FC = () => {
       <figure className={styles.figure}>
         <img 
           src={previewableIngredient.image_large} 
-          alt={`фото ингредиента ${previewableIngredient.name} энергетической ценностью ${previewableIngredient.calories}`}
+          alt={`${previewableIngredient.name} with ${previewableIngredient.calories} calories`}
           className={styles.image} 
         />
         <figcaption className={styles.caption}>
@@ -44,10 +44,10 @@ const IngredientDetails: FC = () => {
       </figure>
       
       <ul className={styles.details}>
-        <IngredientNutrition name="Калории, ккал" value={previewableIngredient.calories} />
-        <IngredientNutrition name="Белки, г" value={previewableIngredient.proteins} />
-        <IngredientNutrition name="Жиры, г" value={previewableIngredient.fat} />
-        <IngredientNutrition name="Углеводы, г" value={previewableIngredient.carbohydrates} />
+        <IngredientNutrition name="Calories, kcal" value={previewableIngredient.calories} />
+        <IngredientNutrition name="Proteins, g" value={previewableIngredient.proteins} />
+        <IngredientNutrition name="Fats, g" value={previewableIngredient.fat} />
+        <IngredientNutrition name="Carbohydrates, g" value={previewableIngredient.carbohydrates} />
       </ul>
     
     </div>
